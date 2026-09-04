@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Book | Bula Air</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body data-page="booking">
+  <header class="site-header">
+    <div class="container nav-shell">
+      <a class="brand" href="../pages/index.html"><span class="brand-mark">BA</span><span><strong>Bula Air</strong><small>The wings of Fiji</small></span></a>
+      <nav class="nav-links" aria-label="Main navigation"><a href="../pages/index.html">Home</a><a href="../pages/booking.html" aria-current="page">Book</a><a href="../pages/routes.html">Routes</a><a href="../pages/fleet.html">Fleet</a><a href="../pages/seating.html">Seating</a><a href="../pages/classes.html">Classes</a><a href="../pages/about.html">About</a></nav>
+    </div>
+  </header>
+  <main class="container page">
+    <p class="eyebrow">Book a flight</p>
+    <h1>Reserve your trip and choose seats.</h1>
+    <form id="booking-form" class="booking-layout">
+      <section class="tool-panel">
+        <div class="form-grid">
+          <label><span>Passenger name</span><input id="passenger-name" class="input" type="text" autocomplete="name" required></label>
+          <label><span>Route</span><select id="route-select" class="input" required></select></label>
+          <label><span>Aircraft</span><select id="aircraft-select" class="input" required></select></label>
+        </div>
+        <div id="seat-map" class="seat-map compact" aria-label="Aircraft seating map"></div>
+        <div class="legend"><span><i class="legend-seat available"></i>Available</span><span><i class="legend-seat selected"></i>Selected</span><span><i class="legend-seat occupied"></i>Occupied</span></div>
+        <button class="button" type="submit">Confirm booking</button>
+      </section>
+      <aside id="booking-confirmation" class="confirmation-panel" aria-live="polite"><h2>Your trip</h2><p>Select a route and seats to build a mock confirmation.</p></aside>
+    </form>
+  </main>
+  <footer class="site-footer"><div class="container footer-grid"><strong>Bula Air</strong><span>Fictional airline website for local development.</span></div></footer>
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

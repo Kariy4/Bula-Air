@@ -1,0 +1,6 @@
+[
+  { "id": "NAN-AKL", "origin": "NAN", "originName": "Nadi", "destination": "AKL", "destinationName": "Auckland", "distance": 2100, "sampleFare": 420 },
+  { "id": "NAN-SYD", "origin": "NAN", "originName": "Nadi", "destination": "SYD", "destinationName": "Sydney", "distance": 2900, "sampleFare": 510 },
+  { "id": "NAN-LAX", "origin": "NAN", "originName": "Nadi", "destination": "LAX", "destinationName": "Los Angeles", "distance": 8900, "sampleFare": 980 },
+  { "id": "NAN-HNL", "origin": "NAN", "originName": "Nadi", "destination": "HNL", "destinationName": "Honolulu", "distance": 5100, "sampleFare": 760 }
+]

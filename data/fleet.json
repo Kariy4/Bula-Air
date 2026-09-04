@@ -1,0 +1,34 @@
+[
+  {
+    "id": "A320",
+    "model": "Airbus A320",
+    "type": "Narrow-body",
+    "capacity": 180,
+    "layout": { "rows": 25, "seats": ["A", "B", "C", "D", "E", "F"] },
+    "range": 6100,
+    "notes": "Efficient 3-3 layout for Fiji, Australia, and New Zealand services."
+  },
+  {
+    "id": "A350",
+    "model": "Airbus A350-900",
+    "type": "Wide-body",
+    "capacity": 300,
+    "layout": {
+      "sections": [
+        { "name": "Business", "startRow": 1, "rows": 6, "seats": ["A", "D", "G", "K"] },
+        { "name": "Economy", "startRow": 10, "rows": 26, "seats": ["A", "B", "C", "D", "E", "F", "G", "H", "K"] }
+      ]
+    },
+    "range": 15000,
+    "notes": "Flagship ocean-crossing aircraft inspired by the blue Bula Air livery."
+  },
+  {
+    "id": "ATR72",
+    "model": "ATR 72-600",
+    "type": "Turboprop",
+    "capacity": 70,
+    "layout": { "rows": 18, "seats": ["A", "B", "C", "D"] },
+    "range": 1500,
+    "notes": "Compact regional aircraft for short island connections."
+  }
+]
