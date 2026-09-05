@@ -116,13 +116,25 @@ function renderFleet() {
   const list = document.getElementById("fleet-list");
   if (!list) return;
 
-  list.innerHTML = fleetData.map((aircraft) => `
-    <article class="card">
-      <p class="eyebrow">${aircraft.type}</p>
-      <h2>${aircraft.model}</h2>
-      <p>${aircraft.notes}</p>
-      <p><strong>${aircraft.capacity}</strong> seats &middot; <strong>${aircraft.range.toLocaleString()}</strong> km range</p>
-      <a class="button" href="../pages/seating.html?aircraft=${encodeURIComponent(aircraft.id)}">Preview seating</a>
+  list.innerHTML = fleetData.map((aircraft, index) => `
+    <article class="fleet-card ${index === 0 ? "fleet-card-featured" : ""}">
+      <div class="fleet-image-wrap">
+        <img src="${aircraft.image}" alt="Bula Air ${aircraft.model}" loading="${index === 0 ? "eager" : "lazy"}">
+      </div>
+      <div class="fleet-card-body">
+        <div class="fleet-kicker">
+          <span>${aircraft.type}</span>
+          ${index === 0 ? "<strong>Flagship</strong>" : `<strong>${aircraft.fleetCount} in fleet</strong>`}
+        </div>
+        <h2>${aircraft.model}</h2>
+        <p>${aircraft.notes}</p>
+        <div class="fleet-stats">
+          <span><strong>${aircraft.capacity}</strong> seats</span>
+          <span><strong>${aircraft.range.toLocaleString()}</strong> km</span>
+          <span><strong>${aircraft.fleetCount}</strong> aircraft</span>
+        </div>
+        <a class="button" href="../pages/seating.html?aircraft=${encodeURIComponent(aircraft.id)}">Preview seats</a>
+      </div>
     </article>
   `).join("");
 }

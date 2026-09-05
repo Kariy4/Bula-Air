@@ -1,10 +1,10 @@
 # Bula Air Images
 
-Image folders are ready for real assets:
+Image folders for site assets:
 
 - `aircraft/`
 - `destinations/`
 - `seats/`
 - `branding/`
 
-The current site uses CSS-based placeholders so it can run without missing image files.
+The aircraft and branding folders now include the supplied Bula Air fleet renders and logo. Destination and seat imagery can be added later.

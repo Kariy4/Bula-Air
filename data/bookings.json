@@ -1,5 +1,5 @@
 [
-  { "bookingId": "BA1001", "aircraftId": "A320", "routeId": "NAN-AKL", "passenger": "Mere V.", "seats": ["1A", "1B", "12C", "18F"] },
-  { "bookingId": "BA1002", "aircraftId": "A350", "routeId": "NAN-LAX", "passenger": "Jonah K.", "seats": ["1A", "3D", "10A", "10B", "22K"] },
+  { "bookingId": "BA1001", "aircraftId": "A320NEO", "routeId": "NAN-AKL", "passenger": "Mere V.", "seats": ["1A", "1B", "12C", "18F"] },
+  { "bookingId": "BA1002", "aircraftId": "A350-1000", "routeId": "NAN-LAX", "passenger": "Jonah K.", "seats": ["1A", "3D", "15A", "15B", "22K"] },
   { "bookingId": "BA1003", "aircraftId": "ATR72", "routeId": "NAN-HNL", "passenger": "Litia R.", "seats": ["2A", "5D", "9B"] }
 ]

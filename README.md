@@ -25,4 +25,4 @@ The root `index.html` also redirects to the homepage.
 - Added `assets/css/style.css` with responsive styling based on the blue Bula Air aircraft livery.
 - Added `assets/js/main.js` for loading JSON, rendering fleet/routes, mock booking, and aircraft-specific seating maps.
 - Added `data/fleet.json`, `data/routes.json`, and `data/bookings.json`.
-- Added `assets/images/README.md` as a placeholder note for future image assets.
+- Added supplied aircraft and logo images under `assets/images/`.
