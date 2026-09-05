@@ -4,71 +4,73 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Bula Air | The Wings of Fiji</title>
+  <link rel="icon" href="../assets/images/branding/hibiscus.svg" type="image/svg+xml">
+  <link rel="shortcut icon" href="../assets/images/branding/hibiscus.svg">
+  <link rel="mask-icon" href="../assets/images/branding/hibiscus.svg" color="#2468e8">
   <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/polish.css">
+  <style>
+    /* hero: island image, text overlay left */
+    .hero.custom-hero {
+      background-image: linear-gradient(90deg, rgba(7,25,54,0.66), rgba(36,104,232,0.16)), url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2000&q=80');
+      background-size: cover;
+      background-position: center center;
+    }
+    .hero-copy h1 { color: white; }
+  </style>
 </head>
 <body data-page="home">
   <header class="site-header">
     <div class="container nav-shell">
-      <a class="brand brand-logo" href="../pages/index.html" aria-label="Bula Air home">
-        <img src="../assets/images/branding/bula-air-logo.png" alt="Bula Air">
-        <span><strong>Bula Air</strong><small>The wings of Fiji</small></span>
-      </a>
+      <a class="brand brand-logo" href="index.html" aria-label="Bula Air home"><img src="../assets/images/branding/bula-air-logo.png" alt="Bula Air logo"><small>The wings of Fiji.</small></a>
       <nav class="nav-links" aria-label="Main navigation">
-        <a href="../pages/index.html" aria-current="page">Home</a>
-        <a href="../pages/booking.html">Book</a>
-        <a href="../pages/routes.html">Routes</a>
-        <a href="../pages/fleet.html">Fleet</a>
-        <a href="../pages/seating.html">Seating</a>
-        <a href="../pages/classes.html">Classes</a>
-        <a href="../pages/about.html">About</a>
+        <a href="index.html" aria-current="page">Home</a>
+        <a href="booking.html">Book</a>
+        <a href="routes.html">Routes</a>
+        <a href="fleet.html">Fleet</a>
+        <a href="seating.html">Seating</a>
+        <a href="classes.html">Classes</a>
+        <a href="about.html">About</a>
       </nav>
     </div>
   </header>
 
-  <main>
-    <section class="hero">
-      <div class="container hero-grid">
-        <div class="hero-copy">
-          <p class="eyebrow">Island routes, long-haul comfort</p>
-          <h1>Bula Air</h1>
-          <p>Fly from Fiji with ocean-blue cabins, warm Pacific service, and a booking experience built around choosing your perfect seat.</p>
-          <div class="hero-actions">
-            <a class="button" href="../pages/booking.html">Book a flight</a>
-            <a class="button button-secondary" href="../pages/seating.html">Choose seats</a>
-          </div>
-        </div>
-        <div class="aircraft-panel">
-          <img class="hero-aircraft" src="../assets/images/aircraft/a350-1000.png" alt="Bula Air Airbus A350-1000 flagship aircraft">
-          <div class="flagship-tag">Flagship Airbus A350-1000</div>
+  <section class="hero custom-hero">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Welcome to Fiji</p>
+        <h1>Explore Fiji</h1>
+        <p class="lead">Island gateways, vibrant culture and turquoise waters — plan your Pacific escape.</p>
+        <div class="hero-actions">
+          <a class="button" href="routes.html">Explore Fiji</a>
+          <a class="button button-secondary" href="booking.html">Book</a>
         </div>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <section class="booking-band">
-      <div class="container">
-        <form class="quick-search" aria-label="Quick flight search">
-          <label><span>From</span><select class="input"><option>Nadi (NAN)</option><option>Auckland (AKL)</option><option>Sydney (SYD)</option></select></label>
-          <label><span>To</span><select class="input"><option>Auckland (AKL)</option><option>Sydney (SYD)</option><option>Los Angeles (LAX)</option></select></label>
-          <label><span>Depart</span><input class="input" type="date"></label>
-          <a class="button" href="../pages/booking.html">Search flights</a>
-        </form>
+  <main class="section container">
+    <div class="content-grid">
+      <div>
+        <section class="section-heading">
+          <h2>Quick actions</h2>
+          <p class="small">Explore fleet, seating maps, routes and booking flow.</p>
+        </section>
+        <div class="feature-grid">
+          <div class="card"><h3>Book a Flight</h3><p class="small">Try the booking flow and seat selection.</p><a class="button" href="booking.html">Start Booking</a></div>
+          <div class="card"><h3>Destinations</h3><p class="small">Our network of routes and hubs.</p><a class="button" href="routes.html">View Routes</a></div>
+          <div class="card"><h3>Cabin Classes</h3><p class="small">Economy to Business class descriptions.</p><a class="button" href="classes.html">See Classes</a></div>
+        </div>
       </div>
-    </section>
-
-    <section class="container section">
-      <div class="section-heading">
-        <p class="eyebrow">Plan your trip</p>
-        <h2>Made for Fiji-first travel</h2>
-      </div>
-      <div class="feature-grid">
-        <article class="card"><h3>Routes across the Pacific</h3><p>Browse island gateways, regional hops, and long-haul links from Nadi.</p><a href="../pages/routes.html">View routes</a></article>
-        <article class="card"><h3>A flagship-led fleet</h3><p>The A350-1000 leads a blue fleet built for range, comfort, and island identity.</p><a href="../pages/fleet.html">View fleet</a></article>
-        <article class="card"><h3>Seat maps that respond</h3><p>Pick an aircraft and see the layout change from real JSON data.</p><a href="../pages/seating.html">Open seating map</a></article>
-      </div>
-    </section>
+    </div>
   </main>
 
-  <footer class="site-footer"><div class="container footer-grid"><strong>Bula Air</strong><span>Fictional airline website for local development.</span></div></footer>
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div>© Bula Air</div>
+      <div class="small"></div>
+    </div>
+  </footer>
   <script src="../assets/js/main.js"></script>
 </body>
 </html>

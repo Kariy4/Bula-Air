@@ -1,0 +1,84 @@
+/* Polished overrides for Bula Air — non-destructive additions */
+/* Polished overrides for Bula Air — refined shading system */
+
+:root{
+  --ui-shadow-1: 0 6px 18px rgba(7,25,54,0.06);
+  --ui-shadow-2: 0 12px 30px rgba(7,25,54,0.10);
+  --ui-shadow-3: 0 22px 64px rgba(7,25,54,0.16);
+  --ui-shadow-strong: 0 28px 90px rgba(7,25,54,0.18);
+  --glass-100: rgba(255,255,255,0.86);
+  --panel-gradient: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.78));
+  --hero-overlay-dark: rgba(7,25,54,0.56);
+}
+
+/* Load heading font to match attached look */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&display=swap');
+
+:root{
+  --ui-shadow-1: 0 6px 18px rgba(7,25,54,0.06);
+  --ui-shadow-2: 0 12px 30px rgba(7,25,54,0.10);
+  --ui-shadow-3: 0 22px 64px rgba(7,25,54,0.16);
+  --ui-shadow-strong: 0 28px 90px rgba(7,25,54,0.18);
+  --glass-100: rgba(255,255,255,0.86);
+  --panel-gradient: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.78));
+  --hero-overlay-dark: rgba(7,25,54,0.56);
+}
+
+/* Header refinements */
+.site-header { background: linear-gradient(90deg, rgba(36,104,232,0.03), rgba(255,255,255,0.96)); backdrop-filter: blur(6px); box-shadow: var(--ui-shadow-1); }
+.site-header .container { padding: 12px 0; }
+.brand-logo img { width: 140px; transition: transform .18s ease, box-shadow .18s ease; }
+.brand-logo img:hover { transform: translateY(-3px); }
+.nav-links a[aria-current="page"]{ background: rgba(36,104,232,0.08); box-shadow: var(--ui-shadow-1); border-radius: 999px; }
+.brand-mark { width:44px; height:44px; }
+/* square brand mark (no rounded corners) per user's request */
+.brand-mark { border-radius: 0 !important; }
+
+/* Hero improvements (stronger but tasteful) */
+.hero { min-height: 560px; background-position: right center; position: relative; overflow: hidden; }
+.hero::before{ content:""; position:absolute; inset:0; background: linear-gradient(180deg, rgba(7,25,54,0.18), rgba(7,25,54,0.24)); pointer-events:none; }
+.hero::after{ content: ""; position:absolute; inset:0; pointer-events:none; background: linear-gradient(90deg, var(--hero-overlay-dark), rgba(7,25,54,0.12)); mix-blend-mode: multiply; }
+.hero .container { position: relative; z-index: 2; }
+.hero-copy h1{ text-shadow: 0 10px 30px rgba(7,25,54,0.28); }
+
+/* Vignette for depth */
+.hero .vignette{ position:absolute; inset:0; pointer-events:none; background: radial-gradient(60% 60% at 10% 50%, transparent 40%, rgba(7,25,54,0.18) 100%); mix-blend-mode: multiply; }
+
+/* Consistent UI panels */
+.ui-panel, .card, .tool-panel, .quick-search { background: var(--panel-gradient); box-shadow: var(--ui-shadow-1); border-radius: 12px; }
+.card { padding: 20px; }
+
+/* Apply Playfair Display to headings while keeping sizes the same.
+   Match selectors used by the main stylesheet so this rule overrides it. */
+.hero-copy h1, .page h1, h1, h2, h3, h4, h5, h6, .fleet-card h2, .card h2, .card h3 {
+  font-family: 'Playfair Display', 'Montserrat', 'Inter', serif;
+  font-weight: 700;
+}
+
+/* Fleet card polish */
+.fleet-card{ transition: transform .22s cubic-bezier(.2,.9,.2,1), box-shadow .22s ease; box-shadow: var(--ui-shadow-1); border-radius:12px; overflow: visible; }
+.fleet-card:hover{ transform: translateY(-8px); box-shadow: var(--ui-shadow-strong); }
+.fleet-image-wrap{ display:flex; align-items:center; justify-content:center; background: transparent; padding:12px; }
+.fleet-image-wrap img{ width:auto; max-width:100%; height:100%; object-fit:contain; filter: drop-shadow(0 10px 24px rgba(7,25,54,0.08)); }
+
+/* Elevated hero artwork */
+.hero-aircraft{ box-shadow: 0 24px 68px rgba(7,25,54,0.16); border-radius: 12px; }
+
+/* Buttons */
+.button{ border-radius:12px; letter-spacing: 0.02em; box-shadow: 0 12px 28px rgba(36,104,232,0.12); }
+.button:hover{ box-shadow: 0 18px 42px rgba(36,104,232,0.16); transform: translateY(-3px); }
+
+/* Inputs & focus */
+.input{ transition: box-shadow .16s ease, border-color .16s ease; }
+.input:focus, .input:focus-visible{ outline: none; box-shadow: 0 12px 30px rgba(36,104,232,0.12); border-color: rgba(36,104,232,0.28); }
+
+/* Footer */
+.site-footer{ padding-top:40px; padding-bottom:46px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.02); }
+
+/* Utility */
+.container-wide{ width: min(1280px, calc(100% - 40px)); margin:0 auto; }
+
+@media (max-width:860px){
+  .hero{ padding: 28px 0; }
+  .brand-logo img{ width: 120px; }
+}

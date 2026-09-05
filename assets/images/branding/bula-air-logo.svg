@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="320" height="64" viewBox="0 0 320 64" role="img" aria-label="Bula Air logo">
+  <defs>
+    <style>
+      .petal{fill:#2468e8}
+      .stamen{fill:#ffd04d}
+      .text{fill:#082966; font-family: 'Montserrat', sans-serif; font-weight:700; font-size:26px}
+      .tag{fill:#5b6b80; font-family: 'Inter', sans-serif; font-size:12px}
+    </style>
+  </defs>
+  <g transform="translate(6,6) scale(0.44)">
+    <path class="petal" d="M50 6 C62 2 80 6 86 18 C92 30 90 46 82 58 C74 70 60 82 50 92 C40 82 26 70 18 58 C10 46 8 30 14 18 C20 6 38 2 50 6 Z"/>
+    <circle class="stamen" cx="50" cy="50" r="8" />
+  </g>
+  <text x="110" y="36" class="text">Bula Air</text>
+  <text x="110" y="52" class="tag">The wings of Fiji.</text>
+</svg>
