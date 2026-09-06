@@ -1,160 +1,106 @@
-```javascript
-document.addEventListener("DOMContentLoaded", function () {
+const aircraftLayouts = {
+  "A350-900": {
+    rows: 30,
+    seatsPerRow: 9,
+    layout: ["A", "B", "C", "", "D", "E", "F", "", "G", "H", "I"]
+  },
 
-    const form = document.getElementById("booking-search");
-    const results = document.getElementById("flight-results");
+  "A330-900neo": {
+    rows: 28,
+    seatsPerRow: 9,
+    layout: ["A", "B", "C", "", "D", "E", "F", "", "G", "H", "I"]
+  },
 
-    form.addEventListener("submit", function (event) {
+  "787-9": {
+    rows: 29,
+    seatsPerRow: 9,
+    layout: ["A", "B", "C", "", "D", "E", "F", "", "G", "H", "I"]
+  }
+};
 
-        event.preventDefault();
+const aircraftSelect = document.getElementById("aircraft-select");
+const seatMap = document.getElementById("seat-map");
+const selectedCount = document.getElementById("selected-count");
 
-        const origin = document.getElementById("from").value.trim().toUpperCase();
-        const destination = document.getElementById("to").value.trim().toUpperCase();
-        const date = document.getElementById("departure-date").value;
-        const passengers = Number(document.getElementById("passengers").value);
+let selectedSeats = [];
 
-        if (origin.length !== 3 || destination.length !== 3) {
-            results.innerHTML = "<div class='booking-error'><h2>Invalid airport code</h2><p>Use a 3-letter airport code.</p></div>";
-            return;
-        }
+function createAircraftOptions() {
+  Object.keys(aircraftLayouts).forEach(aircraft => {
+    const option = document.createElement("option");
+    option.value = aircraft;
+    option.textContent = aircraft;
+    aircraftSelect.appendChild(option);
+  });
+}
 
-        if (origin === destination) {
-            results.innerHTML = "<div class='booking-error'><h2>Invalid route</h2><p>Departure and destination cannot be the same.</p></div>";
-            return;
-        }
+function createSeatMap(aircraftName) {
+  seatMap.innerHTML = "";
+  selectedSeats = [];
+  updateSelectedCount();
 
-        results.innerHTML = "<div class='no-flights'><h2>Searching...</h2></div>";
+  const aircraft = aircraftLayouts[aircraftName];
 
-        fetch("../data/routes.json")
-            .then(function (response) {
-                if (!response.ok) {
-                    throw new Error("Could not load routes.json");
-                }
+  for (let row = 1; row <= aircraft.rows; row++) {
+    const rowElement = document.createElement("div");
+    rowElement.className = "seat-row";
 
-                return response.json();
-            })
+    aircraft.layout.forEach(letter => {
+      if (letter === "") {
+        const aisle = document.createElement("div");
+        aisle.className = "seat-aisle";
+        rowElement.appendChild(aisle);
+        return;
+      }
 
-            .then(function (routes) {
+      const seat = document.createElement("button");
 
-                const matchingRoutes = routes.filter(function (route) {
-                    return (
-                        route.origin.toUpperCase() === origin &&
-                        route.destination.toUpperCase() === destination
-                    );
-                });
+      seat.type = "button";
+      seat.className = "seat available";
+      seat.textContent = `${row}${letter}`;
+      seat.dataset.seat = `${row}${letter}`;
 
-                if (matchingRoutes.length === 0) {
+      seat.addEventListener("click", () => {
+        toggleSeat(seat);
+      });
 
-                    results.innerHTML =
-                        "<div class='no-flights'>" +
-                        "<h2>No flights found</h2>" +
-                        "<p>Bula Air does not currently operate this route.</p>" +
-                        "</div>";
-
-                    return;
-                }
-
-                results.innerHTML = "<h2>Available Flights</h2>";
-
-                matchingRoutes.forEach(function (route, index) {
-
-                    const flightNumber =
-                        "BA" + String(100 + index).padStart(3, "0");
-
-                    const fare = Number(route.sampleFare);
-                    const total = fare * passengers;
-
-                    let aircraft = "Airbus A320neo";
-
-                    if (route.distance > 8000) {
-                        aircraft = "Airbus A350-900";
-                    } else if (route.distance > 4500) {
-                        aircraft = "Airbus A330-900neo";
-                    } else if (route.distance > 2500) {
-                        aircraft = "Airbus A321neo";
-                    }
-
-                    const card = document.createElement("article");
-
-                    card.className = "flight-card";
-
-                    card.innerHTML =
-                        "<div class='flight-main'>" +
-
-                            "<div class='flight-time'>" +
-                                "<strong>09:00</strong>" +
-                                "<span>" + route.origin + "</span>" +
-                            "</div>" +
-
-                            "<div class='flight-duration'>" +
-                                "<span>" + route.distance.toLocaleString() + " km</span>" +
-                                "<div class='flight-line'></div>" +
-                                "<small>Direct</small>" +
-                            "</div>" +
-
-                            "<div class='flight-time'>" +
-                                "<strong>12:00</strong>" +
-                                "<span>" + route.destination + "</span>" +
-                            "</div>" +
-
-                        "</div>" +
-
-                        "<div class='flight-info'>" +
-                            "<strong>" + flightNumber + "</strong>" +
-                            "<span>" + route.originName + " → " + route.destinationName + "</span>" +
-                            "<span>" + aircraft + "</span>" +
-                            "<span>" + passengers + " passenger(s)</span>" +
-                        "</div>" +
-
-                        "<div class='flight-price'>" +
-                            "<span>Economy from</span>" +
-                            "<strong>$" + total.toLocaleString() + "</strong>" +
-                            "<button type='button' class='select-flight'>Select Flight</button>" +
-                        "</div>";
-
-                    const button = card.querySelector(".select-flight");
-
-                    button.addEventListener("click", function () {
-
-                        const selectedFlight = {
-                            routeId: route.id,
-                            flightNumber: flightNumber,
-                            origin: route.origin,
-                            originName: route.originName,
-                            destination: route.destination,
-                            destinationName: route.destinationName,
-                            distance: route.distance,
-                            date: date,
-                            passengers: passengers,
-                            aircraft: aircraft,
-                            departureTime: "09:00",
-                            arrivalTime: "12:00",
-                            baseFare: fare,
-                            totalFare: total
-                        };
-
-                        sessionStorage.setItem(
-                            "bulaSelectedFlight",
-                            JSON.stringify(selectedFlight)
-                        );
-
-                        window.location.href = "seating.html";
-                    });
-
-                    results.appendChild(card);
-                });
-            })
-
-            .catch(function (error) {
-
-                console.error("Bula Air booking error:", error);
-
-                results.innerHTML =
-                    "<div class='booking-error'>" +
-                    "<h2>Booking system error</h2>" +
-                    "<p>Could not load the flight information.</p>" +
-                    "</div>";
-            });
+      rowElement.appendChild(seat);
     });
+
+    seatMap.appendChild(rowElement);
+  }
+}
+
+function toggleSeat(seat) {
+  const seatNumber = seat.dataset.seat;
+
+  if (seat.classList.contains("occupied")) {
+    return;
+  }
+
+  if (seat.classList.contains("selected")) {
+    seat.classList.remove("selected");
+    seat.classList.add("available");
+
+    selectedSeats = selectedSeats.filter(
+      seat => seat !== seatNumber
+    );
+  } else {
+    seat.classList.remove("available");
+    seat.classList.add("selected");
+
+    selectedSeats.push(seatNumber);
+  }
+
+  updateSelectedCount();
+}
+
+function updateSelectedCount() {
+  selectedCount.textContent = selectedSeats.length;
+}
+
+aircraftSelect.addEventListener("change", () => {
+  createSeatMap(aircraftSelect.value);
 });
-```
+
+createAircraftOptions();
+createSeatMap(aircraftSelect.value);
