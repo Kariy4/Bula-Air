@@ -20,7 +20,12 @@
   <main class="container page">
     <p class="eyebrow">Book a flight</p>
     <h1>Reserve your trip and choose seats.</h1>
-    <form id="booking-form" class="booking-layout">
+    <ol class="booking-steps" aria-label="Booking steps">
+      <li class="active"><b>1</b><span>Trip details</span></li>
+      <li><b>2</b><span>Choose seats</span></li>
+      <li><b>3</b><span>Confirm</span></li>
+    </ol>
+    <form id="booking-form" class="booking-layout" novalidate>
       <section class="tool-panel">
         <div class="form-grid">
           <label><span>Passenger name</span><input id="passenger-name" class="input" type="text" autocomplete="name" required></label>
@@ -29,9 +34,10 @@
         </div>
         <div id="seat-map" class="seat-map compact" aria-label="Aircraft seating map"></div>
         <div class="legend"><span><i class="legend-seat available"></i>Available</span><span><i class="legend-seat selected"></i>Selected</span><span><i class="legend-seat occupied"></i>Occupied</span></div>
-        <button class="button" type="submit">Confirm booking</button>
+        <p id="booking-status" class="booking-status" role="status">Choose your route and aircraft to begin.</p>
+        <button class="button booking-submit" type="submit">Confirm booking</button>
       </section>
-      <aside id="booking-confirmation" class="confirmation-panel" aria-live="polite"><h2>Your trip</h2><p>Select a route and seats to build a mock confirmation.</p></aside>
+      <aside id="booking-confirmation" class="confirmation-panel" aria-live="polite"><p class="eyebrow">Your trip</p><h2>Build your island escape</h2><p>Select a route and aircraft, then choose your seats. This is a fictional booking preview.</p><div id="booking-summary" class="booking-summary"></div></aside>
     </form>
   </main>
   <footer class="site-footer"><div class="container footer-grid"><strong>Bula Air</strong><span></span></div></footer>
