@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Booking Confirmed | Bula Air</title>
+
+    <link
+        rel="icon"
+        href="../assets/images/branding/hibiscus.svg"
+        type="image/svg+xml"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../assets/css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../assets/css/polish.css"
+    >
+
+</head>
+
+
+<body data-page="confirmation">
+
+
+<header class="site-header">
+
+    <div class="container nav-shell">
+
+        <a
+            class="brand brand-logo"
+            href="index.html"
+            aria-label="Bula Air home"
+        >
+
+            <img
+                src="../assets/images/branding/bula-air-logo.png"
+                alt="Bula Air logo"
+            >
+
+            <small>The wings of Fiji.</small>
+
+        </a>
+
+
+        <nav
+            class="nav-links"
+            aria-label="Main navigation"
+        >
+
+            <a href="index.html">Home</a>
+
+            <a href="booking.html">Book</a>
+
+            <a href="routes.html">Routes</a>
+
+            <a href="fleet.html">Fleet</a>
+
+            <a href="seating.html">Seating</a>
+
+            <a href="classes.html">Classes</a>
+
+            <a href="about.html">About</a>
+
+        </nav>
+
+    </div>
+
+</header>
+
+
+<main class="container page">
+
+    <section class="confirmation-panel">
+
+        <div class="confirmation-icon">
+            ✓
+        </div>
+
+
+        <p class="eyebrow">
+            Bula Air reservations
+        </p>
+
+
+        <h1>
+            Booking confirmed.
+        </h1>
+
+
+        <p class="lead">
+            Vinaka vakalevu for choosing Bula Air.
+            Your journey is ready.
+        </p>
+
+
+        <div
+            id="confirmation-details"
+            class="booking-summary"
+        ></div>
+
+
+        <div
+            style="
+                display:flex;
+                gap:12px;
+                justify-content:center;
+                flex-wrap:wrap;
+                margin-top:25px;
+            "
+        >
+
+            <a
+                href="index.html"
+                class="button button-secondary"
+            >
+                Return home
+            </a>
+
+
+            <a
+                href="booking.html"
+                class="button button-primary"
+            >
+                Book another flight
+            </a>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer class="site-footer">
+
+    <div class="container footer-grid">
+
+        <strong>Bula Air</strong>
+
+        <span>
+            The wings of Fiji.
+        </span>
+
+    </div>
+
+</footer>
+
+
+<script>
+
+const booking =
+    JSON.parse(
+        sessionStorage.getItem(
+            "bulaAirBooking"
+        )
+    );
+
+
+const details =
+    document.getElementById(
+        "confirmation-details"
+    );
+
+
+if (!booking) {
+
+    details.innerHTML = `
+
+        <div class="booking-summary-row">
+
+            <span class="booking-summary-label">
+                Booking
+            </span>
+
+            <strong class="booking-summary-value">
+                No booking found
+            </strong>
+
+        </div>
+
+    `;
+
+} else {
+
+    const passengerNames =
+        booking.passengerDetails
+            .map(
+                passenger =>
+                    `${passenger.firstName} ${passenger.lastName}`
+            )
+            .join(", ");
+
+
+    const total =
+        booking.flight.price *
+        booking.passengers;
+
+
+    details.innerHTML = `
+
+        <div class="booking-summary-row">
+
+            <span class="booking-summary-label">
+                Confirmation
+            </span>
+
+            <strong class="booking-summary-value">
+                ${booking.confirmationNumber}
+            </strong>
+
+        </div>
+
+
+        <div class="booking-summary-row">
+
+            <span class="booking-summary-label">
+                Flight
+            </span>
+
+            <strong class="booking-summary-value">
+                ${booking.flight.flight}
+            </strong>
+
+        </div>
+
+
+        <div class="booking-summary-row">
+
+            <span class="booking-summary-label">
+                Route
+            </span>
+
+            <strong class="booking-summary-value">
+                ${booking.from}
+                →
+                ${booking.to}
+            </strong>
+
+        </div>
+
+
+        <div class="booking-summary-row">
+
+            <span class="booking-summary-label">
+                Departure
+            </span>
+
+            <strong class="booking-summary-value">
+                ${booking.departure}
+            </strong>
+
+        </div>
+
+
+        <div class="booking-summary-row">
+
+            <span class="booking-summary-label">
+                Passengers
+            </span>
+
+            <strong class="booking-summary-value">
+                ${passengerNames}
+            </strong>
+
+        </div>
+
+
+        <div class="booking-summary-row">
+
+            <span class="booking-summary-label">
+                Seats
+            </span>
+
+            <strong class="booking-summary-value">
+                ${booking.selectedSeats
+                    ? booking.selectedSeats.join(", ")
+                    : "Selected"
+                }
+            </strong>
+
+        </div>
+
+
+        <div class="booking-summary-row">
+
+            <span class="booking-summary-label">
+                Total
+            </span>
+
+            <strong class="booking-summary-value">
+                NZ$${total}
+            </strong>
+
+        </div>
+
+    `;
+}
+
+</script>
+
+</body>
+
+</html>

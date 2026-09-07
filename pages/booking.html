@@ -1,46 +1,271 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Book | Bula Air</title>
-  <link rel="icon" href="../assets/images/branding/hibiscus.svg" type="image/svg+xml">
-  <link rel="shortcut icon" href="../assets/images/branding/hibiscus.svg">
-  <link rel="mask-icon" href="../assets/images/branding/hibiscus.svg" color="#2468e8">
-  <link rel="stylesheet" href="../assets/css/style.css">
-  <link rel="stylesheet" href="../assets/css/polish.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Book a Flight | Bula Air</title>
+
+    <link rel="icon" href="../assets/images/branding/hibiscus.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/polish.css">
 </head>
+
 <body data-page="booking">
-  <header class="site-header">
+
+<header class="site-header">
     <div class="container nav-shell">
-      <a class="brand brand-logo" href="index.html" aria-label="Bula Air home"><img src="../assets/images/branding/bula-air-logo.png" alt="Bula Air logo"><small>The wings of Fiji.</small></a>
-      <nav class="nav-links" aria-label="Main navigation"><a href="index.html">Home</a><a href="booking.html" aria-current="page">Book</a><a href="routes.html">Routes</a><a href="fleet.html">Fleet</a><a href="seating.html">Seating</a><a href="classes.html">Classes</a><a href="about.html">About</a></nav>
+
+        <a class="brand brand-logo" href="index.html" aria-label="Bula Air home">
+            <img src="../assets/images/branding/bula-air-logo.png" alt="Bula Air logo">
+            <small>The wings of Fiji.</small>
+        </a>
+
+        <nav class="nav-links" aria-label="Main navigation">
+            <a href="index.html">Home</a>
+            <a href="booking.html" aria-current="page">Book</a>
+            <a href="routes.html">Routes</a>
+            <a href="fleet.html">Fleet</a>
+            <a href="seating.html">Seating</a>
+            <a href="classes.html">Classes</a>
+            <a href="about.html">About</a>
+        </nav>
+
     </div>
-  </header>
-  <main class="container page">
-    <p class="eyebrow">Book a flight</p>
-    <h1>Reserve your trip and choose seats.</h1>
-    <ol class="booking-steps" aria-label="Booking steps">
-      <li class="active"><b>1</b><span>Trip details</span></li>
-      <li><b>2</b><span>Choose seats</span></li>
-      <li><b>3</b><span>Confirm</span></li>
+</header>
+
+
+<main class="container page">
+
+    <p class="eyebrow">Bula Air reservations</p>
+
+    <h1>Book your journey.</h1>
+
+    <p class="lead">
+        Choose your route, dates and cabin. We'll take care of the rest.
+    </p>
+
+
+    <!-- BOOKING STEPS -->
+
+    <ol class="booking-steps" aria-label="Booking progress">
+
+        <li class="active">
+            <b>1</b>
+            Search
+        </li>
+
+        <li>
+            <b>2</b>
+            Flights
+        </li>
+
+        <li>
+            <b>3</b>
+            Passengers
+        </li>
+
+        <li>
+            <b>4</b>
+            Seats
+        </li>
+
+        <li>
+            <b>5</b>
+            Review
+        </li>
+
     </ol>
-    <form id="booking-form" class="booking-layout" novalidate>
-      <section class="tool-panel">
-        <div class="form-grid">
-          <label><span>Passenger name</span><input id="passenger-name" class="input" type="text" autocomplete="name" required></label>
-          <label><span>Route</span><select id="route-select" class="input" required></select></label>
-          <label><span>Aircraft</span><select id="aircraft-select" class="input" required></select></label>
-        </div>
-        <div id="seat-map" class="seat-map compact" aria-label="Aircraft seating map"></div>
-        <div class="legend"><span><i class="legend-seat available"></i>Available</span><span><i class="legend-seat selected"></i>Selected</span><span><i class="legend-seat occupied"></i>Occupied</span></div>
-        <p id="booking-status" class="booking-status" role="status">Choose your route and aircraft to begin.</p>
-        <button class="button booking-submit" type="submit">Confirm booking</button>
-      </section>
-      <aside id="booking-confirmation" class="confirmation-panel" aria-live="polite"><p class="eyebrow">Your trip</p><h2>Build your island escape</h2><p>Select a route and aircraft, then choose your seats. This is a fictional booking preview.</p><div id="booking-summary" class="booking-summary"></div></aside>
-    </form>
-  </main>
-  <footer class="site-footer"><div class="container footer-grid"><strong>Bula Air</strong><span></span></div></footer>
-  <script src="../assets/js/main.js"></script>
+
+
+    <!-- SEARCH PANEL -->
+
+    <section class="tool-panel">
+
+        <form id="booking-search">
+
+            <!-- TRIP TYPE -->
+
+            <div class="trip-type">
+
+                <label>
+                    <input
+                        type="radio"
+                        name="trip-type"
+                        value="roundtrip"
+                        checked
+                    >
+                    Round trip
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="trip-type"
+                        value="oneway"
+                    >
+                    One way
+                </label>
+
+            </div>
+
+
+            <!-- SEARCH FIELDS -->
+
+            <div class="form-grid">
+
+                <label>
+                    <span>From</span>
+
+                    <input
+                        class="input"
+                        id="from"
+                        name="from"
+                        type="text"
+                        placeholder="NAN"
+                        maxlength="3"
+                        autocomplete="off"
+                        required
+                    >
+                </label>
+
+
+                <label>
+                    <span>To</span>
+
+                    <input
+                        class="input"
+                        id="to"
+                        name="to"
+                        type="text"
+                        placeholder="AKL"
+                        maxlength="3"
+                        autocomplete="off"
+                        required
+                    >
+                </label>
+
+
+                <label>
+                    <span>Departure</span>
+
+                    <input
+                        class="input"
+                        id="departure-date"
+                        name="departure"
+                        type="date"
+                        required
+                    >
+                </label>
+
+
+                <label id="return-field">
+                    <span>Return</span>
+
+                    <input
+                        class="input"
+                        id="return-date"
+                        name="return"
+                        type="date"
+                    >
+                </label>
+
+
+                <label>
+                    <span>Passengers</span>
+
+                    <select
+                        class="input"
+                        id="passengers"
+                        name="passengers"
+                    >
+                        <option value="1">1 passenger</option>
+                        <option value="2">2 passengers</option>
+                        <option value="3">3 passengers</option>
+                        <option value="4">4 passengers</option>
+                        <option value="5">5 passengers</option>
+                        <option value="6">6 passengers</option>
+                        <option value="7">7 passengers</option>
+                        <option value="8">8 passengers</option>
+                        <option value="9">9 passengers</option>
+                    </select>
+                </label>
+
+
+                <label>
+                    <span>Cabin</span>
+
+                    <select
+                        class="input"
+                        id="cabin-class"
+                        name="cabin"
+                    >
+                        <option value="economy">
+                            Economy
+                        </option>
+
+                        <option value="premium-economy">
+                            Premium Economy
+                        </option>
+
+                        <option value="business">
+                            Business Class
+                        </option>
+
+                        <option value="first">
+                            First Class
+                        </option>
+                    </select>
+
+                </label>
+
+            </div>
+
+
+            <div id="booking-status" class="booking-status">
+                Enter your journey details to search available flights.
+            </div>
+
+
+            <button
+                class="button booking-submit"
+                type="submit"
+            >
+                Search flights
+            </button>
+
+        </form>
+
+    </section>
+
+
+    <!-- RESULTS APPEAR HERE -->
+
+    <section
+        id="flight-results"
+        aria-live="polite"
+    ></section>
+
+</main>
+
+
+<footer class="site-footer">
+
+    <div class="container footer-grid">
+
+        <strong>Bula Air</strong>
+
+        <span>
+            The wings of Fiji.
+        </span>
+
+    </div>
+
+</footer>
+
+
+<script src="../assets/js/main.js"></script>
+<script src="../assets/js/booking.js"></script>
+
 </body>
 </html>

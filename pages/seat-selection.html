@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Select Your Seat | Bula Air</title>
+
+    <link rel="stylesheet" href="../assets/css/style.css">
+
+    <style>
+        .seat-page {
+            max-width: 1100px;
+            margin: auto;
+            padding: 50px 20px;
+        }
+
+        .seat-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .booking-summary {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 35px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.07);
+        }
+
+        .seat-layout {
+            max-width: 600px;
+            margin: auto;
+            background: #eee;
+            padding: 30px;
+            border-radius: 30px;
+        }
+
+        .aircraft-front {
+            text-align: center;
+            font-weight: bold;
+            margin-bottom: 25px;
+        }
+
+        .seat-row {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 8px;
+            margin-bottom: 8px;
+        }
+
+        .seat {
+            aspect-ratio: 1;
+            border: none;
+            border-radius: 7px;
+            background: white;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .seat:hover {
+            transform: scale(1.05);
+        }
+
+        .seat.selected {
+            background: #111;
+            color: white;
+        }
+
+        .seat.occupied {
+            background: #999;
+            color: white;
+            cursor: not-allowed;
+        }
+
+        .seat-gap {
+            width: 100%;
+        }
+
+        .seat-actions {
+            margin-top: 35px;
+            text-align: center;
+        }
+
+        .continue-button {
+            padding: 15px 35px;
+            border: none;
+            border-radius: 10px;
+            background: #111;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .continue-button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+
+<body>
+
+<main class="seat-page">
+
+    <section class="seat-header">
+        <h1>Select Your Seat</h1>
+        <p>Choose the seat you'd like for your journey.</p>
+    </section>
+
+    <section
+        id="booking-summary"
+        class="booking-summary"
+    ></section>
+
+    <section class="seat-layout">
+
+        <div class="aircraft-front">
+            FRONT OF AIRCRAFT
+        </div>
+
+        <div id="seat-map"></div>
+
+    </section>
+
+    <div class="seat-actions">
+
+        <button
+            id="continue-button"
+            class="continue-button"
+            disabled
+        >
+            Continue
+        </button>
+
+    </div>
+
+</main>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const savedBooking =
+        sessionStorage.getItem("bulaAirBooking");
+
+    if (!savedBooking) {
+        window.location.href = "booking.html";
+        return;
+    }
+
+    const booking = JSON.parse(savedBooking);
+
+    const summary =
+        document.getElementById("booking-summary");
+
+    summary.innerHTML = `
+        <strong>${booking.flightNumber}</strong>
+        <br>
+        ${booking.from} → ${booking.to}
+        <br>
+        ${booking.date}
+        <br>
+        ${booking.aircraft}
+        <br>
+        Economy
+    `;
+
+    const seatMap =
+        document.getElementById("seat-map");
+
+    const continueButton =
+        document.getElementById("continue-button");
+
+    let selectedSeat = null;
+
+    /*
+        Temporary seat map.
+
+        Later we can replace this with your
+        real aircraft-specific seating layouts.
+    */
+
+    const occupiedSeats = [
+        "1A",
+        "1B",
+        "2C",
+        "3D",
+        "5F",
+        "7A"
+    ];
+
+    for (let row = 1; row <= 12; row++) {
+
+        const rowElement =
+            document.createElement("div");
+
+        rowElement.className = "seat-row";
+
+        ["A", "B", "C", "D", "E", "F"]
+            .forEach(letter => {
+
+                const seatNumber =
+                    `${row}${letter}`;
+
+                const seat =
+                    document.createElement("button");
+
+                seat.className = "seat";
+                seat.textContent = seatNumber;
+
+                if (occupiedSeats.includes(seatNumber)) {
+
+                    seat.classList.add("occupied");
+                    seat.disabled = true;
+
+                } else {
+
+                    seat.addEventListener("click", () => {
+
+                        document
+                            .querySelectorAll(".seat.selected")
+                            .forEach(other => {
+                                other.classList.remove("selected");
+                            });
+
+                        seat.classList.add("selected");
+
+                        selectedSeat = seatNumber;
+
+                        continueButton.disabled = false;
+
+                    });
+
+                }
+
+                rowElement.appendChild(seat);
+
+            });
+
+        seatMap.appendChild(rowElement);
+    }
+
+    continueButton.addEventListener("click", () => {
+
+        booking.seat = selectedSeat;
+
+        sessionStorage.setItem(
+            "bulaAirBooking",
+            JSON.stringify(booking)
+        );
+
+        window.location.href =
+            "passenger-details.html";
+
+    });
+
+});
+
+</script>
+
+</body>
+</html>

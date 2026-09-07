@@ -1,0 +1,77 @@
+[
+  {
+    "flightNumber": "BA101",
+    "from": "NAN",
+    "to": "AKL",
+    "departure": "09:15",
+    "arrival": "12:05",
+    "duration": "2h 50m",
+    "aircraft": "Airbus A321neo",
+    "aircraftCode": "A321neo",
+    "prices": {
+      "economy": 420,
+      "premium": 690,
+      "business": 1150
+    }
+  },
+  {
+    "flightNumber": "BA103",
+    "from": "NAN",
+    "to": "AKL",
+    "departure": "14:30",
+    "arrival": "17:20",
+    "duration": "2h 50m",
+    "aircraft": "Airbus A321neo",
+    "aircraftCode": "A321neo",
+    "prices": {
+      "economy": 390,
+      "premium": 650,
+      "business": 1090
+    }
+  },
+  {
+    "flightNumber": "BA105",
+    "from": "NAN",
+    "to": "AKL",
+    "departure": "19:45",
+    "arrival": "22:35",
+    "duration": "2h 50m",
+    "aircraft": "Airbus A330-900neo",
+    "aircraftCode": "A330-900",
+    "prices": {
+      "economy": 450,
+      "premium": 740,
+      "business": 1250
+    }
+  },
+  {
+    "flightNumber": "BA202",
+    "from": "AKL",
+    "to": "NAN",
+    "departure": "08:40",
+    "arrival": "11:30",
+    "duration": "2h 50m",
+    "aircraft": "Airbus A321neo",
+    "aircraftCode": "A321neo",
+    "prices": {
+      "economy": 420,
+      "premium": 690,
+      "business": 1150
+    }
+  },
+  {
+    "flightNumber": "BA204",
+    "from": "AKL",
+    "to": "NAN",
+    "departure": "16:10",
+    "arrival": "19:00",
+    "duration": "2h 50m",
+    "aircraft": "Airbus A330-900neo",
+    "aircraftCode": "A330-900",
+    "prices": {
+      "economy": 450,
+      "premium": 740,
+      "business": 1250
+    }
+  }
+]
