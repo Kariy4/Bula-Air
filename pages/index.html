@@ -3,26 +3,269 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <title>Bula Air | The Wings of Fiji</title>
+
   <link rel="icon" href="../assets/images/branding/hibiscus.svg" type="image/svg+xml">
   <link rel="shortcut icon" href="../assets/images/branding/hibiscus.svg">
   <link rel="mask-icon" href="../assets/images/branding/hibiscus.svg" color="#2468e8">
+
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="stylesheet" href="../assets/css/polish.css">
+
   <style>
-    /* hero: island image, text overlay left */
-    .hero.custom-hero {
-      background-image: linear-gradient(90deg, rgba(7,25,54,0.66), rgba(36,104,232,0.16)), url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2000&q=80');
-      background-size: cover;
-      background-position: center center;
+    body[data-page="home"] {
+      background: #f7fbfe;
+      color: #071936;
     }
-    .hero-copy h1 { color: white; }
+
+    body[data-page="home"] .hero.custom-hero {
+      min-height: 650px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+
+      background-image:
+        linear-gradient(
+          90deg,
+          rgba(4, 21, 47, 0.88) 0%,
+          rgba(4, 21, 47, 0.64) 42%,
+          rgba(4, 21, 47, 0.18) 78%,
+          rgba(4, 21, 47, 0.08) 100%
+        ),
+        url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=2200&q=85");
+
+      background-size: cover;
+      background-position: center;
+    }
+
+    .home-hero-content {
+      max-width: 650px;
+      padding: 90px 0;
+    }
+
+    .home-hero-content .eyebrow {
+      color: #b9ddff;
+      margin-bottom: 14px;
+    }
+
+    .home-hero-content h1 {
+      margin: 0;
+      color: #fff;
+      font-size: clamp(3.3rem, 7vw, 6.4rem);
+      line-height: 0.95;
+      letter-spacing: -0.055em;
+      max-width: 700px;
+    }
+
+    .home-hero-content .hero-lead {
+      max-width: 570px;
+      margin: 25px 0 0;
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 1.12rem;
+      line-height: 1.7;
+    }
+
+    .home-hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .home-hero-actions .button {
+      min-width: 145px;
+    }
+
+    .home-hero-actions .button-secondary {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.45);
+      color: #fff;
+      backdrop-filter: blur(8px);
+    }
+
+    .home-intro {
+      padding: 76px 0 30px;
+    }
+
+    .home-intro-heading {
+      max-width: 700px;
+    }
+
+    .home-intro-heading h2 {
+      margin: 7px 0 13px;
+      color: #071936;
+      font-size: clamp(2rem, 4vw, 3.3rem);
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+    }
+
+    .home-intro-heading p {
+      color: #5b6b80;
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    .home-actions-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+      margin-top: 34px;
+    }
+
+    .home-action-card {
+      display: flex;
+      flex-direction: column;
+      min-height: 245px;
+      padding: 28px;
+      background: #fff;
+      border: 1px solid #d7e4ee;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(7, 25, 54, 0.055);
+      transition:
+        transform 180ms ease,
+        box-shadow 180ms ease;
+    }
+
+    .home-action-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 38px rgba(7, 25, 54, 0.1);
+    }
+
+    .home-action-number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 38px;
+      height: 38px;
+      margin-bottom: 22px;
+      border-radius: 50%;
+      background: #eef6fb;
+      color: #1550c5;
+      font-family: "Montserrat", sans-serif;
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
+    .home-action-card h3 {
+      margin: 0 0 9px;
+      color: #071936;
+      font-size: 1.25rem;
+      line-height: 1.2;
+    }
+
+    .home-action-card p {
+      margin: 0;
+      color: #5b6b80;
+      font-size: 0.92rem;
+      line-height: 1.6;
+    }
+
+    .home-action-card .button {
+      margin-top: auto;
+      align-self: flex-start;
+    }
+
+    .home-strip {
+      margin-top: 70px;
+      padding: 45px 0;
+      background: #071936;
+      color: #fff;
+    }
+
+    .home-strip-inner {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .home-strip h2 {
+      margin: 0 0 10px;
+      color: #fff;
+      font-size: clamp(1.8rem, 3vw, 2.7rem);
+      line-height: 1.05;
+    }
+
+    .home-strip p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.72);
+      line-height: 1.65;
+    }
+
+    .home-strip-link {
+      justify-self: end;
+    }
+
+    @media (max-width: 800px) {
+      body[data-page="home"] .hero.custom-hero {
+        min-height: 570px;
+        background-position: center;
+      }
+
+      .home-hero-content {
+        padding: 70px 0;
+      }
+
+      .home-actions-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .home-action-card {
+        min-height: 205px;
+      }
+
+      .home-strip-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .home-strip-link {
+        justify-self: start;
+      }
+    }
+
+    @media (max-width: 520px) {
+      body[data-page="home"] .hero.custom-hero {
+        min-height: 530px;
+      }
+
+      .home-hero-content h1 {
+        font-size: 3.2rem;
+      }
+
+      .home-hero-content .hero-lead {
+        font-size: 1rem;
+      }
+
+      .home-hero-actions {
+        flex-direction: column;
+      }
+
+      .home-hero-actions .button {
+        width: 100%;
+      }
+
+      .home-intro {
+        padding-top: 52px;
+      }
+    }
   </style>
 </head>
+
 <body data-page="home">
+
   <header class="site-header">
     <div class="container nav-shell">
-      <a class="brand brand-logo" href="index.html" aria-label="Bula Air home"><img src="../assets/images/branding/bula-air-logo.png" alt="Bula Air logo"><small>The wings of Fiji.</small></a>
+
+      <a class="brand brand-logo" href="index.html" aria-label="Bula Air home">
+        <img
+          src="../assets/images/branding/bula-air-logo.png"
+          alt="Bula Air logo"
+        >
+        <small>The wings of Fiji.</small>
+      </a>
+
       <nav class="nav-links" aria-label="Main navigation">
         <a href="index.html" aria-current="page">Home</a>
         <a href="booking.html">Book</a>
@@ -32,45 +275,175 @@
         <a href="classes.html">Classes</a>
         <a href="about.html">About</a>
       </nav>
+
     </div>
   </header>
 
+
+  <!-- HERO -->
+
   <section class="hero custom-hero">
-    <div class="container hero-grid">
-      <div class="hero-copy">
-        <p class="eyebrow">Welcome to Fiji</p>
-        <h1>Explore Fiji</h1>
-        <p class="lead">Island gateways, vibrant culture and turquoise waters — plan your Pacific escape.</p>
-        <div class="hero-actions">
-          <a class="button" href="routes.html">Explore Fiji</a>
-          <a class="button button-secondary" href="booking.html">Book</a>
+
+    <div class="container">
+
+      <div class="home-hero-content">
+
+        <p class="eyebrow">Welcome to Bula Air</p>
+
+        <h1>
+          The wings<br>
+          of Fiji.
+        </h1>
+
+        <p class="hero-lead">
+          Discover the Pacific through a more comfortable,
+          more personal way to fly — from island escapes to
+          journeys across the world.
+        </p>
+
+        <div class="home-hero-actions">
+          <a class="button" href="booking.html">
+            Book a flight
+          </a>
+
+          <a class="button button-secondary" href="routes.html">
+            Explore routes
+          </a>
         </div>
+
       </div>
+
     </div>
+
   </section>
 
-  <main class="section container">
-    <div class="content-grid">
-      <div>
-        <section class="section-heading">
-          <h2>Quick actions</h2>
-          <p class="small">Explore fleet, seating maps, routes and booking flow.</p>
-        </section>
-        <div class="feature-grid">
-          <div class="card"><h3>Book a Flight</h3><p class="small">Try the booking flow and seat selection.</p><a class="button" href="booking.html">Start Booking</a></div>
-          <div class="card"><h3>Destinations</h3><p class="small">Our network of routes and hubs.</p><a class="button" href="routes.html">View Routes</a></div>
-          <div class="card"><h3>Cabin Classes</h3><p class="small">Economy to Business class descriptions.</p><a class="button" href="classes.html">See Classes</a></div>
-        </div>
+
+  <!-- QUICK ACTIONS -->
+
+  <main>
+
+    <section class="container home-intro">
+
+      <div class="home-intro-heading">
+
+        <p class="eyebrow">Your journey starts here</p>
+
+        <h2>
+          Everything Bula Air,
+          in one place.
+        </h2>
+
+        <p>
+          Explore our aircraft, discover your cabin,
+          find your next destination and build your journey
+          with Bula Air.
+        </p>
+
       </div>
-    </div>
+
+
+      <div class="home-actions-grid">
+
+        <article class="home-action-card">
+
+          <div class="home-action-number">01</div>
+
+          <h3>Book a Flight</h3>
+
+          <p>
+            Find a flight, choose your cabin and select
+            your preferred seat.
+          </p>
+
+          <a class="button" href="booking.html">
+            Start booking
+          </a>
+
+        </article>
+
+
+        <article class="home-action-card">
+
+          <div class="home-action-number">02</div>
+
+          <h3>Explore Destinations</h3>
+
+          <p>
+            Discover Bula Air's growing network across
+            Fiji and the wider Pacific.
+          </p>
+
+          <a class="button" href="routes.html">
+            View routes
+          </a>
+
+        </article>
+
+
+        <article class="home-action-card">
+
+          <div class="home-action-number">03</div>
+
+          <h3>Choose Your Cabin</h3>
+
+          <p>
+            From relaxed Economy to our most private
+            suite experiences.
+          </p>
+
+          <a class="button" href="classes.html">
+            Explore cabins
+          </a>
+
+        </article>
+
+      </div>
+
+    </section>
+
+
+    <!-- BRAND STRIP -->
+
+    <section class="home-strip">
+
+      <div class="container home-strip-inner">
+
+        <div>
+          <h2>
+            A different way to experience Fiji.
+          </h2>
+
+          <p>
+            Pacific hospitality, modern aircraft and
+            thoughtfully designed cabins — brought together
+            under one airline.
+          </p>
+        </div>
+
+        <div class="home-strip-link">
+          <a class="button button-secondary" href="about.html">
+            Discover Bula Air
+          </a>
+        </div>
+
+      </div>
+
+    </section>
+
   </main>
 
+
   <footer class="site-footer">
+
     <div class="container footer-grid">
-      <div>© Bula Air</div>
-      <div class="small"></div>
+      <strong>Bula Air</strong>
+      <span></span>
     </div>
+
   </footer>
+
+
   <script src="../assets/js/main.js"></script>
+
 </body>
 </html>
