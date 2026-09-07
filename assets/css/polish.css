@@ -1,1099 +1,646 @@
 /* =========================================================
-   BULA AIR — POLISH / PREMIUM UI
-   ========================================================= */
-
-
-/* =========================================================
-   GLOBAL POLISH
-   ========================================================= */
+BULA AIR — PREMIUM POLISH
+========================================================= */
 
 html {
-    scroll-behavior: smooth;
+scroll-behavior: smooth;
 }
 
 body {
-    background:
-        radial-gradient(
-            circle at 15% 0%,
-            rgba(185, 221, 255, .35),
-            transparent 32%
-        ),
-        linear-gradient(
-            180deg,
-            #f8fcff 0%,
-            #eef6fb 100%
-        );
+background:
+radial-gradient(
+circle at 12% 0%,
+rgba(185,221,255,.28),
+transparent 28%
+),
+linear-gradient(
+180deg,
+#f9fcff 0%,
+#f1f7fb 100%
+);
 }
 
 ::selection {
-    background: #2468e8;
-    color: #fff;
+background: #2468e8;
+color: #fff;
 }
 
-
 /* =========================================================
-   HEADER
-   ========================================================= */
+HEADER
+========================================================= */
 
 .site-header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    backdrop-filter: blur(18px);
-    background: rgba(255, 255, 255, .9);
-    border-bottom: 1px solid rgba(215, 228, 238, .85);
+background: rgba(255,255,255,.92);
+border-bottom: 1px solid rgba(215,228,238,.8);
+box-shadow: 0 4px 20px rgba(7,25,54,.035);
+backdrop-filter: blur(18px);
 }
 
 .nav-shell {
-    min-height: 78px;
+min-height: 78px;
 }
 
 .brand-logo {
-    transition: transform .2s ease;
+transition: transform .2s ease;
 }
 
 .brand-logo:hover {
-    transform: translateY(-1px);
+transform: translateY(-1px);
 }
 
 .brand-logo img {
-    max-height: 48px;
-    width: auto;
+width: auto;
+max-height: 46px;
+object-fit: contain;
 }
 
 .brand-logo small {
-    color: #5b6b80;
-    font-size: 10px;
-    letter-spacing: .08em;
-    text-transform: uppercase;
+color: #68798c;
+font-size: 9px;
+letter-spacing: .1em;
+text-transform: uppercase;
 }
 
-
-/* =========================================================
-   NAVIGATION
-   ========================================================= */
-
 .nav-links {
-    gap: 6px;
+gap: 5px;
 }
 
 .nav-links a {
-    position: relative;
-    padding: 10px 13px;
-    border-radius: 10px;
-    color: #40536b;
-    font-size: 13px;
-    font-weight: 700;
-    transition:
-        color .2s ease,
-        background .2s ease;
+position: relative;
+padding: 10px 13px;
+border-radius: 10px;
+color: #40536b;
+font-size: 12px;
+font-weight: 700;
+transition:
+color .2s ease,
+background .2s ease,
+transform .2s ease;
 }
 
 .nav-links a:hover {
-    background: #eef6fb;
-    color: #2468e8;
+background: #eef6fb;
+color: #2468e8;
+transform: translateY(-1px);
 }
 
 .nav-links a[aria-current="page"] {
-    background: #e8f2ff;
-    color: #1550c5;
+background: #e8f2ff;
+color: #1550c5;
 }
 
-
 /* =========================================================
-   PAGE
-   ========================================================= */
+GENERAL PAGE POLISH
+========================================================= */
 
 .page {
-    padding-top: 55px;
-    padding-bottom: 80px;
+padding-top: 58px;
 }
 
 .page > h1 {
-    letter-spacing: -.04em;
+max-width: 850px;
+letter-spacing: -.045em;
+}
+
+.page > .lead {
+max-width: 720px;
+margin-bottom: 42px;
 }
 
 .eyebrow {
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    font-weight: 800;
-    font-size: 11px;
-    color: #2468e8;
+color: #2468e8;
+font-size: 10px;
+font-weight: 800;
+letter-spacing: .17em;
 }
-
 
 /* =========================================================
-   BUTTONS
-   ========================================================= */
+FLEET HERO
+========================================================= */
 
-.button {
-    border: 0;
-    border-radius: 12px;
-    background: linear-gradient(
-        135deg,
-        #2468e8,
-        #1550c5
-    );
-    color: #fff;
-    font-weight: 800;
-    box-shadow:
-        0 7px 18px rgba(36, 104, 232, .2);
-    transition:
-        transform .18s ease,
-        box-shadow .18s ease,
-        filter .18s ease;
+.fleet-hero {
+position: relative;
+overflow: hidden;
+padding: 85px 0 70px;
+background:
+radial-gradient(
+circle at 85% 35%,
+rgba(37,184,207,.18),
+transparent 28%
+),
+radial-gradient(
+circle at 10% 80%,
+rgba(36,104,232,.12),
+transparent 32%
+),
+#fff;
+border-bottom: 1px solid #e0ebf2;
 }
 
-.button:hover {
-    transform: translateY(-2px);
-    box-shadow:
-        0 11px 24px rgba(36, 104, 232, .28);
-    filter: brightness(1.03);
+.fleet-hero::after {
+content: "";
+position: absolute;
+right: -120px;
+bottom: -180px;
+width: 480px;
+height: 480px;
+border: 1px solid rgba(36,104,232,.08);
+border-radius: 50%;
+pointer-events: none;
 }
 
-.button:active {
-    transform: translateY(0);
+.fleet-hero-inner {
+position: relative;
+z-index: 1;
 }
 
-.button-secondary {
-    background: #fff;
-    color: #1550c5;
-    border: 1px solid #c8d9e8;
-    box-shadow: none;
+.fleet-hero-copy {
+max-width: 780px;
 }
 
-.button-secondary:hover {
-    background: #f3f8fc;
-    box-shadow: 0 7px 16px rgba(7, 25, 54, .08);
+.fleet-hero h1 {
+max-width: 760px;
+margin-bottom: 22px;
+font-size: clamp(2.8rem,6vw,5rem);
 }
 
+.fleet-hero h1 span {
+color: #2468e8;
+}
+
+.fleet-hero .lead {
+max-width: 680px;
+margin-bottom: 35px;
+color: #5b6b80;
+font-size: 1.05rem;
+}
+
+.fleet-hero-stats {
+display: flex;
+flex-wrap: wrap;
+gap: 0;
+}
+
+.fleet-hero-stats > div {
+min-width: 150px;
+padding: 0 28px;
+border-left: 1px solid #d8e4ec;
+}
+
+.fleet-hero-stats > div:first-child {
+padding-left: 0;
+border-left: 0;
+}
+
+.fleet-hero-stats strong {
+display: block;
+color: #082966;
+font-family: "Montserrat", sans-serif;
+font-size: 1rem;
+}
+
+.fleet-hero-stats span {
+display: block;
+margin-top: 3px;
+color: #718397;
+font-size: .73rem;
+font-weight: 600;
+}
 
 /* =========================================================
-   PANELS
-   ========================================================= */
+FLEET SECTION
+========================================================= */
+
+.fleet-section {
+padding: 78px 0 90px;
+}
+
+.fleet-section-heading {
+display: flex;
+align-items: end;
+justify-content: space-between;
+gap: 40px;
+margin-bottom: 38px;
+}
+
+.fleet-section-heading h2 {
+margin: 4px 0 0;
+}
+
+.fleet-section-heading > p {
+max-width: 380px;
+margin: 0;
+color: #68798c;
+font-size: .9rem;
+text-align: right;
+}
+
+/* =========================================================
+FLEET GRID
+========================================================= */
+
+#fleet-list,
+.fleet-grid {
+display: grid;
+grid-template-columns: repeat(2,minmax(0,1fr));
+gap: 28px;
+align-items: stretch;
+}
+
+/* =========================================================
+FLEET CARDS
+Works with cards generated by main.js
+========================================================= */
+
+#fleet-list .card {
+position: relative;
+display: flex;
+flex-direction: column;
+min-width: 0;
+min-height: 390px;
+overflow: hidden;
+padding: 0;
+border: 1px solid #d9e5ed;
+border-radius: 20px;
+background: #fff;
+box-shadow: 0 10px 30px rgba(7,25,54,.055);
+transition:
+transform .25s ease,
+box-shadow .25s ease,
+border-color .25s ease;
+}
+
+#fleet-list .card:hover {
+transform: translateY(-5px);
+border-color: #c5d8e6;
+box-shadow: 0 22px 48px rgba(7,25,54,.11);
+}
+
+/* =========================================================
+AIRCRAFT IMAGE AREA
+THIS IS THE MAIN FIX
+========================================================= */
+
+#fleet-list .card > img,
+#fleet-list .card img {
+width: 100%;
+height: 190px;
+max-height: 190px;
+flex: 0 0 190px;
+padding: 20px 28px;
+object-fit: contain;
+object-position: center;
+background:
+radial-gradient(
+ellipse at center,
+#edf6fb 0%,
+#f7fbfd 58%,
+#fff 100%
+);
+border-bottom: 1px solid #e3edf3;
+}
+
+/* Prevent weird intrinsic image sizes */
+#fleet-list img[src*="a220"],
+#fleet-list img[src*="a320"],
+#fleet-list img[src*="a321"],
+#fleet-list img[src*="a330"],
+#fleet-list img[src*="a350"],
+#fleet-list img[src*="a380"],
+#fleet-list img[src*="777"],
+#fleet-list img[src*="atr"] {
+height: 190px;
+max-height: 190px;
+object-fit: contain;
+}
+
+/* =========================================================
+FLEET CARD CONTENT
+========================================================= */
+
+#fleet-list .card > div,
+#fleet-list .card > section {
+padding-left: 24px;
+padding-right: 24px;
+}
+
+#fleet-list .card h2,
+#fleet-list .card h3,
+#fleet-list .card h4 {
+margin-top: 20px;
+margin-bottom: 7px;
+color: #082966;
+font-size: 1.2rem;
+letter-spacing: -.025em;
+}
+
+#fleet-list .card p {
+color: #66788c;
+font-size: .82rem;
+line-height: 1.55;
+}
+
+/* Aircraft title if main.js puts it directly in card */
+#fleet-list .card > h2,
+#fleet-list .card > h3,
+#fleet-list .card > h4 {
+padding-left: 24px;
+padding-right: 24px;
+}
+
+/* =========================================================
+FLEET DATA / SPECS
+========================================================= */
+
+#fleet-list .card ul {
+display: grid;
+grid-template-columns: repeat(2,minmax(0,1fr));
+gap: 8px 20px;
+margin: 12px 0 22px;
+padding: 0 24px;
+list-style: none;
+}
+
+#fleet-list .card li {
+padding: 7px 0;
+border-bottom: 1px solid #edf2f5;
+color: #65778a;
+font-size: .72rem;
+}
+
+#fleet-list .card strong {
+color: #17314f;
+}
+
+/* =========================================================
+FLEET BADGES
+========================================================= */
+
+#fleet-list .badge {
+margin: 17px 24px 0;
+align-self: flex-start;
+background: #edf5ff;
+color: #1550c5;
+font-size: 9px;
+letter-spacing: .04em;
+}
+
+/* =========================================================
+FLEET BUTTONS
+========================================================= */
+
+#fleet-list .card .button,
+#fleet-list .card button {
+margin: auto 24px 24px;
+align-self: flex-start;
+padding: 10px 16px;
+border-radius: 9px;
+font-size: .75rem;
+}
+
+/* =========================================================
+A220 SPECIAL BALANCE
+========================================================= */
+
+#fleet-list .card img[src*="a220"] {
+padding-left: 45px;
+padding-right: 45px;
+}
+
+/* =========================================================
+FLEET CTA
+========================================================= */
+
+.fleet-cta {
+padding: 70px 0;
+background:
+linear-gradient(
+135deg,
+#071936 0%,
+#082966 65%,
+#1550c5 100%
+);
+color: white;
+}
+
+.fleet-cta-inner {
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 40px;
+}
+
+.fleet-cta .eyebrow {
+color: #8ec8ff;
+}
+
+.fleet-cta h2 {
+margin-bottom: 10px;
+color: white;
+}
+
+.fleet-cta p:not(.eyebrow) {
+max-width: 600px;
+margin: 0;
+color: rgba(255,255,255,.7);
+}
+
+.fleet-cta .button {
+flex-shrink: 0;
+background: white;
+color: #1550c5;
+box-shadow: 0 10px 25px rgba(0,0,0,.16);
+}
+
+.fleet-cta .button:hover {
+background: #f1f7ff;
+}
+
+/* =========================================================
+GENERAL PANELS
+========================================================= */
 
 .tool-panel,
 .confirmation-panel,
 .booking-section {
-    border: 1px solid rgba(207, 222, 234, .95);
-    border-radius: 22px;
-    background: rgba(255, 255, 255, .92);
-    box-shadow:
-        0 18px 45px rgba(7, 25, 54, .07);
+border: 1px solid rgba(207,222,234,.95);
+border-radius: 20px;
+background: rgba(255,255,255,.94);
+box-shadow: 0 18px 45px rgba(7,25,54,.065);
 }
-
-.tool-panel {
-    padding: 28px;
-}
-
 
 /* =========================================================
-   FORMS
-   ========================================================= */
-
-.input {
-    border: 1px solid #cbdbe7;
-    border-radius: 11px;
-    background: #fbfdff;
-    color: #071936;
-    transition:
-        border-color .18s ease,
-        box-shadow .18s ease,
-        background .18s ease;
-}
-
-.input:hover {
-    border-color: #aebfd0;
-}
-
-.input:focus {
-    outline: none;
-    border-color: #2468e8;
-    background: #fff;
-    box-shadow:
-        0 0 0 4px rgba(36, 104, 232, .1);
-}
-
-.trip-type {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 24px;
-}
-
-.trip-type label {
-    padding: 10px 15px;
-    border: 1px solid #d3e0ea;
-    border-radius: 10px;
-    background: #f8fbfd;
-    font-weight: 700;
-    cursor: pointer;
-}
-
-.trip-type label:has(input:checked) {
-    border-color: #2468e8;
-    background: #edf5ff;
-    color: #1550c5;
-}
-
-.trip-type input {
-    accent-color: #2468e8;
-}
-
-
-/* =========================================================
-   BOOKING STEPS
-   ========================================================= */
-
-.booking-steps {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin: 35px 0;
-    padding: 0;
-    list-style: none;
-}
-
-.booking-steps li {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: #8191a3;
-    font-size: 12px;
-    font-weight: 800;
-}
-
-.booking-steps li b {
-    display: grid;
-    place-items: center;
-    width: 27px;
-    height: 27px;
-    border-radius: 50%;
-    background: #dce6ee;
-    color: #607286;
-}
-
-.booking-steps li.active {
-    color: #1550c5;
-}
-
-.booking-steps li.active b {
-    background: #2468e8;
-    color: #fff;
-}
-
-
-/* =========================================================
-   BOOKING STATUS
-   ========================================================= */
-
-.booking-status {
-    margin-top: 20px;
-    padding: 13px 15px;
-    border-radius: 11px;
-    background: #f3f8fc;
-    border: 1px solid #dce8f0;
-    color: #5b6b80;
-    font-size: 13px;
-}
-
-.booking-submit {
-    margin-top: 18px;
-}
-
-
-/* =========================================================
-   FLIGHT RESULTS
-   ========================================================= */
-
-#flight-results {
-    margin-top: 30px;
-}
-
-.results-header {
-    margin-bottom: 18px;
-}
+FLIGHT CARDS
+========================================================= */
 
 .flight-card {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 25px;
-    padding: 23px;
-    margin-bottom: 14px;
-    border: 1px solid #d5e2eb;
-    border-radius: 18px;
-    background: #fff;
-    box-shadow: 0 8px 25px rgba(7, 25, 54, .05);
-    transition:
-        transform .18s ease,
-        box-shadow .18s ease;
+border-radius: 17px;
+border-color: #d6e3eb;
+box-shadow: 0 7px 24px rgba(7,25,54,.045);
 }
 
 .flight-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 14px 32px rgba(7, 25, 54, .09);
+box-shadow: 0 15px 35px rgba(7,25,54,.085);
 }
-
-.flight-main {
-    display: flex;
-    align-items: center;
-    gap: 22px;
-    min-width: 280px;
-}
-
-.flight-time {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-}
-
-.flight-time strong {
-    font-size: 22px;
-    letter-spacing: -.03em;
-}
-
-.flight-time span {
-    color: #68798c;
-    font-size: 12px;
-    font-weight: 800;
-}
-
-.flight-line {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    min-width: 100px;
-}
-
-.flight-line span {
-    height: 1px;
-    flex: 1;
-    background: #bdcfdd;
-}
-
-.flight-line small {
-    color: #718397;
-    font-size: 9px;
-    white-space: nowrap;
-}
-
-.flight-info {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.badge {
-    display: inline-block;
-    margin-right: 5px;
-    padding: 6px 9px;
-    border-radius: 999px;
-    background: #edf5fb;
-    color: #476078;
-    font-size: 10px;
-    font-weight: 800;
-}
-
-.flight-price {
-    white-space: nowrap;
-    font-size: 19px;
-}
-
 
 /* =========================================================
-   PASSENGERS
-   ========================================================= */
-
-.booking-section {
-    padding: 30px;
-    margin-top: 30px;
-}
-
-.booking-section-heading {
-    margin-bottom: 25px;
-}
-
-.booking-section-heading h2 {
-    margin: 5px 0;
-}
-
-.passenger-card {
-    display: flex;
-    gap: 18px;
-    padding: 20px;
-    margin-bottom: 14px;
-    border: 1px solid #d7e3ec;
-    border-radius: 16px;
-    background: #fbfdff;
-}
-
-.passenger-number {
-    display: grid;
-    place-items: center;
-    flex: 0 0 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: #e8f2ff;
-    color: #1550c5;
-    font-weight: 900;
-}
-
-.passenger-fields {
-    flex: 1;
-}
-
-.passenger-fields h3 {
-    margin-top: 0;
-}
-
-
-/* =========================================================
-   SEAT MAP — GENERAL
-   ========================================================= */
+SEAT MAP POLISH
+========================================================= */
 
 .seat-map {
-    overflow-x: auto;
-    padding: 20px 10px 35px;
-    border-radius: 18px;
-    background:
-        linear-gradient(
-            90deg,
-            rgba(238,246,251,.8),
-            rgba(255,255,255,.95),
-            rgba(238,246,251,.8)
-        );
+border: 1px solid #dce7ee;
+background:
+linear-gradient(
+90deg,
+rgba(238,246,251,.8),
+rgba(255,255,255,.98),
+rgba(238,246,251,.8)
+);
 }
-
-.seat-cabin-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    margin-bottom: 25px;
-    padding: 20px 22px;
-    border: 1px solid #d5e2eb;
-    border-radius: 17px;
-    background: linear-gradient(
-        135deg,
-        #ffffff,
-        #f0f7fc
-    );
-}
-
-.seat-cabin-header h2 {
-    margin: 4px 0 0;
-    letter-spacing: -.03em;
-}
-
-.seat-layout-label {
-    padding: 8px 13px;
-    border-radius: 999px;
-    background: #082966;
-    color: #fff;
-    font-size: 11px;
-    font-weight: 900;
-    letter-spacing: .08em;
-}
-
-.aircraft-nose,
-.aircraft-tail {
-    text-align: center;
-    padding: 15px;
-    color: #738498;
-    font-size: 10px;
-    font-weight: 900;
-    letter-spacing: .16em;
-}
-
-.cockpit-window {
-    width: 75px;
-    height: 20px;
-    margin: 0 auto 8px;
-    border: 2px solid #b8cad9;
-    border-radius: 50% 50% 7px 7px;
-    background: #eaf4fb;
-}
-
-.seat-row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 7px;
-    margin-bottom: 7px;
-}
-
-.row-number {
-    width: 28px;
-    margin-right: 8px;
-    text-align: right;
-    color: #8291a1;
-    font-size: 10px;
-    font-weight: 900;
-}
-
-.seat-aisle {
-    width: 25px;
-    flex: 0 0 25px;
-}
-
 
 /* =========================================================
-   BASE SEAT
-   ========================================================= */
-
-.seat {
-    position: relative;
-    display: grid;
-    place-items: center;
-    padding: 0;
-    overflow: hidden;
-    color: #17314f;
-    background: #fff;
-    border: 1px solid #b8cad8;
-    cursor: pointer;
-    font-family: inherit;
-    transition:
-        transform .15s ease,
-        box-shadow .15s ease,
-        background .15s ease,
-        border-color .15s ease;
-}
-
-.seat:hover:not(.occupied) {
-    transform: translateY(-2px);
-    box-shadow:
-        0 7px 16px rgba(7,25,54,.13);
-}
-
-.seat.selected {
-    color: #fff;
-    background: linear-gradient(
-        135deg,
-        #2468e8,
-        #1550c5
-    );
-    border-color: #1550c5;
-    box-shadow:
-        0 0 0 3px rgba(36,104,232,.14),
-        0 8px 18px rgba(36,104,232,.22);
-}
-
-.seat.occupied {
-    color: #7c8995;
-    background: #d5dde4;
-    border-color: #c0cad2;
-    cursor: not-allowed;
-}
-
-
-/* =========================================================
-   ECONOMY
-   ========================================================= */
-
-.seat.economy {
-    width: 40px;
-    height: 36px;
-    border-radius: 7px 7px 9px 9px;
-    font-size: 10px;
-    font-weight: 900;
-}
-
-.seat.economy::before {
-    content: "";
-    position: absolute;
-    top: 4px;
-    left: 6px;
-    right: 6px;
-    height: 8px;
-    border-radius: 5px;
-    background: #dce9f2;
-}
-
-.seat.economy.selected::before {
-    background: rgba(255,255,255,.3);
-}
-
-
-/* =========================================================
-   PREMIUM ECONOMY
-   ========================================================= */
-
-.seat.premium-economy {
-    width: 53px;
-    height: 44px;
-    border-radius: 10px 10px 14px 14px;
-    font-size: 10px;
-    font-weight: 900;
-}
-
-.seat.premium-economy::before {
-    content: "";
-    position: absolute;
-    top: 5px;
-    left: 7px;
-    right: 7px;
-    height: 11px;
-    border-radius: 6px;
-    background: #d8e8f5;
-}
-
-
-/* =========================================================
-   BUSINESS CLASS
-   ========================================================= */
-
-.seat.business {
-    width: 57px;
-    height: 58px;
-    border-radius: 12px 12px 15px 15px;
-    font-size: 10px;
-    font-weight: 900;
-}
-
-.business-shell {
-    position: absolute;
-    top: 6px;
-    left: 8px;
-    right: 8px;
-    height: 19px;
-    border-radius: 8px;
-    background: #d9e9f5;
-    border: 1px solid #bdd1e0;
-}
-
-.seat.business::after {
-    content: "";
-    position: absolute;
-    bottom: 7px;
-    left: 10px;
-    right: 10px;
-    height: 3px;
-    border-radius: 4px;
-    background: #c2d4e1;
-}
-
-.seat.business.selected .business-shell {
-    background: rgba(255,255,255,.3);
-    border-color: rgba(255,255,255,.45);
-}
-
-
-/* =========================================================
-   STAGGERED BUSINESS SUITES
-   ========================================================= */
-
-.seat.staggered {
-    width: 63px;
-    height: 59px;
-    border-radius: 14px;
-    font-size: 10px;
-    font-weight: 900;
-}
-
-.staggered-shell {
-    position: absolute;
-    top: 5px;
-    left: 9px;
-    right: 9px;
-    height: 26px;
-    border-radius: 8px 13px 13px 8px;
-    background: #d9e9f6;
-    border: 1px solid #bdd1e1;
-}
-
-.seat-row-staggered {
-    gap: 12px;
-    margin-bottom: 14px;
-}
-
-.seat-row-staggered:nth-child(odd) .seat.staggered {
-    transform: translateY(-7px);
-}
-
-.seat-row-staggered:nth-child(odd) .seat.staggered:hover {
-    transform: translateY(-9px);
-}
-
-.seat.staggered.selected .staggered-shell {
-    background: rgba(255,255,255,.3);
-    border-color: rgba(255,255,255,.45);
-}
-
-
-/* =========================================================
-   HERRINGBONE SUITES
-   ========================================================= */
-
-.seat.herringbone {
-    width: 64px;
-    height: 64px;
-    border-radius: 12px;
-    font-size: 10px;
-    font-weight: 900;
-}
-
-.suite-shell {
-    position: absolute;
-    inset: 7px;
-    border-radius: 8px;
-    background: #e0edf6;
-    border: 1px solid #b9cede;
-}
-
-.seat.herringbone:nth-child(even) {
-    transform: rotate(-8deg);
-}
-
-.seat.herringbone:nth-child(odd) {
-    transform: rotate(8deg);
-}
-
-.seat.herringbone:hover:not(.occupied) {
-    transform: translateY(-3px) rotate(0deg);
-}
-
-.seat.herringbone.selected .suite-shell {
-    background: rgba(255,255,255,.3);
-    border-color: rgba(255,255,255,.45);
-}
-
-.seat-row-herringbone {
-    gap: 18px;
-    margin-bottom: 15px;
-}
-
-
-/* =========================================================
-   APARTMENT SUITES
-   ========================================================= */
-
-.seat.apartment {
-    width: 95px;
-    height: 78px;
-    border-radius: 15px;
-    border: 2px solid #b5c9d9;
-    background: #f8fbfd;
-    font-size: 11px;
-    font-weight: 900;
-}
-
-.seat.apartment .seat-door {
-    position: absolute;
-    inset: 5px;
-    border: 1px solid #c1d2df;
-    border-radius: 10px;
-}
-
-.seat.apartment .seat-door::before {
-    content: "";
-    position: absolute;
-    top: 9px;
-    left: 9px;
-    right: 9px;
-    height: 19px;
-    border-radius: 6px;
-    background: #dcebf5;
-}
-
-.seat.apartment strong {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 19px;
-}
-
-.seat.apartment small {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 6px;
-    color: #687b8f;
-    font-size: 8px;
-}
-
-.seat.apartment.selected {
-    border-color: #1550c5;
-    background: linear-gradient(
-        135deg,
-        #2468e8,
-        #1550c5
-    );
-}
-
-.seat.apartment.selected small {
-    color: rgba(255,255,255,.8);
-}
-
-.seat-row-apartment {
-    gap: 15px;
-    margin-bottom: 14px;
-}
-
-
-/* =========================================================
-   LEGEND
-   ========================================================= */
-
-.legend {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 18px;
-    margin-top: 5px;
-    color: #5b6b80;
-    font-size: 11px;
-    font-weight: 700;
-}
-
-.legend > span {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-}
-
-.legend-seat {
-    display: inline-block;
-    width: 17px;
-    height: 17px;
-    border-radius: 5px;
-    border: 1px solid #b8cad8;
-    background: #fff;
-}
-
-.legend-seat.available {
-    background: #fff;
-}
-
-.legend-seat.selected {
-    background: #2468e8;
-    border-color: #1550c5;
-}
-
-.legend-seat.occupied {
-    background: #d5dde4;
-    border-color: #c0cad2;
-}
-
-
-/* =========================================================
-   SELECTION SUMMARY
-   ========================================================= */
-
-.control-row {
-    display: flex;
-    align-items: end;
-    justify-content: space-between;
-    gap: 20px;
-    margin-bottom: 20px;
-}
-
-.selection-summary {
-    padding: 12px 16px;
-    border-radius: 12px;
-    background: #f1f7fc;
-    border: 1px solid #d8e5ee;
-    color: #5b6b80;
-    font-size: 12px;
-}
-
-.selection-summary strong {
-    color: #1550c5;
-}
-
-
-/* =========================================================
-   BOOKING SUMMARY
-   ========================================================= */
-
-.booking-summary {
-    overflow: hidden;
-    border: 1px solid #d6e2eb;
-    border-radius: 16px;
-    background: #fff;
-    margin-bottom: 25px;
-}
-
-.booking-summary-row {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-    padding: 15px 18px;
-    border-bottom: 1px solid #e6edf2;
-}
-
-.booking-summary-row:last-child {
-    border-bottom: 0;
-}
-
-.booking-summary-row span {
-    color: #697b8e;
-}
-
-.booking-summary-row strong {
-    text-align: right;
-}
-
-
-/* =========================================================
-   CONFIRMATION
-   ========================================================= */
-
-.confirmation-panel {
-    max-width: 760px;
-    margin: 45px auto;
-    padding: 45px;
-    text-align: center;
-}
-
-.confirmation-icon {
-    display: grid;
-    place-items: center;
-    width: 70px;
-    height: 70px;
-    margin: 0 auto 20px;
-    border-radius: 50%;
-    background: #e4f7ed;
-    color: #16824e;
-    font-size: 34px;
-    font-weight: 900;
-    box-shadow: 0 8px 20px rgba(22,130,78,.12);
-}
-
-
-/* =========================================================
-   FOOTER
-   ========================================================= */
+FOOTER
+========================================================= */
 
 .site-footer {
-    margin-top: 60px;
-    border-top: 1px solid #d9e5ed;
-    background: #f8fbfd;
+margin-top: 0;
+border-top: 1px solid #d9e5ed;
+background: #f8fbfd;
 }
 
 .footer-grid {
-    min-height: 100px;
-    color: #687b8f;
+min-height: 100px;
+color: #687b8f;
 }
 
 .footer-grid strong {
-    color: #082966;
+color: #082966;
 }
-
 
 /* =========================================================
-   RESPONSIVE
-   ========================================================= */
+RESPONSIVE — TABLET
+========================================================= */
 
-@media (max-width: 900px) {
+@media (max-width:900px) {
 
-    .flight-card {
-        align-items: flex-start;
-        flex-direction: column;
-    }
-
-    .flight-info {
-        width: 100%;
-        justify-content: space-between;
-    }
-
-    .control-row {
-        align-items: flex-start;
-        flex-direction: column;
-    }
+#fleet-list,
+.fleet-grid {
+grid-template-columns: 1fr;
 }
 
-
-@media (max-width: 700px) {
-
-    .page {
-        padding-top: 35px;
-    }
-
-    .booking-steps {
-        align-items: flex-start;
-        flex-direction: column;
-    }
-
-    .tool-panel,
-    .booking-section,
-    .confirmation-panel {
-        padding: 20px;
-    }
-
-    .flight-main {
-        min-width: 0;
-        width: 100%;
-    }
-
-    .flight-info {
-        align-items: flex-start;
-        flex-wrap: wrap;
-    }
-
-    .passenger-card {
-        flex-direction: column;
-    }
-
-    .seat-cabin-header {
-        align-items: flex-start;
-        flex-direction: column;
-    }
-
-    .seat.economy {
-        width: 34px;
-        height: 32px;
-    }
-
-    .seat.premium-economy {
-        width: 44px;
-        height: 38px;
-    }
-
-    .seat.business,
-    .seat.staggered {
-        width: 50px;
-        height: 52px;
-    }
-
-    .seat.herringbone {
-        width: 56px;
-        height: 56px;
-    }
-
-    .seat.apartment {
-        width: 80px;
-        height: 68px;
-    }
-
-    .seat-aisle {
-        width: 15px;
-        flex-basis: 15px;
-    }
+#fleet-list .card {
+min-height: 0;
 }
 
+.fleet-section-heading {
+align-items: flex-start;
+flex-direction: column;
+gap: 12px;
+}
 
-@media (max-width: 520px) {
+.fleet-section-heading > p {
+text-align: left;
+}
 
-    .flight-main {
-        gap: 12px;
-    }
+.fleet-cta-inner {
+align-items: flex-start;
+flex-direction: column;
+}
+}
 
-    .flight-line {
-        min-width: 55px;
-    }
+/* =========================================================
+RESPONSIVE — MOBILE
+========================================================= */
 
-    .booking-summary-row {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 5px;
-    }
+@media (max-width:700px) {
 
-    .booking-summary-row strong {
-        text-align: left;
-    }
+.fleet-hero {
+padding: 60px 0 55px;
+}
 
-    .confirmation-panel {
-        margin-top: 20px;
-    }
+.fleet-hero h1 {
+font-size: clamp(2.45rem,11vw,4rem);
+}
+
+.fleet-hero-stats {
+display: grid;
+grid-template-columns: repeat(3,1fr);
+}
+
+.fleet-hero-stats > div {
+min-width: 0;
+padding: 0 12px;
+}
+
+.fleet-hero-stats > div:first-child {
+padding-left: 0;
+}
+
+.fleet-section {
+padding: 55px 0 65px;
+}
+
+#fleet-list .card > img,
+#fleet-list .card img {
+height: 165px;
+max-height: 165px;
+flex-basis: 165px;
+padding: 18px 24px;
+}
+
+#fleet-list .card img[src*="a220"] {
+padding-left: 30px;
+padding-right: 30px;
+}
+
+#fleet-list .card h2,
+#fleet-list .card h3,
+#fleet-list .card h4 {
+font-size: 1.08rem;
+}
+
+#fleet-list .card ul {
+grid-template-columns: 1fr 1fr;
+}
+
+.fleet-cta {
+padding: 55px 0;
+}
+}
+
+/* =========================================================
+RESPONSIVE — SMALL MOBILE
+========================================================= */
+
+@media (max-width:480px) {
+
+.fleet-hero-stats {
+grid-template-columns: 1fr;
+gap: 15px;
+}
+
+.fleet-hero-stats > div,
+.fleet-hero-stats > div:first-child {
+padding: 0;
+padding-left: 13px;
+border-left: 2px solid #d9e7f0;
+}
+
+#fleet-list .card > img,
+#fleet-list .card img {
+height: 145px;
+max-height: 145px;
+flex-basis: 145px;
+padding: 15px 20px;
+}
+
+#fleet-list .card ul {
+grid-template-columns: 1fr;
+}
+
+#fleet-list .card .button,
+#fleet-list .card button {
+width: calc(100% - 48px);
+text-align: center;
+}
 }
