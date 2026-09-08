@@ -1,646 +1,383 @@
 /* =========================================================
-BULA AIR — PREMIUM POLISH
-========================================================= */
+   BULA AIR — FLEET PAGE POLISH
+   Compact, premium airline-style design
+   ========================================================= */
 
-html {
-scroll-behavior: smooth;
-}
-
-body {
-background:
-radial-gradient(
-circle at 12% 0%,
-rgba(185,221,255,.28),
-transparent 28%
-),
-linear-gradient(
-180deg,
-#f9fcff 0%,
-#f1f7fb 100%
-);
-}
-
-::selection {
-background: #2468e8;
-color: #fff;
+:root {
+  --fleet-blue: #2468e8;
+  --fleet-blue-dark: #174da9;
+  --fleet-ink: #10213f;
+  --fleet-muted: #64748b;
+  --fleet-border: rgba(20, 45, 85, 0.10);
+  --fleet-shadow: 0 12px 35px rgba(24, 54, 100, 0.08);
 }
 
 /* =========================================================
-HEADER
-========================================================= */
-
-.site-header {
-background: rgba(255,255,255,.92);
-border-bottom: 1px solid rgba(215,228,238,.8);
-box-shadow: 0 4px 20px rgba(7,25,54,.035);
-backdrop-filter: blur(18px);
-}
-
-.nav-shell {
-min-height: 78px;
-}
-
-.brand-logo {
-transition: transform .2s ease;
-}
-
-.brand-logo:hover {
-transform: translateY(-1px);
-}
-
-.brand-logo img {
-width: auto;
-max-height: 46px;
-object-fit: contain;
-}
-
-.brand-logo small {
-color: #68798c;
-font-size: 9px;
-letter-spacing: .1em;
-text-transform: uppercase;
-}
-
-.nav-links {
-gap: 5px;
-}
-
-.nav-links a {
-position: relative;
-padding: 10px 13px;
-border-radius: 10px;
-color: #40536b;
-font-size: 12px;
-font-weight: 700;
-transition:
-color .2s ease,
-background .2s ease,
-transform .2s ease;
-}
-
-.nav-links a:hover {
-background: #eef6fb;
-color: #2468e8;
-transform: translateY(-1px);
-}
-
-.nav-links a[aria-current="page"] {
-background: #e8f2ff;
-color: #1550c5;
-}
-
-/* =========================================================
-GENERAL PAGE POLISH
-========================================================= */
-
-.page {
-padding-top: 58px;
-}
-
-.page > h1 {
-max-width: 850px;
-letter-spacing: -.045em;
-}
-
-.page > .lead {
-max-width: 720px;
-margin-bottom: 42px;
-}
-
-.eyebrow {
-color: #2468e8;
-font-size: 10px;
-font-weight: 800;
-letter-spacing: .17em;
-}
-
-/* =========================================================
-FLEET HERO
-========================================================= */
+   FLEET HERO
+   ========================================================= */
 
 .fleet-hero {
-position: relative;
-overflow: hidden;
-padding: 85px 0 70px;
-background:
-radial-gradient(
-circle at 85% 35%,
-rgba(37,184,207,.18),
-transparent 28%
-),
-radial-gradient(
-circle at 10% 80%,
-rgba(36,104,232,.12),
-transparent 32%
-),
-#fff;
-border-bottom: 1px solid #e0ebf2;
+  position: relative;
+  overflow: hidden;
+  padding: 58px 0 46px;
+  background:
+    radial-gradient(circle at 85% 20%, rgba(36, 104, 232, 0.13), transparent 32%),
+    linear-gradient(135deg, #f7fbff 0%, #eef5ff 55%, #ffffff 100%);
+  border-bottom: 1px solid rgba(36, 104, 232, 0.08);
 }
 
 .fleet-hero::after {
-content: "";
-position: absolute;
-right: -120px;
-bottom: -180px;
-width: 480px;
-height: 480px;
-border: 1px solid rgba(36,104,232,.08);
-border-radius: 50%;
-pointer-events: none;
+  content: "";
+  position: absolute;
+  width: 360px;
+  height: 360px;
+  right: -150px;
+  top: -180px;
+  border-radius: 50%;
+  background: rgba(36, 104, 232, 0.055);
+  pointer-events: none;
 }
 
 .fleet-hero-inner {
-position: relative;
-z-index: 1;
+  position: relative;
+  z-index: 1;
 }
 
 .fleet-hero-copy {
-max-width: 780px;
+  max-width: 760px;
+}
+
+.fleet-hero .eyebrow,
+.fleet-section .eyebrow,
+.fleet-cta .eyebrow {
+  margin: 0 0 9px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  color: var(--fleet-blue);
 }
 
 .fleet-hero h1 {
-max-width: 760px;
-margin-bottom: 22px;
-font-size: clamp(2.8rem,6vw,5rem);
+  margin: 0;
+  max-width: 720px;
+  font-size: clamp(2.3rem, 5vw, 4rem);
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+  color: var(--fleet-ink);
 }
 
 .fleet-hero h1 span {
-color: #2468e8;
+  color: var(--fleet-blue);
 }
 
 .fleet-hero .lead {
-max-width: 680px;
-margin-bottom: 35px;
-color: #5b6b80;
-font-size: 1.05rem;
+  max-width: 650px;
+  margin: 18px 0 0;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--fleet-muted);
 }
 
+/* =========================================================
+   HERO STATS
+   ========================================================= */
+
 .fleet-hero-stats {
-display: flex;
-flex-wrap: wrap;
-gap: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 27px;
 }
 
 .fleet-hero-stats > div {
-min-width: 150px;
-padding: 0 28px;
-border-left: 1px solid #d8e4ec;
-}
-
-.fleet-hero-stats > div:first-child {
-padding-left: 0;
-border-left: 0;
+  min-width: 145px;
+  padding: 12px 16px;
+  border: 1px solid var(--fleet-border);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 5px 18px rgba(24, 54, 100, 0.045);
+  backdrop-filter: blur(8px);
 }
 
 .fleet-hero-stats strong {
-display: block;
-color: #082966;
-font-family: "Montserrat", sans-serif;
-font-size: 1rem;
+  display: block;
+  margin-bottom: 2px;
+  font-size: 0.9rem;
+  color: var(--fleet-ink);
 }
 
 .fleet-hero-stats span {
-display: block;
-margin-top: 3px;
-color: #718397;
-font-size: .73rem;
-font-weight: 600;
+  display: block;
+  font-size: 0.74rem;
+  color: var(--fleet-muted);
 }
 
 /* =========================================================
-FLEET SECTION
-========================================================= */
+   FLEET SECTION
+   ========================================================= */
 
 .fleet-section {
-padding: 78px 0 90px;
+  padding: 54px 0 62px;
+  background: #ffffff;
 }
 
 .fleet-section-heading {
-display: flex;
-align-items: end;
-justify-content: space-between;
-gap: 40px;
-margin-bottom: 38px;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 30px;
+  margin-bottom: 25px;
 }
 
 .fleet-section-heading h2 {
-margin: 4px 0 0;
+  margin: 0;
+  font-size: clamp(1.75rem, 3vw, 2.45rem);
+  line-height: 1.05;
+  letter-spacing: -0.035em;
+  color: var(--fleet-ink);
 }
 
 .fleet-section-heading > p {
-max-width: 380px;
-margin: 0;
-color: #68798c;
-font-size: .9rem;
-text-align: right;
+  max-width: 360px;
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--fleet-muted);
+  text-align: right;
 }
 
 /* =========================================================
-FLEET GRID
-========================================================= */
+   AIRCRAFT GRID
+   ========================================================= */
 
-#fleet-list,
 .fleet-grid {
-display: grid;
-grid-template-columns: repeat(2,minmax(0,1fr));
-gap: 28px;
-align-items: stretch;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
 }
 
 /* =========================================================
-FLEET CARDS
-Works with cards generated by main.js
-========================================================= */
+   AIRCRAFT CARDS
+   Works with the cards generated by main.js
+   ========================================================= */
 
-#fleet-list .card {
-position: relative;
-display: flex;
-flex-direction: column;
-min-width: 0;
-min-height: 390px;
-overflow: hidden;
-padding: 0;
-border: 1px solid #d9e5ed;
-border-radius: 20px;
-background: #fff;
-box-shadow: 0 10px 30px rgba(7,25,54,.055);
-transition:
-transform .25s ease,
-box-shadow .25s ease,
-border-color .25s ease;
+.fleet-grid > * {
+  min-width: 0;
 }
 
-#fleet-list .card:hover {
-transform: translateY(-5px);
-border-color: #c5d8e6;
-box-shadow: 0 22px 48px rgba(7,25,54,.11);
+.fleet-grid .feature-card,
+.fleet-grid article,
+.fleet-grid .fleet-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--fleet-border);
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: var(--fleet-shadow);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease;
 }
 
-/* =========================================================
-AIRCRAFT IMAGE AREA
-THIS IS THE MAIN FIX
-========================================================= */
-
-#fleet-list .card > img,
-#fleet-list .card img {
-width: 100%;
-height: 190px;
-max-height: 190px;
-flex: 0 0 190px;
-padding: 20px 28px;
-object-fit: contain;
-object-position: center;
-background:
-radial-gradient(
-ellipse at center,
-#edf6fb 0%,
-#f7fbfd 58%,
-#fff 100%
-);
-border-bottom: 1px solid #e3edf3;
-}
-
-/* Prevent weird intrinsic image sizes */
-#fleet-list img[src*="a220"],
-#fleet-list img[src*="a320"],
-#fleet-list img[src*="a321"],
-#fleet-list img[src*="a330"],
-#fleet-list img[src*="a350"],
-#fleet-list img[src*="a380"],
-#fleet-list img[src*="777"],
-#fleet-list img[src*="atr"] {
-height: 190px;
-max-height: 190px;
-object-fit: contain;
+.fleet-grid .feature-card:hover,
+.fleet-grid article:hover,
+.fleet-grid .fleet-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(36, 104, 232, 0.20);
+  box-shadow: 0 18px 42px rgba(24, 54, 100, 0.12);
 }
 
 /* =========================================================
-FLEET CARD CONTENT
-========================================================= */
+   AIRCRAFT IMAGES
+   ========================================================= */
 
-#fleet-list .card > div,
-#fleet-list .card > section {
-padding-left: 24px;
-padding-right: 24px;
-}
-
-#fleet-list .card h2,
-#fleet-list .card h3,
-#fleet-list .card h4 {
-margin-top: 20px;
-margin-bottom: 7px;
-color: #082966;
-font-size: 1.2rem;
-letter-spacing: -.025em;
-}
-
-#fleet-list .card p {
-color: #66788c;
-font-size: .82rem;
-line-height: 1.55;
-}
-
-/* Aircraft title if main.js puts it directly in card */
-#fleet-list .card > h2,
-#fleet-list .card > h3,
-#fleet-list .card > h4 {
-padding-left: 24px;
-padding-right: 24px;
+.fleet-grid img {
+  display: block;
+  width: 100%;
+  height: 155px;
+  object-fit: contain;
+  padding: 18px 20px 8px;
+  background:
+    radial-gradient(circle at center, rgba(36, 104, 232, 0.07), transparent 65%),
+    linear-gradient(180deg, #f7fbff 0%, #eef5ff 100%);
 }
 
 /* =========================================================
-FLEET DATA / SPECS
-========================================================= */
+   CARD CONTENT
+   ========================================================= */
 
-#fleet-list .card ul {
-display: grid;
-grid-template-columns: repeat(2,minmax(0,1fr));
-gap: 8px 20px;
-margin: 12px 0 22px;
-padding: 0 24px;
-list-style: none;
+.fleet-grid .feature-card > div,
+.fleet-grid article > div,
+.fleet-grid .fleet-card > div {
+  padding: 16px 17px 17px;
 }
 
-#fleet-list .card li {
-padding: 7px 0;
-border-bottom: 1px solid #edf2f5;
-color: #65778a;
-font-size: .72rem;
+.fleet-grid h3 {
+  margin: 0 0 5px;
+  font-size: 1.05rem;
+  line-height: 1.2;
+  color: var(--fleet-ink);
 }
 
-#fleet-list .card strong {
-color: #17314f;
-}
-
-/* =========================================================
-FLEET BADGES
-========================================================= */
-
-#fleet-list .badge {
-margin: 17px 24px 0;
-align-self: flex-start;
-background: #edf5ff;
-color: #1550c5;
-font-size: 9px;
-letter-spacing: .04em;
+.fleet-grid p {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: var(--fleet-muted);
 }
 
 /* =========================================================
-FLEET BUTTONS
-========================================================= */
+   FLEET META
+   ========================================================= */
 
-#fleet-list .card .button,
-#fleet-list .card button {
-margin: auto 24px 24px;
-align-self: flex-start;
-padding: 10px 16px;
-border-radius: 9px;
-font-size: .75rem;
+.fleet-grid .fleet-meta,
+.fleet-grid .card-meta,
+.fleet-grid .feature-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 13px;
+}
+
+.fleet-grid .fleet-meta span,
+.fleet-grid .card-meta span,
+.fleet-grid .feature-meta span {
+  padding: 5px 8px;
+  border-radius: 7px;
+  background: #f2f6fc;
+  color: #45566f;
+  font-size: 0.68rem;
+  font-weight: 700;
 }
 
 /* =========================================================
-A220 SPECIAL BALANCE
-========================================================= */
+   BUTTONS INSIDE FLEET CARDS
+   ========================================================= */
 
-#fleet-list .card img[src*="a220"] {
-padding-left: 45px;
-padding-right: 45px;
+.fleet-grid .button,
+.fleet-grid a.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  padding: 7px 12px;
+  border-radius: 8px;
+  font-size: 0.74rem;
+  font-weight: 750;
 }
 
 /* =========================================================
-FLEET CTA
-========================================================= */
+   CLOSING CTA
+   ========================================================= */
 
 .fleet-cta {
-padding: 70px 0;
-background:
-linear-gradient(
-135deg,
-#071936 0%,
-#082966 65%,
-#1550c5 100%
-);
-color: white;
+  padding: 38px 0;
+  background:
+    linear-gradient(135deg, #f4f8ff 0%, #edf4ff 100%);
+  border-top: 1px solid rgba(36, 104, 232, 0.08);
 }
 
 .fleet-cta-inner {
-display: flex;
-align-items: center;
-justify-content: space-between;
-gap: 40px;
-}
-
-.fleet-cta .eyebrow {
-color: #8ec8ff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
 }
 
 .fleet-cta h2 {
-margin-bottom: 10px;
-color: white;
+  margin: 0;
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  color: var(--fleet-ink);
 }
 
 .fleet-cta p:not(.eyebrow) {
-max-width: 600px;
-margin: 0;
-color: rgba(255,255,255,.7);
+  max-width: 550px;
+  margin: 8px 0 0;
+  font-size: 0.86rem;
+  line-height: 1.55;
+  color: var(--fleet-muted);
 }
 
 .fleet-cta .button {
-flex-shrink: 0;
-background: white;
-color: #1550c5;
-box-shadow: 0 10px 25px rgba(0,0,0,.16);
-}
-
-.fleet-cta .button:hover {
-background: #f1f7ff;
+  flex: 0 0 auto;
+  min-height: 42px;
+  padding: 10px 19px;
+  border-radius: 9px;
+  font-size: 0.82rem;
 }
 
 /* =========================================================
-GENERAL PANELS
-========================================================= */
+   LOADING STATE
+   ========================================================= */
 
-.tool-panel,
-.confirmation-panel,
-.booking-section {
-border: 1px solid rgba(207,222,234,.95);
-border-radius: 20px;
-background: rgba(255,255,255,.94);
-box-shadow: 0 18px 45px rgba(7,25,54,.065);
+#fleet-list[aria-live="polite"] {
+  min-height: 80px;
 }
 
 /* =========================================================
-FLIGHT CARDS
-========================================================= */
+   RESPONSIVE
+   ========================================================= */
 
-.flight-card {
-border-radius: 17px;
-border-color: #d6e3eb;
-box-shadow: 0 7px 24px rgba(7,25,54,.045);
+@media (max-width: 900px) {
+  .fleet-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .fleet-section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .fleet-section-heading > p {
+    text-align: left;
+  }
 }
 
-.flight-card:hover {
-box-shadow: 0 15px 35px rgba(7,25,54,.085);
-}
+@media (max-width: 620px) {
+  .fleet-hero {
+    padding: 42px 0 36px;
+  }
 
-/* =========================================================
-SEAT MAP POLISH
-========================================================= */
+  .fleet-hero h1 {
+    font-size: 2.35rem;
+  }
 
-.seat-map {
-border: 1px solid #dce7ee;
-background:
-linear-gradient(
-90deg,
-rgba(238,246,251,.8),
-rgba(255,255,255,.98),
-rgba(238,246,251,.8)
-);
-}
+  .fleet-hero .lead {
+    font-size: 0.9rem;
+  }
 
-/* =========================================================
-FOOTER
-========================================================= */
+  .fleet-hero-stats {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
 
-.site-footer {
-margin-top: 0;
-border-top: 1px solid #d9e5ed;
-background: #f8fbfd;
-}
+  .fleet-hero-stats > div {
+    min-width: 0;
+  }
 
-.footer-grid {
-min-height: 100px;
-color: #687b8f;
-}
+  .fleet-section {
+    padding: 42px 0 48px;
+  }
 
-.footer-grid strong {
-color: #082966;
-}
+  .fleet-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
 
-/* =========================================================
-RESPONSIVE — TABLET
-========================================================= */
+  .fleet-grid img {
+    height: 145px;
+  }
 
-@media (max-width:900px) {
+  .fleet-cta-inner {
+    align-items: flex-start;
+    flex-direction: column;
+  }
 
-#fleet-list,
-.fleet-grid {
-grid-template-columns: 1fr;
-}
-
-#fleet-list .card {
-min-height: 0;
-}
-
-.fleet-section-heading {
-align-items: flex-start;
-flex-direction: column;
-gap: 12px;
-}
-
-.fleet-section-heading > p {
-text-align: left;
-}
-
-.fleet-cta-inner {
-align-items: flex-start;
-flex-direction: column;
-}
-}
-
-/* =========================================================
-RESPONSIVE — MOBILE
-========================================================= */
-
-@media (max-width:700px) {
-
-.fleet-hero {
-padding: 60px 0 55px;
-}
-
-.fleet-hero h1 {
-font-size: clamp(2.45rem,11vw,4rem);
-}
-
-.fleet-hero-stats {
-display: grid;
-grid-template-columns: repeat(3,1fr);
-}
-
-.fleet-hero-stats > div {
-min-width: 0;
-padding: 0 12px;
-}
-
-.fleet-hero-stats > div:first-child {
-padding-left: 0;
-}
-
-.fleet-section {
-padding: 55px 0 65px;
-}
-
-#fleet-list .card > img,
-#fleet-list .card img {
-height: 165px;
-max-height: 165px;
-flex-basis: 165px;
-padding: 18px 24px;
-}
-
-#fleet-list .card img[src*="a220"] {
-padding-left: 30px;
-padding-right: 30px;
-}
-
-#fleet-list .card h2,
-#fleet-list .card h3,
-#fleet-list .card h4 {
-font-size: 1.08rem;
-}
-
-#fleet-list .card ul {
-grid-template-columns: 1fr 1fr;
-}
-
-.fleet-cta {
-padding: 55px 0;
-}
-}
-
-/* =========================================================
-RESPONSIVE — SMALL MOBILE
-========================================================= */
-
-@media (max-width:480px) {
-
-.fleet-hero-stats {
-grid-template-columns: 1fr;
-gap: 15px;
-}
-
-.fleet-hero-stats > div,
-.fleet-hero-stats > div:first-child {
-padding: 0;
-padding-left: 13px;
-border-left: 2px solid #d9e7f0;
-}
-
-#fleet-list .card > img,
-#fleet-list .card img {
-height: 145px;
-max-height: 145px;
-flex-basis: 145px;
-padding: 15px 20px;
-}
-
-#fleet-list .card ul {
-grid-template-columns: 1fr;
-}
-
-#fleet-list .card .button,
-#fleet-list .card button {
-width: calc(100% - 48px);
-text-align: center;
-}
+  .fleet-cta .button {
+    width: 100%;
+  }
 }
