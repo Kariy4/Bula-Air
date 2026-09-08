@@ -1,1085 +1,1663 @@
-(() => {
-  "use strict";
+```javascript
+"use strict";
 
-  const ROUTES_URL = "../data/routes.json";
-  const FLEET_URL = "../data/fleet.json";
+/*
+ * ============================================================
+ * BULA AIR BOOKING SYSTEM
+ * ============================================================
+ *
+ * Booking flow:
+ *
+ * 1. Aircraft
+ * 2. Route
+ * 3. Date
+ * 4. Fare
+ * 5. Passenger / Family Details
+ * 6. Confirmation
+ *
+ * Data:
+ *   ../data/fleet.json
+ *   ../data/routes.json
+ * ============================================================
+ */
 
-  let flights = [];
-  let fleet = [];
 
-  let selectedAircraft = null;
-  let selectedRoute = null;
-  let selectedDate = null;
+const ROUTES_URL = "../data/routes.json";
+const FLEET_URL = "../data/fleet.json";
 
-  const $ = (selector) => document.querySelector(selector);
 
-  const elements = {
-    status: $("#booking-status"),
+/* ============================================================
+   STATE
+============================================================ */
 
-    aircraftGrid: $("#aircraft-grid"),
-    routeGrid: $("#route-grid"),
+const state = {
+  fleet: [],
+  routes: [],
 
-    routeDescription: $("#route-description"),
-    dateDescription: $("#date-description"),
+  aircraft: null,
+  flight: null,
+  travelDate: null,
 
-    travelDate: $("#travel-date"),
+  passengers: 1,
+  cabin: "economy",
 
-    farePassengerCount: $("#fare-passenger-count"),
-    fareCabin: $("#fare-cabin"),
+  booking: null
+};
 
-    fareRouteTitle: $("#fare-route-title"),
-    fareAircraft: $("#fare-aircraft"),
-    fareDeparture: $("#fare-departure"),
-    fareArrival: $("#fare-arrival"),
-    fareDate: $("#fare-date"),
-    fareCabinDisplay: $("#fare-cabin"),
-    farePassengers: $("#fare-passengers"),
-    fareBase: $("#fare-base"),
-    fareTotal: $("#fare-total"),
 
-    passengerForm: $("#passenger-form"),
+/* ============================================================
+   DOM HELPERS
+============================================================ */
 
-    familyName: $("#family-name"),
-    email: $("#contact-email"),
-    phone: $("#contact-phone"),
+const $ = (selector) => document.querySelector(selector);
 
-    successReference: $("#success-reference"),
-    successName: $("#success-name"),
-    successFlight: $("#success-flight"),
-    successAircraft: $("#success-aircraft"),
-    successRoute: $("#success-route"),
-    successDate: $("#success-date"),
-    successCabin: $("#success-cabin"),
-    successPassengers: $("#success-passengers"),
-    successTotal: $("#success-total")
+
+const elements = {
+  status: $("#booking-status"),
+
+  aircraftGrid: $("#aircraft-grid"),
+  routeGrid: $("#route-grid"),
+
+  routeDescription: $("#route-description"),
+  dateDescription: $("#date-description"),
+  travelDate: $("#travel-date"),
+
+  farePassengerCount: $("#fare-passenger-count"),
+  fareCabin: $("#fare-cabin"),
+
+  fareRouteTitle: $("#fare-route-title"),
+  fareAircraft: $("#fare-aircraft"),
+  fareDeparture: $("#fare-departure"),
+  fareArrival: $("#fare-arrival"),
+  fareDate: $("#fare-date"),
+  fareCabinDisplay: $("#fare-cabin-display"),
+  farePassengers: $("#fare-passengers"),
+  fareBase: $("#fare-base"),
+  fareTotal: $("#fare-total"),
+
+  passengerForm: $("#passenger-form"),
+  familyName: $("#family-name"),
+  contactEmail: $("#contact-email"),
+  contactPhone: $("#contact-phone"),
+
+  successReference: $("#success-reference"),
+  successName: $("#success-name"),
+  successFlight: $("#success-flight"),
+  successAircraft: $("#success-aircraft"),
+  successRoute: $("#success-route"),
+  successDate: $("#success-date"),
+  successCabin: $("#success-cabin"),
+  successPassengers: $("#success-passengers"),
+  successTotal: $("#success-total"),
+
+  backAircraft: $("#back-aircraft"),
+  backRoute: $("#back-route"),
+  backDate: $("#back-date"),
+  backFare: $("#back-fare"),
+
+  continueDate: $("#continue-date"),
+  continueDetails: $("#continue-details")
+};
+
+
+/* ============================================================
+   STATUS
+============================================================ */
+
+function setStatus(message = "", type = "normal") {
+  if (!elements.status) return;
+
+  elements.status.textContent = message;
+  elements.status.hidden = !message;
+
+  elements.status.classList.toggle(
+    "error",
+    type === "error"
+  );
+}
+
+
+/* ============================================================
+   AIRCRAFT NORMALISATION
+============================================================ */
+
+function normaliseAircraft(value) {
+  if (!value) return "";
+
+  const raw = String(value).trim();
+
+  const aliases = {
+    "A220-300": "Airbus A220-300",
+    "Airbus A220-300": "Airbus A220-300",
+
+    "A320neo": "Airbus A320neo",
+    "Airbus A320neo": "Airbus A320neo",
+
+    "A321neo": "Airbus A321neo",
+    "Airbus A321neo": "Airbus A321neo",
+
+    "A321-200": "Airbus A321-200",
+    "Airbus A321-200": "Airbus A321-200",
+
+    "A321XLR": "Airbus A321XLR",
+    "Airbus A321XLR": "Airbus A321XLR",
+
+    "A330neo": "Airbus A330-900",
+    "A330-900neo": "Airbus A330-900",
+    "A330-900": "Airbus A330-900",
+    "Airbus A330-900": "Airbus A330-900",
+
+    "A350-900": "Airbus A350-900",
+    "Airbus A350-900": "Airbus A350-900",
+
+    "A350-1000": "Airbus A350-1000",
+    "Airbus A350-1000": "Airbus A350-1000",
+
+    "A350-1000ULR": "Airbus A350-1000ULR",
+    "Airbus A350-1000ULR": "Airbus A350-1000ULR",
+
+    "A380": "Airbus A380-800",
+    "A380-800": "Airbus A380-800",
+    "Airbus A380-800": "Airbus A380-800",
+
+    "777-9": "Boeing 777-9",
+    "Boeing 777-9": "Boeing 777-9",
+    "777X": "Boeing 777-9",
+    "Boeing 777X": "Boeing 777-9",
+
+    "ATR72": "ATR 72-600",
+    "ATR72-600": "ATR 72-600",
+    "ATR 72-600": "ATR 72-600"
   };
 
-  /*
-   * =========================================================
-   * AIRCRAFT NORMALISATION
-   * =========================================================
-   */
+  return aliases[raw] || raw;
+}
 
-  function normaliseAircraft(value) {
-    if (!value) return "Unknown aircraft";
 
-    const text = String(value)
-      .replace(/\s+/g, " ")
-      .trim();
+/* ============================================================
+   ROUTE AIRCRAFT DETECTION
+============================================================ */
 
-    const aliases = {
-      "A220-300": "Airbus A220-300",
-      "Airbus A220": "Airbus A220-300",
-
-      "A320neo": "Airbus A320neo",
-      "A320-200neo": "Airbus A320neo",
-
-      "A321neo": "Airbus A321neo",
-      "A321-200neo": "Airbus A321neo",
-
-      "A321-200": "Airbus A321-200",
-
-      "A330neo": "Airbus A330-900",
-      "A330-900neo": "Airbus A330-900",
-      "A330-900": "Airbus A330-900",
-
-      "A350-900": "Airbus A350-900",
-      "A350-1000": "Airbus A350-1000",
-      "A350-1000ULR": "Airbus A350-1000ULR",
-
-      "A380": "Airbus A380-800",
-      "A380-800": "Airbus A380-800",
-
-      "777-9": "Boeing 777-9",
-      "Boeing 777X": "Boeing 777-9",
-
-      "ATR72": "ATR 72-600",
-      "ATR 72": "ATR 72-600",
-      "ATR 72-600": "ATR 72-600"
-    };
-
-    return aliases[text] || text;
+function findAircraftIndex(raw) {
+  if (!Array.isArray(raw)) {
+    return -1;
   }
 
-  /*
-   * =========================================================
-   * NORMALISE FLIGHTS
-   * =========================================================
-   */
+  for (let i = 0; i < raw.length; i++) {
+    const value = raw[i];
 
-  function normaliseFlight(raw, index) {
-    if (Array.isArray(raw)) {
-      const [
-        flightNumber,
-        origin,
-        destination,
-        departure,
-        arrival,
-        arrivalDayOffset,
-        duration,
-        days,
-        aircraft,
-        fare
-      ] = raw;
-
-      return {
-        id: `${String(flightNumber || "flight")
-          .replace(/\s+/g, "-")}-${index}`,
-
-        flightNumber: String(
-          flightNumber || `BLPX1 ${1000 + index}`
-        ),
-
-        origin: String(origin || "").toUpperCase(),
-
-        destination: String(destination || "").toUpperCase(),
-
-        departure: String(departure || ""),
-
-        arrival: String(arrival || ""),
-
-        arrivalDayOffset: Number(arrivalDayOffset || 0),
-
-        duration: String(duration || ""),
-
-        days: String(days || "MTWTFSS"),
-
-        aircraft: normaliseAircraft(aircraft),
-
-        fare: Number(fare) || 0
-      };
+    if (typeof value !== "string") {
+      continue;
     }
 
-    return {
-      id: `${String(raw.flightNumber || raw.id || "flight")
-        .replace(/\s+/g, "-")}-${index}`,
+    const aircraft = normaliseAircraft(value);
 
-      flightNumber: String(
-        raw.flightNumber ||
-        raw.flight_number ||
-        raw.number ||
-        raw.code ||
-        raw.id ||
-        `BLPX1 ${1000 + index}`
-      ),
+    const looksLikeAircraft =
+      aircraft.startsWith("Airbus ") ||
+      aircraft.startsWith("Boeing ") ||
+      aircraft.startsWith("ATR ");
 
-      origin: String(
-        raw.origin ||
-        raw.from ||
-        raw.departureAirport ||
-        ""
-      ).toUpperCase(),
+    if (looksLikeAircraft) {
+      return i;
+    }
+  }
 
-      destination: String(
-        raw.destination ||
-        raw.to ||
-        raw.arrivalAirport ||
-        ""
-      ).toUpperCase(),
+  return -1;
+}
 
-      departure: String(
-        raw.departure ||
-        raw.departureTime ||
-        raw.departure_time ||
-        ""
-      ),
 
-      arrival: String(
-        raw.arrival ||
-        raw.arrivalTime ||
-        raw.arrival_time ||
-        ""
-      ),
+/* ============================================================
+   ROUTE NORMALISATION
+============================================================ */
 
-      arrivalDayOffset: Number(
-        raw.arrivalDayOffset ??
-        raw.arrival_day_offset ??
-        raw.dayOffset ??
-        0
-      ),
+function normaliseFlight(raw) {
+  if (!Array.isArray(raw) || raw.length < 8) {
+    return null;
+  }
 
-      duration: String(
-        raw.duration ||
-        raw.flightDuration ||
-        ""
-      ),
+  const flightNumber = raw[0];
+  const origin = raw[1];
+  const destination = raw[2];
+  const departure = raw[3];
+  const arrival = raw[4];
 
-      days: String(
-        raw.days ||
-        raw.operatingDays ||
-        "MTWTFSS"
-      ),
+  const arrivalDayOffset =
+    Number.isFinite(Number(raw[5]))
+      ? Number(raw[5])
+      : 0;
 
-      aircraft: normaliseAircraft(
-        raw.aircraft ||
-        raw.aircraftType ||
-        raw.aircraft_type ||
-        ""
-      ),
+  const duration = raw[6];
 
-      fare: Number(
-        raw.fare ??
-        raw.price ??
-        raw.baseFare ??
-        raw.base_fare ??
-        raw.amount ??
-        0
+  const aircraftIndex = findAircraftIndex(raw);
+
+  if (aircraftIndex === -1) {
+    return null;
+  }
+
+  const aircraft =
+    normaliseAircraft(raw[aircraftIndex]);
+
+
+  /*
+   * Everything after the aircraft can be:
+   *
+   * days
+   * fare
+   *
+   * Some of your route entries have the days field missing.
+   * This parser handles both formats.
+   */
+
+  const remaining =
+    raw.slice(aircraftIndex + 1);
+
+  let days = "";
+  let fare = null;
+
+  for (const value of remaining) {
+
+    if (
+      typeof value === "number" ||
+      (
+        typeof value === "string" &&
+        value.trim() !== "" &&
+        !Number.isNaN(Number(value))
       )
-    };
-  }
+    ) {
+      fare = Number(value);
+    }
 
-  /*
-   * =========================================================
-   * LOAD DATA
-   * =========================================================
-   */
-
-  async function loadData() {
-    setStatus("Loading Bula Air booking system...");
-
-    try {
-      const [fleetResponse, routesResponse] = await Promise.all([
-        fetch(`${FLEET_URL}?v=${Date.now()}`),
-        fetch(`${ROUTES_URL}?v=${Date.now()}`)
-      ]);
-
-      if (!fleetResponse.ok) {
-        throw new Error(`fleet.json returned ${fleetResponse.status}`);
-      }
-
-      if (!routesResponse.ok) {
-        throw new Error(`routes.json returned ${routesResponse.status}`);
-      }
-
-      const fleetData = await fleetResponse.json();
-      const routesData = await routesResponse.json();
-
-      fleet = Array.isArray(fleetData)
-        ? fleetData
-        : fleetData.fleet || [];
-
-      let rawFlights = routesData;
-
-      if (Array.isArray(routesData.routes)) {
-        rawFlights = routesData.routes;
-      } else if (Array.isArray(routesData.flights)) {
-        rawFlights = routesData.flights;
-      } else if (Array.isArray(routesData.schedule)) {
-        rawFlights = routesData.schedule;
-      }
-
-      if (!Array.isArray(rawFlights)) {
-        throw new Error("routes.json does not contain a valid flight array.");
-      }
-
-      flights = rawFlights
-        .map(normaliseFlight)
-        .filter((flight) => {
-          return (
-            flight.origin &&
-            flight.destination &&
-            flight.departure &&
-            flight.arrival
-          );
-        });
-
-      renderAircraft();
-
-      clearStatus();
-
-      console.log(
-        `Bula Air booking: loaded ${fleet.length} aircraft types and ${flights.length} flights.`
-      );
-
-    } catch (error) {
-      console.error("Bula Air booking error:", error);
-
-      setStatus(
-        "Unable to load the Bula Air booking data. Check fleet.json and routes.json.",
-        true
-      );
+    else if (
+      typeof value === "string" &&
+      value.trim() !== ""
+    ) {
+      days = value.trim();
     }
   }
 
-  /*
-   * =========================================================
-   * STEP MANAGEMENT
-   * =========================================================
-   */
-
-  function showStep(step) {
-    document
-      .querySelectorAll(".booking-step")
-      .forEach((section) => {
-        section.classList.remove("active");
-      });
-
-    const target = $(`#step-${step}`);
-
-    if (target) {
-      target.classList.add("active");
-    }
-
-    updateProgress(step);
-
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-  }
-
-  function updateProgress(step) {
-    const stepMap = {
-      aircraft: 1,
-      route: 2,
-      date: 3,
-      fare: 4,
-      details: 5,
-      success: 5
-    };
-
-    const current = stepMap[step] || 1;
-
-    document
-      .querySelectorAll(".progress-item")
-      .forEach((item) => {
-        const number = Number(item.dataset.progress);
-
-        item.classList.remove("active", "complete");
-
-        if (number === current) {
-          item.classList.add("active");
-        }
-
-        if (number < current) {
-          item.classList.add("complete");
-        }
-      });
-  }
 
   /*
-   * =========================================================
-   * STEP 1 — AIRCRAFT
-   * =========================================================
+   * If days were omitted, assume daily operation.
    */
 
-  function renderAircraft() {
-    elements.aircraftGrid.innerHTML = "";
-
-    const usableFleet = fleet.filter(
-      (aircraft) => Number(aircraft.fleetCount || 0) > 0
-    );
-
-    usableFleet.forEach((aircraft) => {
-      const name = normaliseAircraft(
-        aircraft.model || aircraft.id
-      );
-
-      const card = document.createElement("article");
-
-      card.className = "aircraft-card";
-
-      card.innerHTML = `
-        <div class="aircraft-image">
-          <img
-            src="${escapeHtml(aircraft.image || "")}"
-            alt="${escapeHtml(name)}"
-            onerror="this.style.display='none'"
-          >
-        </div>
-
-        <div class="aircraft-info">
-
-          <h3>${escapeHtml(name)}</h3>
-
-          <p>
-            ${escapeHtml(
-              aircraft.notes ||
-              aircraft.type ||
-              "Bula Air aircraft"
-            )}
-          </p>
-
-          <div class="aircraft-meta">
-
-            <span class="booking-pill">
-              ${Number(aircraft.capacity || 0)} seats
-            </span>
-
-            <span class="booking-pill">
-              ${Number(aircraft.range || 0).toLocaleString()} km
-            </span>
-
-            <span class="booking-pill">
-              ${Number(aircraft.fleetCount || 0)} aircraft
-            </span>
-
-          </div>
-
-        </div>
-      `;
-
-      card.addEventListener("click", () => {
-        chooseAircraft(aircraft);
-      });
-
-      elements.aircraftGrid.appendChild(card);
-    });
+  if (!days) {
+    days = "MTWTFSS";
   }
 
-  function chooseAircraft(aircraft) {
-    selectedAircraft = aircraft;
 
-    document
-      .querySelectorAll(".aircraft-card")
-      .forEach((card) => {
-        card.classList.remove("selected");
-      });
-
-    const matchingName = normaliseAircraft(
-      aircraft.model || aircraft.id
-    );
-
-    const cards = [
-      ...document.querySelectorAll(".aircraft-card")
-    ];
-
-    const selectedCard = cards.find((card) =>
-      card.querySelector("h3")?.textContent === matchingName
-    );
-
-    if (selectedCard) {
-      selectedCard.classList.add("selected");
-    }
-
-    renderRoutesForAircraft();
-
-    showStep("route");
+  if (
+    !flightNumber ||
+    !origin ||
+    !destination ||
+    !departure ||
+    !arrival
+  ) {
+    return null;
   }
 
-  /*
-   * =========================================================
-   * STEP 2 — ROUTES
-   * =========================================================
-   */
 
-  function renderRoutesForAircraft() {
-    elements.routeGrid.innerHTML = "";
+  if (!Number.isFinite(fare)) {
+    return null;
+  }
 
-    if (!selectedAircraft) {
-      return;
-    }
 
-    const aircraftName = normaliseAircraft(
-      selectedAircraft.model ||
-      selectedAircraft.id
-    );
+  return {
+    flightNumber: String(flightNumber),
+    origin: String(origin).toUpperCase(),
+    destination: String(destination).toUpperCase(),
+    departure: String(departure),
+    arrival: String(arrival),
 
-    const matchingFlights = flights
-      .filter((flight) => {
-        return normaliseAircraft(flight.aircraft) === aircraftName;
+    arrivalDayOffset,
+
+    duration:
+      duration
+        ? String(duration)
+        : "",
+
+    days,
+
+    aircraft,
+
+    fare
+  };
+}
+
+
+/* ============================================================
+   LOAD DATA
+============================================================ */
+
+async function loadData() {
+
+  setStatus("Loading Bula Air booking data...");
+
+  try {
+
+    const [
+      fleetResponse,
+      routesResponse
+    ] = await Promise.all([
+
+      fetch(`${FLEET_URL}?v=${Date.now()}`, {
+        cache: "no-store"
+      }),
+
+      fetch(`${ROUTES_URL}?v=${Date.now()}`, {
+        cache: "no-store"
       })
-      .sort((a, b) => {
-        if (a.origin !== b.origin) {
-          return a.origin.localeCompare(b.origin);
-        }
 
-        if (a.destination !== b.destination) {
-          return a.destination.localeCompare(b.destination);
-        }
+    ]);
 
-        return a.departure.localeCompare(b.departure);
-      });
+
+    if (!fleetResponse.ok) {
+      throw new Error(
+        `fleet.json returned HTTP ${fleetResponse.status}`
+      );
+    }
+
+
+    if (!routesResponse.ok) {
+      throw new Error(
+        `routes.json returned HTTP ${routesResponse.status}`
+      );
+    }
+
+
+    const fleetData =
+      await fleetResponse.json();
+
+    const routesData =
+      await routesResponse.json();
+
+
+    if (!Array.isArray(fleetData)) {
+      throw new Error(
+        "fleet.json is not an array."
+      );
+    }
+
+
+    if (!Array.isArray(routesData)) {
+      throw new Error(
+        "routes.json is not an array."
+      );
+    }
+
+
+    state.fleet = fleetData
+      .map(normaliseFleetAircraft)
+      .filter(Boolean);
+
+
+    state.routes = routesData
+      .map(normaliseFlight)
+      .filter(Boolean);
+
+
+    if (!state.fleet.length) {
+      throw new Error(
+        "fleet.json contains no usable aircraft."
+      );
+    }
+
+
+    if (!state.routes.length) {
+      throw new Error(
+        "routes.json contains no usable routes."
+      );
+    }
+
+
+    renderAircraft();
+
+    setStatus("");
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "Bula Air booking error:",
+      error
+    );
+
+
+    setStatus(
+      `Booking data could not be loaded. ${error.message}`,
+      "error"
+    );
+
+  }
+}
+
+
+/* ============================================================
+   FLEET NORMALISATION
+============================================================ */
+
+function normaliseFleetAircraft(raw) {
+
+  if (!raw || typeof raw !== "object") {
+    return null;
+  }
+
+  const model =
+    normaliseAircraft(
+      raw.model ||
+      raw.aircraft ||
+      raw.name ||
+      raw.type
+    );
+
+
+  if (!model) {
+    return null;
+  }
+
+
+  return {
+    ...raw,
+
+    model,
+
+    fleetCount:
+      Number(raw.fleetCount) || 0,
+
+    capacity:
+      Number(raw.capacity) || 0,
+
+    range:
+      Number(raw.range) || 0,
+
+    image:
+      raw.image || ""
+  };
+}
+
+
+/* ============================================================
+   STEP CONTROL
+============================================================ */
+
+function showStep(name) {
+
+  document
+    .querySelectorAll(".booking-step")
+    .forEach((step) => {
+
+      step.classList.remove("active");
+
+    });
+
+
+  const target =
+    document.querySelector(`#step-${name}`);
+
+
+  if (target) {
+    target.classList.add("active");
+  }
+
+
+  updateProgress(name);
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
+
+/* ============================================================
+   PROGRESS
+============================================================ */
+
+function updateProgress(stepName) {
+
+  const stepNumbers = {
+    aircraft: 1,
+    route: 2,
+    date: 3,
+    fare: 4,
+    details: 5,
+    success: 5
+  };
+
+
+  const current =
+    stepNumbers[stepName] || 1;
+
+
+  document
+    .querySelectorAll(".progress-item")
+    .forEach((item) => {
+
+      const number =
+        Number(item.dataset.progress);
+
+      item.classList.remove(
+        "active",
+        "complete"
+      );
+
+
+      if (number === current) {
+        item.classList.add("active");
+      }
+
+      else if (number < current) {
+        item.classList.add("complete");
+      }
+
+    });
+}
+
+
+/* ============================================================
+   AIRCRAFT RENDERING
+============================================================ */
+
+function renderAircraft() {
+
+  if (!elements.aircraftGrid) {
+    throw new Error(
+      "booking.html is missing #aircraft-grid."
+    );
+  }
+
+
+  elements.aircraftGrid.innerHTML = "";
+
+
+  state.fleet.forEach((aircraft) => {
+
+    const card =
+      document.createElement("article");
+
+    card.className = "aircraft-card";
+
+
+    const image =
+      aircraft.image
+        ? `
+          <div class="aircraft-image">
+            <img
+              src="${escapeAttribute(aircraft.image)}"
+              alt="${escapeAttribute(aircraft.model)}"
+              loading="lazy"
+            >
+          </div>
+        `
+        : `
+          <div class="aircraft-image">
+            <strong>${escapeHtml(aircraft.model)}</strong>
+          </div>
+        `;
+
+
+    card.innerHTML = `
+
+      ${image}
+
+      <div class="aircraft-info">
+
+        <h3>
+          ${escapeHtml(aircraft.model)}
+        </h3>
+
+        <p>
+          Bula Air fleet aircraft
+        </p>
+
+        <div class="aircraft-meta">
+
+          <span class="booking-pill">
+            ${aircraft.capacity || "—"} seats
+          </span>
+
+          <span class="booking-pill">
+            ${aircraft.range
+              ? `${aircraft.range.toLocaleString()} km range`
+              : "Range unavailable"}
+          </span>
+
+          <span class="booking-pill">
+            ${aircraft.fleetCount || "—"} aircraft
+          </span>
+
+        </div>
+
+      </div>
+    `;
+
+
+    card.addEventListener(
+      "click",
+      () => selectAircraft(aircraft, card)
+    );
+
+
+    elements.aircraftGrid.appendChild(card);
+
+  });
+}
+
+
+/* ============================================================
+   SELECT AIRCRAFT
+============================================================ */
+
+function selectAircraft(aircraft, card) {
+
+  state.aircraft = aircraft;
+  state.flight = null;
+  state.travelDate = null;
+
+
+  document
+    .querySelectorAll(".aircraft-card")
+    .forEach((item) => {
+
+      item.classList.remove("selected");
+
+    });
+
+
+  card.classList.add("selected");
+
+
+  renderRoutes();
+
+
+  showStep("route");
+}
+
+
+/* ============================================================
+   ROUTES FOR AIRCRAFT
+============================================================ */
+
+function getRoutesForAircraft() {
+
+  if (!state.aircraft) {
+    return [];
+  }
+
+
+  const selected =
+    normaliseAircraft(
+      state.aircraft.model
+    );
+
+
+  return state.routes.filter((route) => {
+
+    return normaliseAircraft(route.aircraft) === selected;
+
+  });
+}
+
+
+/* ============================================================
+   ROUTE RENDERING
+============================================================ */
+
+function renderRoutes() {
+
+  if (!elements.routeGrid) {
+    throw new Error(
+      "booking.html is missing #route-grid."
+    );
+  }
+
+
+  const routes =
+    getRoutesForAircraft();
+
+
+  elements.routeGrid.innerHTML = "";
+
+
+  if (elements.routeDescription) {
 
     elements.routeDescription.textContent =
-      `${matchingFlights.length} scheduled service${
-        matchingFlights.length === 1 ? "" : "s"
-      } operated by ${aircraftName}.`;
+      `${routes.length} route${routes.length === 1 ? "" : "s"} operated by ${state.aircraft.model}.`;
 
-    if (!matchingFlights.length) {
-      elements.routeGrid.innerHTML = `
-        <div class="booking-status error">
-          No scheduled routes currently use the ${escapeHtml(
-            aircraftName
-          )}.
-        </div>
-      `;
-
-      return;
-    }
-
-    matchingFlights.forEach((flight) => {
-      const card = document.createElement("article");
-
-      card.className = "route-card";
-
-      card.innerHTML = `
-        <div>
-
-          <div class="route-flight-number">
-            ${escapeHtml(flight.flightNumber)}
-          </div>
-
-          <div class="route-main">
-
-            <div>
-              <div class="airport-code">
-                ${escapeHtml(flight.origin)}
-              </div>
-
-              <div class="route-time">
-                ${escapeHtml(flight.departure)}
-              </div>
-            </div>
-
-            <div class="route-arrow">
-              →
-            </div>
-
-            <div>
-              <div class="airport-code">
-                ${escapeHtml(flight.destination)}
-              </div>
-
-              <div class="route-time">
-                ${escapeHtml(flight.arrival)}
-                ${
-                  flight.arrivalDayOffset > 0
-                    ? ` +${flight.arrivalDayOffset}`
-                    : ""
-                }
-              </div>
-            </div>
-
-          </div>
-
-          <div class="route-details">
-
-            <span class="booking-pill">
-              ${escapeHtml(flight.duration)}
-            </span>
-
-            <span class="booking-pill">
-              ${flight.days === "MTWTFSS" ? "Daily" : escapeHtml(flight.days)}
-            </span>
-
-          </div>
-
-        </div>
-
-        <div class="route-price">
-
-          <small>Economy from</small>
-
-          <strong>
-            ${formatMoney(flight.fare)}
-          </strong>
-
-          <button
-            type="button"
-            class="button button-primary"
-          >
-            Choose
-          </button>
-
-        </div>
-      `;
-
-      card.addEventListener("click", () => {
-        chooseRoute(flight);
-      });
-
-      elements.routeGrid.appendChild(card);
-    });
   }
 
-  function chooseRoute(flight) {
-    selectedRoute = flight;
 
-    document
-      .querySelectorAll(".route-card")
-      .forEach((card) => {
-        card.classList.remove("selected");
-      });
+  if (!routes.length) {
 
-    const cards = [
-      ...document.querySelectorAll(".route-card")
-    ];
+    elements.routeGrid.innerHTML = `
 
-    const selectedCard = cards.find((card) =>
-      card.querySelector(".route-flight-number")?.textContent.trim() ===
-      flight.flightNumber
+      <div class="booking-empty">
+
+        <strong>
+          No routes currently available
+        </strong>
+
+        <p>
+          Bula Air does not currently have a route
+          assigned to this aircraft in routes.json.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+  }
+
+
+  routes.forEach((route) => {
+
+    const card =
+      document.createElement("article");
+
+    card.className = "route-card";
+
+
+    card.innerHTML = `
+
+      <div>
+
+        <div class="route-flight-number">
+          ${escapeHtml(route.flightNumber)}
+        </div>
+
+        <div class="route-main">
+
+          <div>
+
+            <div class="airport-code">
+              ${escapeHtml(route.origin)}
+            </div>
+
+            <div class="route-time">
+              Departure ${escapeHtml(route.departure)}
+            </div>
+
+          </div>
+
+          <div class="route-arrow">
+            →
+          </div>
+
+          <div>
+
+            <div class="airport-code">
+              ${escapeHtml(route.destination)}
+            </div>
+
+            <div class="route-time">
+              Arrival ${escapeHtml(route.arrival)}
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="route-details">
+
+          <span class="booking-pill">
+            ${escapeHtml(route.duration)}
+          </span>
+
+          <span class="booking-pill">
+            ${escapeHtml(route.aircraft)}
+          </span>
+
+          <span class="booking-pill">
+            ${escapeHtml(route.days)}
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="route-price">
+
+        <small>
+          From
+        </small>
+
+        <strong>
+          ${formatCurrency(route.fare)}
+        </strong>
+
+        <small>
+          per passenger
+        </small>
+
+      </div>
+
+    `;
+
+
+    card.addEventListener(
+      "click",
+      () => selectRoute(route, card)
     );
 
-    if (selectedCard) {
-      selectedCard.classList.add("selected");
-    }
+
+    elements.routeGrid.appendChild(card);
+
+  });
+}
+
+
+/* ============================================================
+   SELECT ROUTE
+============================================================ */
+
+function selectRoute(route, card) {
+
+  state.flight = route;
+  state.travelDate = null;
+
+
+  document
+    .querySelectorAll(".route-card")
+    .forEach((item) => {
+
+      item.classList.remove("selected");
+
+    });
+
+
+  card.classList.add("selected");
+
+
+  if (elements.dateDescription) {
 
     elements.dateDescription.textContent =
-      `${flight.origin} → ${flight.destination} on flight ${flight.flightNumber}.`;
+      `${route.flightNumber}: ${route.origin} → ${route.destination} · ${route.duration}`;
 
-    showStep("date");
   }
 
-  /*
-   * =========================================================
-   * STEP 3 — DATE
-   * =========================================================
-   */
 
-  function continueFromDate() {
-    if (!selectedRoute) {
-      setStatus("Please choose a route first.", true);
-      return;
-    }
+  if (elements.travelDate) {
 
-    const date = elements.travelDate.value;
+    elements.travelDate.value = "";
 
-    if (!date) {
-      setStatus("Please choose a departure date.", true);
-      return;
-    }
+    elements.travelDate.min =
+      getTodayString();
 
-    if (!flightOperatesOnDate(selectedRoute, date)) {
-      setStatus(
-        `Flight ${selectedRoute.flightNumber} does not operate on ${formatDate(date)}.`,
-        true
-      );
-
-      return;
-    }
-
-    selectedDate = date;
-
-    calculateFare();
-
-    showStep("fare");
   }
 
-  function getDayCode(dateString) {
-    const date = new Date(`${dateString}T12:00:00`);
-    const day = date.getDay();
 
-    return ["S", "M", "T", "W", "T", "F", "S"][day];
+  showStep("date");
+}
+
+
+/* ============================================================
+   DATE VALIDATION
+============================================================ */
+
+function validateDate() {
+
+  if (!state.flight) {
+
+    setStatus(
+      "Please choose a route first.",
+      "error"
+    );
+
+    return false;
   }
 
-  function flightOperatesOnDate(flight, date) {
-    const dayCode = getDayCode(date);
 
-    const days = String(flight.days || "")
-      .replace(/\s/g, "")
-      .toUpperCase();
+  const date =
+    elements.travelDate
+      ? elements.travelDate.value
+      : "";
 
-    if (days === "MTWTFSS") {
-      return true;
-    }
 
-    if (/^[1-7]+$/.test(days)) {
-      const numericDays = {
-        M: "1",
-        T: "2",
-        W: "3",
-        R: "4",
-        F: "5",
-        S: "6",
-        U: "7"
-      };
+  if (!date) {
 
-      return days.includes(
-        numericDays[dayCode] || ""
-      );
-    }
+    setStatus(
+      "Please choose a travel date.",
+      "error"
+    );
 
-    return days.includes(dayCode);
+    return false;
   }
 
-  /*
-   * =========================================================
-   * STEP 4 — PRICING
-   * =========================================================
-   *
-   * Economy = base fare
-   * Premium Economy = +50%
-   * Business = +125%
-   * First = +250%
-   *
-   * Passenger count multiplies the cabin fare.
-   */
 
-  function getCabinMultiplier(cabin) {
-    switch (cabin) {
-      case "premium-economy":
-        return 1.5;
+  if (date < getTodayString()) {
 
-      case "business":
-        return 2.25;
+    setStatus(
+      "Please choose a date from today onwards.",
+      "error"
+    );
 
-      case "first":
-        return 3.5;
-
-      case "economy":
-      default:
-        return 1;
-    }
+    return false;
   }
 
-  function getCabinName(cabin) {
-    const names = {
-      economy: "Economy",
-      "premium-economy": "Premium Economy",
-      business: "Business",
-      first: "First Class"
-    };
 
-    return names[cabin] || "Economy";
+  if (!routeOperatesOnDate(state.flight, date)) {
+
+    setStatus(
+      `Flight ${state.flight.flightNumber} does not operate on that day.`,
+      "error"
+    );
+
+    return false;
   }
 
-  function calculateFare() {
-    if (!selectedRoute || !selectedDate) {
-      return;
-    }
 
-    const passengers =
-      Number(elements.farePassengerCount.value || 1);
+  state.travelDate = date;
 
-    const cabin =
-      elements.fareCabin.value || "economy";
+  setStatus("");
 
-    const baseFare = Number(selectedRoute.fare || 0);
+  return true;
+}
 
-    const cabinFare =
-      baseFare * getCabinMultiplier(cabin);
 
-    const total =
-      cabinFare * passengers;
+/* ============================================================
+   DATE → FARE
+============================================================ */
+
+function continueFromDate() {
+
+  if (!validateDate()) {
+    return;
+  }
+
+
+  state.passengers =
+    Number(elements.farePassengerCount?.value || 1);
+
+
+  state.cabin =
+    elements.fareCabin?.value || "economy";
+
+
+  updateFare();
+
+
+  showStep("fare");
+}
+
+
+/* ============================================================
+   FARE
+============================================================ */
+
+const CABIN_MULTIPLIERS = {
+  economy: 1,
+  "premium-economy": 1.5,
+  business: 2.25,
+  first: 3.5
+};
+
+
+const CABIN_NAMES = {
+  economy: "Economy",
+  "premium-economy": "Premium Economy",
+  business: "Business",
+  first: "First Class"
+};
+
+
+function getBaseFare() {
+
+  if (!state.flight) {
+    return 0;
+  }
+
+
+  return Number(state.flight.fare) || 0;
+}
+
+
+function getTotalFare() {
+
+  const base =
+    getBaseFare();
+
+  const multiplier =
+    CABIN_MULTIPLIERS[state.cabin] || 1;
+
+
+  return Math.round(
+    base *
+    multiplier *
+    state.passengers
+  );
+}
+
+
+function updateFare() {
+
+  if (!state.flight) {
+    return;
+  }
+
+
+  const base =
+    getBaseFare();
+
+
+  const total =
+    getTotalFare();
+
+
+  const cabinName =
+    CABIN_NAMES[state.cabin] ||
+    "Economy";
+
+
+  if (elements.fareRouteTitle) {
 
     elements.fareRouteTitle.textContent =
-      `${selectedRoute.origin} → ${selectedRoute.destination}`;
+      `${state.flight.origin} → ${state.flight.destination}`;
+
+  }
+
+
+  if (elements.fareAircraft) {
 
     elements.fareAircraft.textContent =
-      selectedRoute.aircraft;
+      state.flight.aircraft;
+
+  }
+
+
+  if (elements.fareDeparture) {
 
     elements.fareDeparture.textContent =
-      selectedRoute.departure;
+      state.flight.departure;
+
+  }
+
+
+  if (elements.fareArrival) {
 
     elements.fareArrival.textContent =
-      selectedRoute.arrival;
+      state.flight.arrival;
+
+  }
+
+
+  if (elements.fareDate) {
 
     elements.fareDate.textContent =
-      formatDate(selectedDate);
+      formatDate(state.travelDate);
+
+  }
+
+
+  if (elements.fareCabinDisplay) {
 
     elements.fareCabinDisplay.textContent =
-      getCabinName(cabin);
+      cabinName;
+
+  }
+
+
+  if (elements.farePassengers) {
 
     elements.farePassengers.textContent =
-      `${passengers}`;
+      String(state.passengers);
+
+  }
+
+
+  if (elements.fareBase) {
 
     elements.fareBase.textContent =
-      formatMoney(cabinFare);
+      `${formatCurrency(base)} × ${state.passengers}`;
+
+  }
+
+
+  if (elements.fareTotal) {
 
     elements.fareTotal.textContent =
-      formatMoney(total);
+      formatCurrency(total);
+
   }
 
-  /*
-   * =========================================================
-   * STEP 5 — PASSENGER DETAILS
-   * =========================================================
-   */
+}
 
-  function continueToDetails() {
-    calculateFare();
-    showStep("details");
+
+/* ============================================================
+   CABIN / PASSENGER CHANGES
+============================================================ */
+
+function updatePassengerCount() {
+
+  state.passengers =
+    Number(elements.farePassengerCount?.value || 1);
+
+
+  updateFare();
+}
+
+
+function updateCabin() {
+
+  state.cabin =
+    elements.fareCabin?.value || "economy";
+
+
+  updateFare();
+}
+
+
+/* ============================================================
+   FARE → DETAILS
+============================================================ */
+
+function continueToDetails() {
+
+  if (!state.flight || !state.travelDate) {
+
+    setStatus(
+      "Please complete your flight and date selection first.",
+      "error"
+    );
+
+    return;
   }
 
-  /*
-   * =========================================================
-   * CONFIRM BOOKING
-   * =========================================================
-   */
 
-  function confirmBooking(event) {
-    event.preventDefault();
+  updateFare();
 
-    if (!selectedRoute || !selectedDate) {
-      setStatus(
-        "Your flight information is incomplete.",
-        true
-      );
+  showStep("details");
+}
 
-      return;
-    }
 
-    const familyName =
-      elements.familyName.value.trim();
+/* ============================================================
+   BACK BUTTONS
+============================================================ */
 
-    const email =
-      elements.email.value.trim();
+function backToAircraft() {
+  showStep("aircraft");
+}
 
-    const phone =
-      elements.phone.value.trim();
 
-    if (!familyName || !email) {
-      setStatus(
-        "Please enter the passenger / family name and email.",
-        true
-      );
+function backToRoute() {
+  showStep("route");
+}
 
-      return;
-    }
 
-    const passengers =
-      Number(elements.farePassengerCount.value || 1);
+function backToDate() {
+  showStep("date");
+}
 
-    const cabin =
-      elements.fareCabin.value || "economy";
 
-    const cabinFare =
-      Number(selectedRoute.fare || 0) *
-      getCabinMultiplier(cabin);
+function backToFare() {
+  showStep("fare");
+}
 
-    const totalFare =
-      cabinFare * passengers;
 
-    const bookingReference =
-      generateBookingReference();
+/* ============================================================
+   CONFIRM BOOKING
+============================================================ */
 
-    const booking = {
-      bookingReference,
+function confirmBooking(event) {
 
-      createdAt:
-        new Date().toISOString(),
+  event.preventDefault();
 
-      passengerFamilyName:
-        familyName,
 
-      email,
+  if (!state.flight || !state.travelDate) {
 
-      phone,
+    setStatus(
+      "Your flight selection is incomplete.",
+      "error"
+    );
 
-      passengers,
+    return;
+  }
 
-      cabin,
 
-      date:
-        selectedDate,
+  const familyName =
+    elements.familyName?.value.trim();
 
-      flight:
-        selectedRoute,
 
-      aircraft:
-        selectedAircraft,
+  const email =
+    elements.contactEmail?.value.trim();
 
-      totalFare,
 
-      seats: []
-    };
+  const phone =
+    elements.contactPhone?.value.trim();
+
+
+  if (!familyName) {
+
+    setStatus(
+      "Please enter the passenger or family name.",
+      "error"
+    );
+
+    elements.familyName?.focus();
+
+    return;
+  }
+
+
+  if (!email) {
+
+    setStatus(
+      "Please enter an email address.",
+      "error"
+    );
+
+    elements.contactEmail?.focus();
+
+    return;
+  }
+
+
+  const total =
+    getTotalFare();
+
+
+  const reference =
+    generateBookingReference();
+
+
+  state.booking = {
+
+    reference,
+
+    familyName,
+
+    email,
+
+    phone,
+
+    flightNumber:
+      state.flight.flightNumber,
+
+    aircraft:
+      state.flight.aircraft,
+
+    origin:
+      state.flight.origin,
+
+    destination:
+      state.flight.destination,
+
+    departure:
+      state.flight.departure,
+
+    arrival:
+      state.flight.arrival,
+
+    duration:
+      state.flight.duration,
+
+    travelDate:
+      state.travelDate,
+
+    cabin:
+      state.cabin,
+
+    cabinName:
+      CABIN_NAMES[state.cabin],
+
+    passengers:
+      state.passengers,
+
+    total
+
+  };
+
+
+  saveBooking();
+
+
+  renderSuccess();
+
+
+  showStep("success");
+
+  setStatus("");
+}
+
+
+/* ============================================================
+   SUCCESS
+============================================================ */
+
+function renderSuccess() {
+
+  const booking =
+    state.booking;
+
+
+  if (!booking) {
+    return;
+  }
+
+
+  if (elements.successReference) {
+
+    elements.successReference.textContent =
+      booking.reference;
+
+  }
+
+
+  if (elements.successName) {
+
+    elements.successName.textContent =
+      booking.familyName;
+
+  }
+
+
+  if (elements.successFlight) {
+
+    elements.successFlight.textContent =
+      booking.flightNumber;
+
+  }
+
+
+  if (elements.successAircraft) {
+
+    elements.successAircraft.textContent =
+      booking.aircraft;
+
+  }
+
+
+  if (elements.successRoute) {
+
+    elements.successRoute.textContent =
+      `${booking.origin} → ${booking.destination}`;
+
+  }
+
+
+  if (elements.successDate) {
+
+    elements.successDate.textContent =
+      formatDate(booking.travelDate);
+
+  }
+
+
+  if (elements.successCabin) {
+
+    elements.successCabin.textContent =
+      booking.cabinName;
+
+  }
+
+
+  if (elements.successPassengers) {
+
+    elements.successPassengers.textContent =
+      String(booking.passengers);
+
+  }
+
+
+  if (elements.successTotal) {
+
+    elements.successTotal.textContent =
+      formatCurrency(booking.total);
+
+  }
+}
+
+
+/* ============================================================
+   SAVE BOOKING
+============================================================ */
+
+function saveBooking() {
+
+  try {
 
     localStorage.setItem(
       "bulaAirBooking",
-      JSON.stringify(booking)
+      JSON.stringify(state.booking)
     );
+
 
     localStorage.setItem(
       "bulaAirSelectedFlight",
-      JSON.stringify({
-        flight: selectedRoute,
-        aircraft: selectedAircraft,
-        date: selectedDate,
-        passengers,
-        cabin
-      })
+      JSON.stringify(state.flight)
     );
 
-    renderSuccess(booking);
-
-    showStep("success");
   }
 
-  /*
-   * =========================================================
-   * SUCCESS SCREEN
-   * =========================================================
-   */
+  catch (error) {
 
-  function renderSuccess(booking) {
-    elements.successReference.textContent =
-      booking.bookingReference;
+    console.warn(
+      "Unable to save booking to localStorage:",
+      error
+    );
 
-    elements.successName.textContent =
-      booking.passengerFamilyName;
-
-    elements.successFlight.textContent =
-      booking.flight.flightNumber;
-
-    elements.successAircraft.textContent =
-      booking.flight.aircraft;
-
-    elements.successRoute.textContent =
-      `${booking.flight.origin} → ${booking.flight.destination}`;
-
-    elements.successDate.textContent =
-      formatDate(booking.date);
-
-    elements.successCabin.textContent =
-      getCabinName(booking.cabin);
-
-    elements.successPassengers.textContent =
-      booking.passengers;
-
-    elements.successTotal.textContent =
-      formatMoney(booking.totalFare);
   }
+}
 
-  /*
-   * =========================================================
-   * BOOKING REFERENCE
-   * =========================================================
-   */
 
-  function generateBookingReference() {
-    const chars =
-      "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+/* ============================================================
+   BOOKING REFERENCE
+============================================================ */
 
-    let result = "BA";
+function generateBookingReference() {
 
-    for (let i = 0; i < 6; i++) {
-      result += chars[
-        Math.floor(Math.random() * chars.length)
+  const characters =
+    "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
+
+  let reference =
+    "BA";
+
+
+  for (let i = 0; i < 6; i++) {
+
+    reference +=
+      characters[
+        Math.floor(
+          Math.random() *
+          characters.length
+        )
       ];
-    }
 
-    return result;
   }
 
-  /*
-   * =========================================================
-   * HELPERS
-   * =========================================================
-   */
 
-  function formatMoney(value) {
-    return `$${Number(value || 0).toLocaleString(
-      "en-NZ",
-      {
-        minimumFractionDigits: 0,
-        maximumFractionDigits: 0
-      }
-    )}`;
+  return reference;
+}
+
+
+/* ============================================================
+   DAY CHECKING
+============================================================ */
+
+function routeOperatesOnDate(route, dateString) {
+
+  if (!route || !dateString) {
+    return false;
   }
 
-  function formatDate(value) {
-    if (!value) return "";
 
-    const date =
-      new Date(`${value}T12:00:00`);
-
-    return date.toLocaleDateString(
-      "en-NZ",
-      {
-        weekday: "long",
-        day: "numeric",
-        month: "long",
-        year: "numeric"
-      }
+  const date =
+    new Date(
+      `${dateString}T00:00:00`
     );
+
+
+  if (Number.isNaN(date.getTime())) {
+    return false;
   }
 
-  function escapeHtml(value) {
-    return String(value)
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
+
+  const jsDay =
+    date.getDay();
+
+
+  const dayIndex =
+    jsDay === 0
+      ? 6
+      : jsDay - 1;
+
+
+  const days =
+    String(route.days || "")
+      .toUpperCase()
+      .replace(/\s/g, "");
+
+
+  if (!days || days === "MTWTFSS") {
+    return true;
   }
 
-  function setStatus(message, error = false) {
-    elements.status.hidden = false;
-
-    elements.status.className =
-      `booking-status${error ? " error" : ""}`;
-
-    elements.status.textContent = message;
-  }
-
-  function clearStatus() {
-    elements.status.hidden = true;
-    elements.status.textContent = "";
-  }
 
   /*
-   * =========================================================
-   * BUTTON EVENTS
-   * =========================================================
+   * Support:
+   *
+   * MTWTFSS
+   * 0123456
+   * M T W T F S S
    */
 
-  $("#back-aircraft").addEventListener("click", () => {
-    showStep("aircraft");
-  });
+  if (
+    days.includes(
+      String(dayIndex)
+    )
+  ) {
+    return true;
+  }
 
-  $("#back-route").addEventListener("click", () => {
-    showStep("route");
-  });
 
-  $("#back-date").addEventListener("click", () => {
-    showStep("date");
-  });
+  const dayLetters =
+    "MTWTFSS";
 
-  $("#back-fare").addEventListener("click", () => {
-    showStep("fare");
-  });
 
-  $("#continue-date").addEventListener(
+  return days.includes(
+    dayLetters[dayIndex]
+  );
+}
+
+
+/* ============================================================
+   FORMATTING
+============================================================ */
+
+function formatCurrency(amount) {
+
+  const number =
+    Number(amount) || 0;
+
+
+  return new Intl.NumberFormat(
+    "en-NZ",
+    {
+      style: "currency",
+      currency: "FJD",
+      maximumFractionDigits: 0
+    }
+  ).format(number);
+}
+
+
+/* ============================================================
+   HTML SAFETY
+============================================================ */
+
+function escapeHtml(value) {
+
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+
+function escapeAttribute(value) {
+
+  return escapeHtml(value);
+}
+
+
+/* ============================================================
+   EVENT LISTENERS
+============================================================ */
+
+function setupEvents() {
+
+  elements.continueDate?.addEventListener(
     "click",
     continueFromDate
   );
 
-  $("#continue-details").addEventListener(
+
+  elements.continueDetails?.addEventListener(
     "click",
     continueToDetails
   );
 
-  elements.farePassengerCount.addEventListener(
-    "change",
-    calculateFare
+
+  elements.backAircraft?.addEventListener(
+    "click",
+    backToAircraft
   );
 
-  elements.fareCabin.addEventListener(
-    "change",
-    calculateFare
+
+  elements.backRoute?.addEventListener(
+    "click",
+    backToRoute
   );
 
-  elements.passengerForm.addEventListener(
+
+  elements.backDate?.addEventListener(
+    "click",
+    backToDate
+  );
+
+
+  elements.backFare?.addEventListener(
+    "click",
+    backToFare
+  );
+
+
+  elements.farePassengerCount?.addEventListener(
+    "change",
+    updatePassengerCount
+  );
+
+
+  elements.fareCabin?.addEventListener(
+    "change",
+    updateCabin
+  );
+
+
+  elements.passengerForm?.addEventListener(
     "submit",
     confirmBooking
   );
 
-  /*
-   * =========================================================
-   * DATE SETUP
-   * =========================================================
-   */
+}
 
-  const today = new Date();
 
-  const localToday =
-    `${today.getFullYear()}-` +
-    `${String(today.getMonth() + 1).padStart(2, "0")}-` +
-    `${String(today.getDate()).padStart(2, "0")}`;
+/* ============================================================
+   START
+============================================================ */
 
-  elements.travelDate.min =
-    localToday;
+document.addEventListener(
+  "DOMContentLoaded",
+  () => {
 
-  elements.travelDate.value =
-    localToday;
+    setupEvents();
 
-  /*
-   * =========================================================
-   * START
-   * =========================================================
-   */
+    loadData();
 
-  loadData();
-
-})();
+  }
+);
+```
