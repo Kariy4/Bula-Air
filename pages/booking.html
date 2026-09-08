@@ -1,270 +1,847 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Book a Flight | Bula Air</title>
+  <title>Book a Flight | Bula Air</title>
 
-    <link rel="icon" href="../assets/images/branding/hibiscus.svg" type="image/svg+xml">
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <link rel="stylesheet" href="../assets/css/polish.css">
+  <link rel="icon" href="../assets/images/branding/hibiscus.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/polish.css">
+
+  <style>
+    .booking-page {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 55px 20px 90px;
+    }
+
+    .booking-hero {
+      margin-bottom: 30px;
+    }
+
+    .booking-hero .eyebrow {
+      margin-bottom: 8px;
+    }
+
+    .booking-hero h1 {
+      margin-bottom: 10px;
+    }
+
+    .booking-panel {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 30px;
+      box-shadow: 0 16px 45px rgba(7, 25, 54, .08);
+      margin-bottom: 24px;
+    }
+
+    .booking-step {
+      display: none;
+    }
+
+    .booking-step.active {
+      display: block;
+    }
+
+    .step-heading {
+      margin-bottom: 24px;
+    }
+
+    .step-heading h2 {
+      margin: 4px 0 8px;
+    }
+
+    .step-heading p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .step-number {
+      font-size: .78rem;
+      font-weight: 900;
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    /* Progress */
+
+    .booking-progress {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      margin-bottom: 25px;
+    }
+
+    .progress-item {
+      padding: 11px 8px;
+      border-radius: 12px;
+      background: var(--mist);
+      color: var(--muted);
+      text-align: center;
+      font-size: .78rem;
+      font-weight: 800;
+    }
+
+    .progress-item.active {
+      background: var(--blue);
+      color: #fff;
+    }
+
+    .progress-item.complete {
+      background: #eaf5ff;
+      color: var(--blue);
+    }
+
+    /* Aircraft cards */
+
+    .aircraft-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .aircraft-card {
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: #fff;
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+
+    .aircraft-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(7, 25, 54, .10);
+    }
+
+    .aircraft-card.selected {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(36, 104, 232, .12);
+    }
+
+    .aircraft-image {
+      height: 145px;
+      background: linear-gradient(135deg, #eef7ff, #dcecff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 15px;
+    }
+
+    .aircraft-image img {
+      max-width: 100%;
+      max-height: 115px;
+      object-fit: contain;
+    }
+
+    .aircraft-info {
+      padding: 17px;
+    }
+
+    .aircraft-info h3 {
+      margin: 0 0 5px;
+      font-size: 1.05rem;
+    }
+
+    .aircraft-info p {
+      margin: 0 0 12px;
+      color: var(--muted);
+      font-size: .82rem;
+    }
+
+    .aircraft-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .booking-pill {
+      padding: 6px 9px;
+      border-radius: 999px;
+      background: var(--mist);
+      color: var(--ink);
+      font-size: .72rem;
+      font-weight: 800;
+    }
+
+    /* Route cards */
+
+    .route-grid {
+      display: grid;
+      gap: 13px;
+    }
+
+    .route-card {
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      padding: 18px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 20px;
+      align-items: center;
+      cursor: pointer;
+      background: #fff;
+      transition: .18s ease;
+    }
+
+    .route-card:hover {
+      border-color: var(--blue);
+      box-shadow: 0 8px 25px rgba(7, 25, 54, .07);
+    }
+
+    .route-card.selected {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(36, 104, 232, .12);
+    }
+
+    .route-flight-number {
+      font-size: .76rem;
+      color: var(--blue);
+      font-weight: 900;
+      margin-bottom: 8px;
+    }
+
+    .route-main {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .airport-code {
+      font-size: 1.5rem;
+      font-weight: 900;
+    }
+
+    .route-time {
+      color: var(--muted);
+      font-size: .85rem;
+      margin-top: 2px;
+    }
+
+    .route-arrow {
+      color: var(--blue);
+      font-weight: 900;
+      font-size: 1.3rem;
+    }
+
+    .route-details {
+      margin-top: 10px;
+      display: flex;
+      gap: 7px;
+      flex-wrap: wrap;
+    }
+
+    .route-price {
+      text-align: right;
+    }
+
+    .route-price small {
+      color: var(--muted);
+      display: block;
+      font-size: .72rem;
+    }
+
+    .route-price strong {
+      display: block;
+      font-size: 1.35rem;
+      margin: 3px 0 10px;
+    }
+
+    /* Date */
+
+    .date-box {
+      max-width: 500px;
+    }
+
+    .date-box label {
+      display: block;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .date-box input,
+    .booking-input,
+    .booking-select {
+      width: 100%;
+      min-height: 52px;
+      border: 1px solid var(--line-dark);
+      border-radius: 13px;
+      padding: 0 14px;
+      background: #fff;
+      color: var(--ink);
+      font: inherit;
+      outline: none;
+    }
+
+    .date-box input:focus,
+    .booking-input:focus,
+    .booking-select:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(36, 104, 232, .12);
+    }
+
+    /* Price */
+
+    .price-summary {
+      background: linear-gradient(135deg, #f5faff, #edf5ff);
+      border: 1px solid #dbeaff;
+      border-radius: 20px;
+      padding: 24px;
+      margin-bottom: 22px;
+    }
+
+    .price-summary h3 {
+      margin-top: 0;
+    }
+
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 9px 0;
+      color: var(--muted);
+    }
+
+    .price-row.total {
+      margin-top: 10px;
+      padding-top: 17px;
+      border-top: 1px solid #cddff2;
+      color: var(--ink);
+      font-weight: 900;
+      font-size: 1.2rem;
+    }
+
+    .passenger-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .passenger-field {
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .passenger-field.full {
+      grid-column: 1 / -1;
+    }
+
+    .passenger-field label {
+      font-weight: 800;
+      font-size: .86rem;
+    }
+
+    .booking-actions {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 25px;
+    }
+
+    .booking-actions-right {
+      display: flex;
+      gap: 10px;
+    }
+
+    /* Success */
+
+    .success-panel {
+      text-align: center;
+      padding: 45px 25px;
+    }
+
+    .success-icon {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #eaf8f0;
+      color: #167342;
+      font-size: 2rem;
+      font-weight: 900;
+    }
+
+    .booking-reference {
+      display: inline-block;
+      margin: 15px 0 25px;
+      padding: 12px 18px;
+      border-radius: 12px;
+      background: var(--mist);
+      color: var(--blue);
+      font-weight: 900;
+      letter-spacing: .08em;
+      font-size: 1.15rem;
+    }
+
+    .confirmation-card {
+      max-width: 650px;
+      margin: 0 auto 25px;
+      text-align: left;
+      border: 1px solid var(--line);
+      border-radius: 17px;
+      padding: 20px;
+      background: #fff;
+    }
+
+    .confirmation-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 9px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .confirmation-row:last-child {
+      border-bottom: 0;
+    }
+
+    .confirmation-row span:first-child {
+      color: var(--muted);
+    }
+
+    .booking-status {
+      padding: 15px;
+      border-radius: 14px;
+      background: var(--mist);
+      color: var(--ink);
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .booking-status.error {
+      background: #fff1f1;
+      color: #a42626;
+    }
+
+    @media (max-width: 900px) {
+      .aircraft-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 650px) {
+      .booking-page {
+        padding: 35px 15px 70px;
+      }
+
+      .booking-panel {
+        padding: 20px;
+      }
+
+      .booking-progress {
+        grid-template-columns: 1fr;
+      }
+
+      .aircraft-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .route-card {
+        grid-template-columns: 1fr;
+      }
+
+      .route-price {
+        text-align: left;
+      }
+
+      .route-main {
+        grid-template-columns: 1fr;
+        gap: 4px;
+      }
+
+      .route-arrow {
+        display: none;
+      }
+
+      .passenger-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .passenger-field.full {
+        grid-column: auto;
+      }
+
+      .booking-actions {
+        flex-direction: column;
+      }
+
+      .booking-actions-right {
+        flex-direction: column;
+      }
+    }
+  </style>
 </head>
 
 <body data-page="booking">
 
 <header class="site-header">
-    <div class="container nav-shell">
+  <div class="container nav-shell">
+    <a class="brand brand-logo" href="index.html" aria-label="Bula Air home">
+      <img src="../assets/images/branding/bula-air-logo.png" alt="Bula Air logo">
+      <small>The wings of Fiji.</small>
+    </a>
 
-        <a class="brand brand-logo" href="index.html" aria-label="Bula Air home">
-            <img src="../assets/images/branding/bula-air-logo.png" alt="Bula Air logo">
-            <small>The wings of Fiji.</small>
-        </a>
-
-        <nav class="nav-links" aria-label="Main navigation">
-            <a href="index.html">Home</a>
-            <a href="booking.html" aria-current="page">Book</a>
-            <a href="routes.html">Routes</a>
-            <a href="fleet.html">Fleet</a>
-            <a href="seating.html">Seating</a>
-            <a href="classes.html">Classes</a>
-            <a href="about.html">About</a>
-        </nav>
-
-    </div>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="booking.html" aria-current="page">Book</a>
+      <a href="routes.html">Routes</a>
+      <a href="fleet.html">Fleet</a>
+      <a href="seating.html">Seating</a>
+      <a href="classes.html">Classes</a>
+      <a href="about.html">About</a>
+    </nav>
+  </div>
 </header>
 
+<main class="booking-page">
 
-<main class="container page">
-
-    <p class="eyebrow">Bula Air reservations</p>
-
-    <h1>Book your journey.</h1>
-
+  <section class="booking-hero">
+    <p class="eyebrow">Bula Air Booking</p>
+    <h1>Book your Bula Air journey</h1>
     <p class="lead">
-        Choose your route, dates and cabin. We'll take care of the rest.
+      Choose your aircraft, route and travel date, then review your fare.
+    </p>
+  </section>
+
+  <div class="booking-progress">
+    <div class="progress-item active" data-progress="1">1. Aircraft</div>
+    <div class="progress-item" data-progress="2">2. Route</div>
+    <div class="progress-item" data-progress="3">3. Date</div>
+    <div class="progress-item" data-progress="4">4. Fare</div>
+    <div class="progress-item" data-progress="5">5. Details</div>
+  </div>
+
+  <div id="booking-status" class="booking-status" hidden></div>
+
+  <!-- STEP 1 -->
+
+  <section class="booking-panel booking-step active" id="step-aircraft">
+
+    <div class="step-heading">
+      <span class="step-number">Step 1</span>
+      <h2>Choose your aircraft</h2>
+      <p>Select the aircraft you'd like to travel on.</p>
+    </div>
+
+    <div id="aircraft-grid" class="aircraft-grid"></div>
+
+  </section>
+
+  <!-- STEP 2 -->
+
+  <section class="booking-panel booking-step" id="step-route">
+
+    <div class="step-heading">
+      <span class="step-number">Step 2</span>
+      <h2>Choose your route</h2>
+      <p id="route-description">Routes operated by your selected aircraft.</p>
+    </div>
+
+    <div id="route-grid" class="route-grid"></div>
+
+    <div class="booking-actions">
+      <button type="button" class="button button-secondary" id="back-aircraft">
+        Back
+      </button>
+    </div>
+
+  </section>
+
+  <!-- STEP 3 -->
+
+  <section class="booking-panel booking-step" id="step-date">
+
+    <div class="step-heading">
+      <span class="step-number">Step 3</span>
+      <h2>Choose your travel date</h2>
+      <p id="date-description">Select a date for your chosen service.</p>
+    </div>
+
+    <div class="date-box">
+      <label for="travel-date">Departure date</label>
+      <input id="travel-date" type="date">
+    </div>
+
+    <div class="booking-actions">
+      <button type="button" class="button button-secondary" id="back-route">
+        Back
+      </button>
+
+      <button type="button" class="button button-primary" id="continue-date">
+        Calculate fare
+      </button>
+    </div>
+
+  </section>
+
+  <!-- STEP 4 -->
+
+  <section class="booking-panel booking-step" id="step-fare">
+
+    <div class="step-heading">
+      <span class="step-number">Step 4</span>
+      <h2>Your fare</h2>
+      <p>Review your flight and select your cabin and passenger count.</p>
+    </div>
+
+    <div class="price-summary">
+
+      <h3 id="fare-route-title">Your Bula Air flight</h3>
+
+      <div class="price-row">
+        <span>Aircraft</span>
+        <strong id="fare-aircraft"></strong>
+      </div>
+
+      <div class="price-row">
+        <span>Departure</span>
+        <strong id="fare-departure"></strong>
+      </div>
+
+      <div class="price-row">
+        <span>Arrival</span>
+        <strong id="fare-arrival"></strong>
+      </div>
+
+      <div class="price-row">
+        <span>Travel date</span>
+        <strong id="fare-date"></strong>
+      </div>
+
+      <div class="price-row">
+        <span>Cabin</span>
+        <strong id="fare-cabin"></strong>
+      </div>
+
+      <div class="price-row">
+        <span>Passengers</span>
+        <strong id="fare-passengers"></strong>
+      </div>
+
+      <div class="price-row">
+        <span>Base fare</span>
+        <strong id="fare-base"></strong>
+      </div>
+
+      <div class="price-row total">
+        <span>Total</span>
+        <strong id="fare-total"></strong>
+      </div>
+
+    </div>
+
+    <div class="passenger-grid">
+
+      <div class="passenger-field">
+        <label for="fare-passenger-count">Passengers</label>
+        <select id="fare-passenger-count" class="booking-select">
+          <option value="1">1 passenger</option>
+          <option value="2">2 passengers</option>
+          <option value="3">3 passengers</option>
+          <option value="4">4 passengers</option>
+          <option value="5">5 passengers</option>
+          <option value="6">6 passengers</option>
+          <option value="7">7 passengers</option>
+          <option value="8">8 passengers</option>
+          <option value="9">9 passengers</option>
+        </select>
+      </div>
+
+      <div class="passenger-field">
+        <label for="fare-cabin">Cabin</label>
+        <select id="fare-cabin" class="booking-select">
+          <option value="economy">Economy</option>
+          <option value="premium-economy">Premium Economy</option>
+          <option value="business">Business</option>
+          <option value="first">First Class</option>
+        </select>
+      </div>
+
+    </div>
+
+    <div class="booking-actions">
+      <button type="button" class="button button-secondary" id="back-date">
+        Back
+      </button>
+
+      <button type="button" class="button button-primary" id="continue-details">
+        Continue
+      </button>
+    </div>
+
+  </section>
+
+  <!-- STEP 5 -->
+
+  <section class="booking-panel booking-step" id="step-details">
+
+    <div class="step-heading">
+      <span class="step-number">Step 5</span>
+      <h2>Passenger details</h2>
+      <p>Enter the details for the passenger or travelling family.</p>
+    </div>
+
+    <form id="passenger-form">
+
+      <div class="passenger-grid">
+
+        <div class="passenger-field full">
+          <label for="family-name">
+            Passenger / Family Name
+          </label>
+
+          <input
+            id="family-name"
+            class="booking-input"
+            type="text"
+            name="familyName"
+            required
+            autocomplete="family-name"
+            placeholder="Enter passenger or family name"
+          >
+        </div>
+
+        <div class="passenger-field">
+          <label for="contact-email">Email</label>
+
+          <input
+            id="contact-email"
+            class="booking-input"
+            type="email"
+            name="email"
+            required
+            autocomplete="email"
+            placeholder="you@example.com"
+          >
+        </div>
+
+        <div class="passenger-field">
+          <label for="contact-phone">Phone</label>
+
+          <input
+            id="contact-phone"
+            class="booking-input"
+            type="tel"
+            name="phone"
+            autocomplete="tel"
+            placeholder="Phone number"
+          >
+        </div>
+
+      </div>
+
+      <div class="booking-actions">
+
+        <button
+          type="button"
+          class="button button-secondary"
+          id="back-fare"
+        >
+          Back
+        </button>
+
+        <button
+          type="submit"
+          class="button button-primary"
+        >
+          Confirm booking
+        </button>
+
+      </div>
+
+    </form>
+
+  </section>
+
+  <!-- SUCCESS -->
+
+  <section
+    class="booking-panel booking-step success-panel"
+    id="step-success"
+  >
+
+    <div class="success-icon">✓</div>
+
+    <p class="eyebrow">Booking confirmed</p>
+
+    <h2>Vinaka! Your booking was successful.</h2>
+
+    <p>
+      Your Bula Air journey has been saved successfully.
     </p>
 
+    <div class="booking-reference" id="success-reference">
+      BA000000
+    </div>
 
-    <!-- BOOKING STEPS -->
+    <div class="confirmation-card">
 
-    <ol class="booking-steps" aria-label="Booking progress">
+      <div class="confirmation-row">
+        <span>Passenger / Family</span>
+        <strong id="success-name"></strong>
+      </div>
 
-        <li class="active">
-            <b>1</b>
-            Search
-        </li>
+      <div class="confirmation-row">
+        <span>Flight</span>
+        <strong id="success-flight"></strong>
+      </div>
 
-        <li>
-            <b>2</b>
-            Flights
-        </li>
+      <div class="confirmation-row">
+        <span>Aircraft</span>
+        <strong id="success-aircraft"></strong>
+      </div>
 
-        <li>
-            <b>3</b>
-            Passengers
-        </li>
+      <div class="confirmation-row">
+        <span>Route</span>
+        <strong id="success-route"></strong>
+      </div>
 
-        <li>
-            <b>4</b>
-            Seats
-        </li>
+      <div class="confirmation-row">
+        <span>Date</span>
+        <strong id="success-date"></strong>
+      </div>
 
-        <li>
-            <b>5</b>
-            Review
-        </li>
+      <div class="confirmation-row">
+        <span>Cabin</span>
+        <strong id="success-cabin"></strong>
+      </div>
 
-    </ol>
+      <div class="confirmation-row">
+        <span>Passengers</span>
+        <strong id="success-passengers"></strong>
+      </div>
 
+      <div class="confirmation-row">
+        <span>Total paid</span>
+        <strong id="success-total"></strong>
+      </div>
 
-    <!-- SEARCH PANEL -->
+    </div>
 
-    <section class="tool-panel">
+    <a href="index.html" class="button button-primary">
+      Return home
+    </a>
 
-        <form id="booking-search">
-
-            <!-- TRIP TYPE -->
-
-            <div class="trip-type">
-
-                <label>
-                    <input
-                        type="radio"
-                        name="trip-type"
-                        value="roundtrip"
-                        checked
-                    >
-                    Round trip
-                </label>
-
-                <label>
-                    <input
-                        type="radio"
-                        name="trip-type"
-                        value="oneway"
-                    >
-                    One way
-                </label>
-
-            </div>
-
-
-            <!-- SEARCH FIELDS -->
-
-            <div class="form-grid">
-
-                <label>
-                    <span>From</span>
-
-                    <input
-                        class="input"
-                        id="from"
-                        name="from"
-                        type="text"
-                        placeholder="NAN"
-                        maxlength="3"
-                        autocomplete="off"
-                        required
-                    >
-                </label>
-
-
-                <label>
-                    <span>To</span>
-
-                    <input
-                        class="input"
-                        id="to"
-                        name="to"
-                        type="text"
-                        placeholder="AKL"
-                        maxlength="3"
-                        autocomplete="off"
-                        required
-                    >
-                </label>
-
-
-                <label>
-                    <span>Departure</span>
-
-                    <input
-                        class="input"
-                        id="departure-date"
-                        name="departure"
-                        type="date"
-                        required
-                    >
-                </label>
-
-
-                <label id="return-field">
-                    <span>Return</span>
-
-                    <input
-                        class="input"
-                        id="return-date"
-                        name="return"
-                        type="date"
-                    >
-                </label>
-
-
-                <label>
-                    <span>Passengers</span>
-
-                    <select
-                        class="input"
-                        id="passengers"
-                        name="passengers"
-                    >
-                        <option value="1">1 passenger</option>
-                        <option value="2">2 passengers</option>
-                        <option value="3">3 passengers</option>
-                        <option value="4">4 passengers</option>
-                        <option value="5">5 passengers</option>
-                        <option value="6">6 passengers</option>
-                        <option value="7">7 passengers</option>
-                        <option value="8">8 passengers</option>
-                        <option value="9">9 passengers</option>
-                    </select>
-                </label>
-
-
-                <label>
-                    <span>Cabin</span>
-
-                    <select
-                        class="input"
-                        id="cabin-class"
-                        name="cabin"
-                    >
-                        <option value="economy">
-                            Economy
-                        </option>
-
-                        <option value="premium-economy">
-                            Premium Economy
-                        </option>
-
-                        <option value="business">
-                            Business Class
-                        </option>
-
-                        <option value="first">
-                            First Class
-                        </option>
-                    </select>
-
-                </label>
-
-            </div>
-
-
-            <div id="booking-status" class="booking-status">
-                Enter your journey details to search available flights.
-            </div>
-
-
-            <button
-                class="button booking-submit"
-                type="submit"
-            >
-                Search flights
-            </button>
-
-        </form>
-
-    </section>
-
-
-    <!-- RESULTS APPEAR HERE -->
-
-    <section
-        id="flight-results"
-        aria-live="polite"
-    ></section>
+  </section>
 
 </main>
 
-
 <footer class="site-footer">
-
-    <div class="container footer-grid">
-
-        <strong>Bula Air</strong>
-
-        <span>
-            The wings of Fiji.
-        </span>
-
-    </div>
-
+  <div class="container footer-grid">
+    <strong>Bula Air</strong>
+    <span>The wings of Fiji.</span>
+  </div>
 </footer>
 
-
-<script src="../assets/js/main.js"></script>
 <script src="../assets/js/booking.js"></script>
 
 </body>
