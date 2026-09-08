@@ -1,149 +1,107 @@
 /* =========================================================
-   BULA AIR — FLEET PAGE POLISH
-   Compact, premium airline-style design
+   BULA AIR — FLEET PAGE
+   Compact aircraft catalogue
    ========================================================= */
 
-:root {
-  --fleet-blue: #2468e8;
-  --fleet-blue-dark: #174da9;
-  --fleet-ink: #10213f;
-  --fleet-muted: #64748b;
-  --fleet-border: rgba(20, 45, 85, 0.10);
-  --fleet-shadow: 0 12px 35px rgba(24, 54, 100, 0.08);
-}
-
-/* =========================================================
-   FLEET HERO
-   ========================================================= */
+/* ---------- HERO ---------- */
 
 .fleet-hero {
-  position: relative;
-  overflow: hidden;
-  padding: 58px 0 46px;
+  padding: 42px 0 38px !important;
+  min-height: 0 !important;
   background:
-    radial-gradient(circle at 85% 20%, rgba(36, 104, 232, 0.13), transparent 32%),
-    linear-gradient(135deg, #f7fbff 0%, #eef5ff 55%, #ffffff 100%);
-  border-bottom: 1px solid rgba(36, 104, 232, 0.08);
-}
-
-.fleet-hero::after {
-  content: "";
-  position: absolute;
-  width: 360px;
-  height: 360px;
-  right: -150px;
-  top: -180px;
-  border-radius: 50%;
-  background: rgba(36, 104, 232, 0.055);
-  pointer-events: none;
+    radial-gradient(
+      circle at 85% 10%,
+      rgba(36, 104, 232, 0.10),
+      transparent 35%
+    ),
+    linear-gradient(
+      135deg,
+      #f5faff 0%,
+      #edf5ff 55%,
+      #ffffff 100%
+    ) !important;
 }
 
 .fleet-hero-inner {
-  position: relative;
-  z-index: 1;
+  min-height: 0 !important;
 }
 
 .fleet-hero-copy {
-  max-width: 760px;
+  max-width: 760px !important;
 }
 
-.fleet-hero .eyebrow,
-.fleet-section .eyebrow,
-.fleet-cta .eyebrow {
-  margin: 0 0 9px;
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  color: var(--fleet-blue);
+.fleet-hero .eyebrow {
+  margin-bottom: 8px !important;
+  font-size: 0.72rem !important;
+  letter-spacing: 0.14em !important;
 }
 
 .fleet-hero h1 {
-  margin: 0;
-  max-width: 720px;
-  font-size: clamp(2.3rem, 5vw, 4rem);
-  line-height: 0.98;
-  letter-spacing: -0.045em;
-  color: var(--fleet-ink);
-}
-
-.fleet-hero h1 span {
-  color: var(--fleet-blue);
+  max-width: 760px !important;
+  margin: 0 !important;
+  font-size: clamp(2.4rem, 5vw, 4.2rem) !important;
+  line-height: 0.98 !important;
+  letter-spacing: -0.045em !important;
 }
 
 .fleet-hero .lead {
-  max-width: 650px;
-  margin: 18px 0 0;
-  font-size: 1rem;
-  line-height: 1.65;
-  color: var(--fleet-muted);
+  max-width: 650px !important;
+  margin-top: 15px !important;
+  font-size: 0.95rem !important;
+  line-height: 1.55 !important;
 }
 
-/* =========================================================
-   HERO STATS
-   ========================================================= */
+/* ---------- HERO STATS ---------- */
 
 .fleet-hero-stats {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 27px;
+  display: flex !important;
+  gap: 10px !important;
+  margin-top: 22px !important;
 }
 
 .fleet-hero-stats > div {
-  min-width: 145px;
-  padding: 12px 16px;
-  border: 1px solid var(--fleet-border);
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.72);
-  box-shadow: 0 5px 18px rgba(24, 54, 100, 0.045);
-  backdrop-filter: blur(8px);
+  min-width: 135px !important;
+  padding: 10px 14px !important;
+  border-radius: 10px !important;
+  background: rgba(255, 255, 255, 0.75) !important;
+  border: 1px solid rgba(30, 70, 130, 0.10) !important;
 }
 
 .fleet-hero-stats strong {
-  display: block;
-  margin-bottom: 2px;
-  font-size: 0.9rem;
-  color: var(--fleet-ink);
+  font-size: 0.85rem !important;
 }
 
 .fleet-hero-stats span {
-  display: block;
-  font-size: 0.74rem;
-  color: var(--fleet-muted);
+  font-size: 0.68rem !important;
 }
 
 /* =========================================================
-   FLEET SECTION
+   FLEET CATALOGUE
    ========================================================= */
 
 .fleet-section {
-  padding: 54px 0 62px;
-  background: #ffffff;
+  padding: 42px 0 55px !important;
 }
 
 .fleet-section-heading {
-  display: flex;
-  align-items: end;
-  justify-content: space-between;
-  gap: 30px;
-  margin-bottom: 25px;
+  display: flex !important;
+  align-items: end !important;
+  justify-content: space-between !important;
+  margin-bottom: 22px !important;
 }
 
 .fleet-section-heading h2 {
-  margin: 0;
-  font-size: clamp(1.75rem, 3vw, 2.45rem);
-  line-height: 1.05;
-  letter-spacing: -0.035em;
-  color: var(--fleet-ink);
+  margin: 0 !important;
+  font-size: 2rem !important;
+  line-height: 1.05 !important;
 }
 
 .fleet-section-heading > p {
-  max-width: 360px;
-  margin: 0;
-  font-size: 0.9rem;
-  line-height: 1.55;
-  color: var(--fleet-muted);
-  text-align: right;
+  max-width: 330px !important;
+  margin: 0 !important;
+  font-size: 0.82rem !important;
+  line-height: 1.45 !important;
+  text-align: right !important;
 }
 
 /* =========================================================
@@ -151,233 +109,307 @@
    ========================================================= */
 
 .fleet-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 18px !important;
+  align-items: start !important;
 }
 
 /* =========================================================
-   AIRCRAFT CARDS
-   Works with the cards generated by main.js
+   AIRCRAFT CARD
    ========================================================= */
 
-.fleet-grid > * {
-  min-width: 0;
-}
+.fleet-card {
+  display: flex !important;
+  flex-direction: column !important;
+  min-width: 0 !important;
+  height: auto !important;
+  min-height: 0 !important;
 
-.fleet-grid .feature-card,
-.fleet-grid article,
-.fleet-grid .fleet-card {
-  position: relative;
-  overflow: hidden;
-  border: 1px solid var(--fleet-border);
-  border-radius: 16px;
-  background: #ffffff;
-  box-shadow: var(--fleet-shadow);
+  overflow: hidden !important;
+
+  border: 1px solid rgba(20, 55, 105, 0.10) !important;
+  border-radius: 15px !important;
+
+  background: #ffffff !important;
+
+  box-shadow:
+    0 7px 22px rgba(24, 55, 105, 0.07) !important;
+
   transition:
-    transform 180ms ease,
-    box-shadow 180ms ease,
-    border-color 180ms ease;
+    transform 0.18s ease,
+    box-shadow 0.18s ease !important;
 }
 
-.fleet-grid .feature-card:hover,
-.fleet-grid article:hover,
-.fleet-grid .fleet-card:hover {
-  transform: translateY(-4px);
-  border-color: rgba(36, 104, 232, 0.20);
-  box-shadow: 0 18px 42px rgba(24, 54, 100, 0.12);
+.fleet-card:hover {
+  transform: translateY(-3px) !important;
+
+  box-shadow:
+    0 13px 30px rgba(24, 55, 105, 0.12) !important;
+}
+
+/* Featured aircraft should NOT be huge */
+
+.fleet-card-featured {
+  grid-column: auto !important;
+  grid-row: auto !important;
+  min-height: 0 !important;
+  transform: none !important;
 }
 
 /* =========================================================
-   AIRCRAFT IMAGES
+   AIRCRAFT IMAGE
    ========================================================= */
 
-.fleet-grid img {
-  display: block;
-  width: 100%;
-  height: 155px;
-  object-fit: contain;
-  padding: 18px 20px 8px;
+.fleet-image-wrap {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  width: 100% !important;
+  height: 145px !important;
+
+  padding: 12px 18px !important;
+
   background:
-    radial-gradient(circle at center, rgba(36, 104, 232, 0.07), transparent 65%),
-    linear-gradient(180deg, #f7fbff 0%, #eef5ff 100%);
+    radial-gradient(
+      circle at center,
+      rgba(36, 104, 232, 0.075),
+      transparent 68%
+    ),
+    linear-gradient(
+      180deg,
+      #f7fbff,
+      #eef5ff
+    ) !important;
+
+  overflow: hidden !important;
+}
+
+.fleet-image-wrap img {
+  display: block !important;
+
+  width: 100% !important;
+  height: 115px !important;
+
+  object-fit: contain !important;
+
+  margin: 0 !important;
 }
 
 /* =========================================================
-   CARD CONTENT
+   CARD BODY
    ========================================================= */
 
-.fleet-grid .feature-card > div,
-.fleet-grid article > div,
-.fleet-grid .fleet-card > div {
-  padding: 16px 17px 17px;
+.fleet-card-body {
+  padding: 14px 16px 16px !important;
 }
 
-.fleet-grid h3 {
-  margin: 0 0 5px;
-  font-size: 1.05rem;
-  line-height: 1.2;
-  color: var(--fleet-ink);
+/* ---------- KICKER ---------- */
+
+.fleet-kicker {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+
+  gap: 8px !important;
+
+  margin-bottom: 6px !important;
+
+  font-size: 0.68rem !important;
 }
 
-.fleet-grid p {
-  margin: 0;
-  font-size: 0.8rem;
-  line-height: 1.5;
-  color: var(--fleet-muted);
+.fleet-kicker span {
+  color: #6b7c93 !important;
+  font-weight: 600 !important;
+}
+
+.fleet-kicker strong {
+  padding: 4px 7px !important;
+
+  border-radius: 6px !important;
+
+  background: #eef5ff !important;
+  color: #2468e8 !important;
+
+  font-size: 0.63rem !important;
+  font-weight: 800 !important;
+
+  white-space: nowrap !important;
+}
+
+/* ---------- AIRCRAFT NAME ---------- */
+
+.fleet-card h2 {
+  margin: 0 0 5px !important;
+
+  font-size: 1.25rem !important;
+  line-height: 1.1 !important;
+
+  letter-spacing: -0.025em !important;
+
+  color: #10213f !important;
+}
+
+/* ---------- DESCRIPTION ---------- */
+
+.fleet-card p {
+  margin: 0 !important;
+
+  min-height: 38px !important;
+
+  font-size: 0.75rem !important;
+  line-height: 1.45 !important;
+
+  color: #68788f !important;
 }
 
 /* =========================================================
-   FLEET META
+   STATS
    ========================================================= */
 
-.fleet-grid .fleet-meta,
-.fleet-grid .card-meta,
-.fleet-grid .feature-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 13px;
+.fleet-stats {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+
+  gap: 7px !important;
+
+  margin: 13px 0 !important;
 }
 
-.fleet-grid .fleet-meta span,
-.fleet-grid .card-meta span,
-.fleet-grid .feature-meta span {
-  padding: 5px 8px;
-  border-radius: 7px;
-  background: #f2f6fc;
-  color: #45566f;
-  font-size: 0.68rem;
-  font-weight: 700;
+.fleet-stats span {
+  display: flex !important;
+  align-items: baseline !important;
+  gap: 4px !important;
+
+  padding: 8px 9px !important;
+
+  border-radius: 8px !important;
+
+  background: #f5f8fc !important;
+
+  color: #718096 !important;
+
+  font-size: 0.65rem !important;
+}
+
+.fleet-stats span strong {
+  color: #10213f !important;
+
+  font-size: 0.82rem !important;
 }
 
 /* =========================================================
-   BUTTONS INSIDE FLEET CARDS
+   PREVIEW BUTTON
    ========================================================= */
 
-.fleet-grid .button,
-.fleet-grid a.button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 34px;
-  padding: 7px 12px;
-  border-radius: 8px;
-  font-size: 0.74rem;
-  font-weight: 750;
+.fleet-card .button {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  width: 100% !important;
+  min-height: 34px !important;
+
+  padding: 7px 12px !important;
+
+  border-radius: 8px !important;
+
+  font-size: 0.72rem !important;
+  font-weight: 750 !important;
+
+  text-decoration: none !important;
 }
 
 /* =========================================================
-   CLOSING CTA
+   CTA
    ========================================================= */
 
 .fleet-cta {
-  padding: 38px 0;
-  background:
-    linear-gradient(135deg, #f4f8ff 0%, #edf4ff 100%);
-  border-top: 1px solid rgba(36, 104, 232, 0.08);
+  padding: 34px 0 !important;
 }
 
 .fleet-cta-inner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 28px;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 25px !important;
 }
 
 .fleet-cta h2 {
-  margin: 0;
-  font-size: clamp(1.5rem, 3vw, 2.1rem);
-  line-height: 1.1;
-  letter-spacing: -0.03em;
-  color: var(--fleet-ink);
+  margin: 0 !important;
+  font-size: 1.8rem !important;
 }
 
 .fleet-cta p:not(.eyebrow) {
-  max-width: 550px;
-  margin: 8px 0 0;
-  font-size: 0.86rem;
-  line-height: 1.55;
-  color: var(--fleet-muted);
+  max-width: 500px !important;
+  margin-top: 7px !important;
+
+  font-size: 0.8rem !important;
+  line-height: 1.5 !important;
 }
 
 .fleet-cta .button {
-  flex: 0 0 auto;
-  min-height: 42px;
-  padding: 10px 19px;
-  border-radius: 9px;
-  font-size: 0.82rem;
-}
-
-/* =========================================================
-   LOADING STATE
-   ========================================================= */
-
-#fleet-list[aria-live="polite"] {
-  min-height: 80px;
+  min-height: 40px !important;
+  padding: 9px 17px !important;
+  font-size: 0.78rem !important;
 }
 
 /* =========================================================
    RESPONSIVE
    ========================================================= */
 
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
   .fleet-grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .fleet-section-heading {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .fleet-section-heading > p {
-    text-align: left;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
   }
 }
 
-@media (max-width: 620px) {
+@media (max-width: 650px) {
   .fleet-hero {
-    padding: 42px 0 36px;
+    padding: 35px 0 30px !important;
   }
 
   .fleet-hero h1 {
-    font-size: 2.35rem;
-  }
-
-  .fleet-hero .lead {
-    font-size: 0.9rem;
+    font-size: 2.5rem !important;
   }
 
   .fleet-hero-stats {
-    display: grid;
-    grid-template-columns: 1fr;
-  }
-
-  .fleet-hero-stats > div {
-    min-width: 0;
+    display: grid !important;
+    grid-template-columns: 1fr !important;
   }
 
   .fleet-section {
-    padding: 42px 0 48px;
+    padding: 35px 0 45px !important;
+  }
+
+  .fleet-section-heading {
+    display: block !important;
+  }
+
+  .fleet-section-heading > p {
+    margin-top: 8px !important;
+    text-align: left !important;
   }
 
   .fleet-grid {
-    grid-template-columns: 1fr;
-    gap: 14px;
+    grid-template-columns: 1fr !important;
   }
 
-  .fleet-grid img {
-    height: 145px;
+  .fleet-image-wrap {
+    height: 135px !important;
+  }
+
+  .fleet-image-wrap img {
+    height: 108px !important;
   }
 
   .fleet-cta-inner {
-    align-items: flex-start;
-    flex-direction: column;
+    align-items: flex-start !important;
+    flex-direction: column !important;
   }
 
   .fleet-cta .button {
-    width: 100%;
+    width: 100% !important;
   }
 }
