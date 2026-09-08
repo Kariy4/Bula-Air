@@ -7,16 +7,42 @@
     "capacity": 314,
     "layout": {
       "sections": [
-        { "name": "First", "startRow": 1, "rows": 2, "seats": ["A", "D", "G", "K"], "aislesAfter": [1, 3] },
-        { "name": "Business", "startRow": 5, "rows": 6, "seats": ["A", "C", "D", "E", "F", "H", "K"], "aislesAfter": [2, 5], "seatStyle": "staggered-suite" },
-        { "name": "Premium Economy", "startRow": 13, "rows": 3, "seats": ["A", "C", "D", "E", "F", "H", "K"], "aislesAfter": [2, 5] },
-        { "name": "Economy", "startRow": 18, "rows": 27, "seats": ["A", "B", "C", "D", "E", "F", "G", "H", "K"], "aislesAfter": [3, 6] }
+        {
+          "name": "First",
+          "startRow": 1,
+          "rows": 2,
+          "seats": ["A", "D", "G", "K"],
+          "aislesAfter": [1, 3]
+        },
+        {
+          "name": "Business",
+          "startRow": 5,
+          "rows": 6,
+          "seats": ["A", "C", "D", "E", "F", "H", "K"],
+          "aislesAfter": [2, 5],
+          "seatStyle": "staggered-suite"
+        },
+        {
+          "name": "Premium Economy",
+          "startRow": 13,
+          "rows": 3,
+          "seats": ["A", "C", "D", "E", "F", "H", "K"],
+          "aislesAfter": [2, 5]
+        },
+        {
+          "name": "Economy",
+          "startRow": 18,
+          "rows": 27,
+          "seats": ["A", "B", "C", "D", "E", "F", "G", "H", "K"],
+          "aislesAfter": [3, 6]
+        }
       ]
     },
     "range": 16100,
     "image": "../assets/images/aircraft/a350-1000.png",
     "notes": "The Bula Air flagship, built for premium long-haul Pacific services."
   },
+
   {
     "id": "B777-9",
     "model": "Boeing 777-9",
@@ -25,16 +51,42 @@
     "capacity": 416,
     "layout": {
       "sections": [
-        { "name": "First", "startRow": 1, "rows": 2, "seats": ["A", "F", "K"], "aislesAfter": [1, 2] },
-        { "name": "Business", "startRow": 5, "rows": 2, "seats": ["A", "D", "G", "K"], "aislesAfter": [1, 3], "seatStyle": "premium-herringbone" },
-        { "name": "Premium Economy", "startRow": 9, "rows": 14, "seats": ["A", "C", "D", "E", "F", "G", "H", "K"], "aislesAfter": [2, 6] },
-        { "name": "Economy", "startRow": 25, "rows": 29, "seats": ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K"], "aislesAfter": [3, 7] }
+        {
+          "name": "First",
+          "startRow": 1,
+          "rows": 2,
+          "seats": ["A", "F", "K"],
+          "aislesAfter": [1, 2]
+        },
+        {
+          "name": "Business",
+          "startRow": 5,
+          "rows": 2,
+          "seats": ["A", "D", "G", "K"],
+          "aislesAfter": [1, 3],
+          "seatStyle": "premium-herringbone"
+        },
+        {
+          "name": "Premium Economy",
+          "startRow": 9,
+          "rows": 14,
+          "seats": ["A", "C", "D", "E", "F", "G", "H", "K"],
+          "aislesAfter": [2, 6]
+        },
+        {
+          "name": "Economy",
+          "startRow": 25,
+          "rows": 29,
+          "seats": ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K"],
+          "aislesAfter": [3, 7]
+        }
       ]
     },
     "range": 13500,
     "image": "../assets/images/aircraft/boeing-777-9.png",
     "notes": "High-capacity twinjet for busy trunk routes."
   },
+
   {
     "id": "A321NEO",
     "model": "Airbus A321neo",
@@ -43,14 +95,56 @@
     "capacity": 206,
     "layout": {
       "sections": [
-        { "name": "Premium Economy", "startRow": 1, "rows": 8, "seats": ["A", "B", "D", "E"], "aislesAfter": [2] },
-        { "name": "Economy", "startRow": 12, "rows": 29, "seats": ["A", "B", "C", "D", "E", "F"], "aislesAfter": [3] }
+        {
+          "name": "Premium Economy",
+          "startRow": 1,
+          "rows": 8,
+          "seats": ["A", "B", "D", "E"],
+          "aislesAfter": [2]
+        },
+        {
+          "name": "Economy",
+          "startRow": 12,
+          "rows": 29,
+          "seats": ["A", "B", "C", "D", "E", "F"],
+          "aislesAfter": [3]
+        }
       ]
     },
     "range": 7400,
     "image": "../assets/images/aircraft/a321-200.png",
     "notes": "Quiet, efficient narrow-body for regional routes."
   },
+
+  {
+    "id": "A220-300",
+    "model": "Airbus A220-300",
+    "type": "Narrow-body",
+    "fleetCount": 6,
+    "capacity": 145,
+    "layout": {
+      "sections": [
+        {
+          "name": "Premium Economy",
+          "startRow": 1,
+          "rows": 4,
+          "seats": ["A", "B", "D", "E"],
+          "aislesAfter": [2]
+        },
+        {
+          "name": "Economy",
+          "startRow": 7,
+          "rows": 19,
+          "seats": ["A", "B", "C", "D", "E", "F"],
+          "aislesAfter": [3]
+        }
+      ]
+    },
+    "range": 6300,
+    "image": "../assets/images/aircraft/a220-300.png",
+    "notes": "Efficient next-generation narrow-body aircraft for regional and medium-haul services."
+  },
+
   {
     "id": "A350-900",
     "model": "Airbus A350-900",
@@ -59,27 +153,57 @@
     "capacity": 308,
     "layout": {
       "sections": [
-        { "name": "First", "startRow": 1, "rows": 1, "seats": ["A", "D", "G", "K"], "aislesAfter": [1, 3] },
-        { "name": "Business", "startRow": 4, "rows": 3, "seats": ["A", "C", "D", "E", "F", "H", "K"], "aislesAfter": [2, 5], "seatStyle": "staggered-suite" },
-        { "name": "Premium Economy", "startRow": 9, "rows": 7, "seats": ["A", "C", "D", "E", "F", "H", "K"], "aislesAfter": [2, 5] },
-        { "name": "Economy", "startRow": 18, "rows": 26, "seats": ["A", "B", "C", "D", "E", "F", "G", "H", "K"], "aislesAfter": [3, 6] }
+        {
+          "name": "First",
+          "startRow": 1,
+          "rows": 1,
+          "seats": ["A", "D", "G", "K"],
+          "aislesAfter": [1, 3]
+        },
+        {
+          "name": "Business",
+          "startRow": 4,
+          "rows": 3,
+          "seats": ["A", "C", "D", "E", "F", "H", "K"],
+          "aislesAfter": [2, 5],
+          "seatStyle": "staggered-suite"
+        },
+        {
+          "name": "Premium Economy",
+          "startRow": 9,
+          "rows": 7,
+          "seats": ["A", "C", "D", "E", "F", "H", "K"],
+          "aislesAfter": [2, 5]
+        },
+        {
+          "name": "Economy",
+          "startRow": 18,
+          "rows": 26,
+          "seats": ["A", "B", "C", "D", "E", "F", "G", "H", "K"],
+          "aislesAfter": [3, 6]
+        }
       ]
     },
     "range": 15000,
     "image": "../assets/images/aircraft/a350-900.png",
     "notes": "Long-range comfort with a lighter footprint."
   },
+
   {
     "id": "A320NEO",
     "model": "Airbus A320neo",
     "type": "Narrow-body",
     "fleetCount": 6,
     "capacity": 180,
-    "layout": { "rows": 30, "seats": ["A", "B", "C", "D", "E", "F"] },
+    "layout": {
+      "rows": 30,
+      "seats": ["A", "B", "C", "D", "E", "F"]
+    },
     "range": 6500,
     "image": "../assets/images/aircraft/a320neo.png",
     "notes": "A clean everyday workhorse for short and medium flights."
   },
+
   {
     "id": "A321-200",
     "model": "Airbus A321-200",
@@ -88,25 +212,42 @@
     "capacity": 206,
     "layout": {
       "sections": [
-        { "name": "Premium Economy", "startRow": 1, "rows": 8, "seats": ["A", "B", "D", "E"], "aislesAfter": [2] },
-        { "name": "Economy", "startRow": 12, "rows": 29, "seats": ["A", "B", "C", "D", "E", "F"], "aislesAfter": [3] }
+        {
+          "name": "Premium Economy",
+          "startRow": 1,
+          "rows": 8,
+          "seats": ["A", "B", "D", "E"],
+          "aislesAfter": [2]
+        },
+        {
+          "name": "Economy",
+          "startRow": 12,
+          "rows": 29,
+          "seats": ["A", "B", "C", "D", "E", "F"],
+          "aislesAfter": [3]
+        }
       ]
     },
     "range": 5950,
     "image": "../assets/images/aircraft/a321neo.png",
     "notes": "Flexible capacity for holiday routes and peak travel."
   },
+
   {
     "id": "ATR72",
     "model": "ATR 72-600",
     "type": "Turboprop",
     "fleetCount": 5,
     "capacity": 70,
-    "layout": { "rows": 18, "seats": ["A", "B", "C", "D"] },
+    "layout": {
+      "rows": 18,
+      "seats": ["A", "B", "C", "D"]
+    },
     "range": 1500,
     "image": "../assets/images/aircraft/atr-72-600.png",
     "notes": "Short-hop aircraft for island connections."
   },
+
   {
     "id": "A330-900",
     "model": "Airbus A330-900",
@@ -115,15 +256,35 @@
     "capacity": 314,
     "layout": {
       "sections": [
-        { "name": "Business", "startRow": 1, "rows": 3, "seats": ["A", "C", "D", "E", "F", "H", "K"], "aislesAfter": [2, 5], "seatStyle": "staggered-suite" },
-        { "name": "Premium Economy", "startRow": 6, "rows": 11, "seats": ["A", "C", "D", "E", "F", "H", "K"], "aislesAfter": [2, 5] },
-        { "name": "Economy", "startRow": 19, "rows": 27, "seats": ["A", "B", "D", "E", "F", "G", "J", "K"], "aislesAfter": [2, 6] }
+        {
+          "name": "Business",
+          "startRow": 1,
+          "rows": 3,
+          "seats": ["A", "C", "D", "E", "F", "H", "K"],
+          "aislesAfter": [2, 5],
+          "seatStyle": "staggered-suite"
+        },
+        {
+          "name": "Premium Economy",
+          "startRow": 6,
+          "rows": 11,
+          "seats": ["A", "C", "D", "E", "F", "H", "K"],
+          "aislesAfter": [2, 5]
+        },
+        {
+          "name": "Economy",
+          "startRow": 19,
+          "rows": 27,
+          "seats": ["A", "B", "D", "E", "F", "G", "J", "K"],
+          "aislesAfter": [2, 6]
+        }
       ]
     },
     "range": 13300,
     "image": "../assets/images/aircraft/a330-900.png",
     "notes": "Balanced range and comfort for medium-long services."
   },
+
   {
     "id": "A321XLR",
     "model": "Airbus A321XLR",
@@ -132,14 +293,28 @@
     "capacity": 190,
     "layout": {
       "sections": [
-        { "name": "Premium Economy", "startRow": 1, "rows": 7, "seats": ["A", "B", "D", "E"], "aislesAfter": [2], "seatStyle": "premium-economy-plus" },
-        { "name": "Economy", "startRow": 10, "rows": 27, "seats": ["A", "B", "C", "D", "E", "F"], "aislesAfter": [3] }
+        {
+          "name": "Premium Economy",
+          "startRow": 1,
+          "rows": 7,
+          "seats": ["A", "B", "D", "E"],
+          "aislesAfter": [2],
+          "seatStyle": "premium-economy-plus"
+        },
+        {
+          "name": "Economy",
+          "startRow": 10,
+          "rows": 27,
+          "seats": ["A", "B", "C", "D", "E", "F"],
+          "aislesAfter": [3]
+        }
       ]
     },
     "range": 8700,
     "image": "../assets/images/aircraft/a321xlr.png",
     "notes": "Slim long-range aircraft for thinner international routes."
   },
+
   {
     "id": "A380-800",
     "model": "Airbus A380-800",
@@ -148,20 +323,80 @@
     "capacity": 582,
     "layout": {
       "sections": [
-        { "name": "Business Suite", "deck": "Upper Deck", "startRow": 14, "rows": 3, "seats": ["A", "B", "D", "E", "G", "K"], "aislesAfter": [2, 4], "seatStyle": "staggered-suite" },
-        { "name": "Snack Bar", "deck": "Upper Deck", "amenity": "snack-bar", "seats": ["L1", "L2", "L3", "L4"] },
-        { "name": "Business Suite", "deck": "Upper Deck", "startRow": 22, "rows": 4, "seats": ["A", "B", "D", "E", "G", "K"], "aislesAfter": [2, 4], "seatStyle": "staggered-suite" },
-        { "name": "Apartment Suite", "deck": "Main Deck", "startRow": 1, "rows": 10, "seats": ["A", "K"], "aislesAfter": [1], "seatStyle": "apartment-suite" },
-        { "name": "Business", "deck": "Main Deck", "startRow": 12, "rows": 2, "seats": ["A", "D", "G", "K"], "aislesAfter": [1, 3], "seatStyle": "premium-herringbone" },
-        { "name": "Business", "deck": "Main Deck", "startRow": 16, "rows": 2, "seats": ["A", "B", "D", "E", "G", "K"], "aislesAfter": [2, 4], "seatStyle": "staggered-suite" },
-        { "name": "Premium Economy", "deck": "Main Deck", "startRow": 20, "rows": 10, "seats": ["A", "B", "C", "D", "E", "F", "G", "H"], "aislesAfter": [2, 6] },
-        { "name": "Economy", "deck": "Main Deck", "startRow": 32, "rows": 42, "seats": ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K"], "aislesAfter": [3, 7] }
+        {
+          "name": "Business Suite",
+          "deck": "Upper Deck",
+          "startRow": 14,
+          "rows": 3,
+          "seats": ["A", "B", "D", "E", "G", "K"],
+          "aislesAfter": [2, 4],
+          "seatStyle": "staggered-suite"
+        },
+        {
+          "name": "Snack Bar",
+          "deck": "Upper Deck",
+          "amenity": "snack-bar",
+          "seats": ["L1", "L2", "L3", "L4"]
+        },
+        {
+          "name": "Business Suite",
+          "deck": "Upper Deck",
+          "startRow": 22,
+          "rows": 4,
+          "seats": ["A", "B", "D", "E", "G", "K"],
+          "aislesAfter": [2, 4],
+          "seatStyle": "staggered-suite"
+        },
+        {
+          "name": "Apartment Suite",
+          "deck": "Main Deck",
+          "startRow": 1,
+          "rows": 10,
+          "seats": ["A", "K"],
+          "aislesAfter": [1],
+          "seatStyle": "apartment-suite"
+        },
+        {
+          "name": "Business",
+          "deck": "Main Deck",
+          "startRow": 12,
+          "rows": 2,
+          "seats": ["A", "D", "G", "K"],
+          "aislesAfter": [1, 3],
+          "seatStyle": "premium-herringbone"
+        },
+        {
+          "name": "Business",
+          "deck": "Main Deck",
+          "startRow": 16,
+          "rows": 2,
+          "seats": ["A", "B", "D", "E", "G", "K"],
+          "aislesAfter": [2, 4],
+          "seatStyle": "staggered-suite"
+        },
+        {
+          "name": "Premium Economy",
+          "deck": "Main Deck",
+          "startRow": 20,
+          "rows": 10,
+          "seats": ["A", "B", "C", "D", "E", "F", "G", "H"],
+          "aislesAfter": [2, 6]
+        },
+        {
+          "name": "Economy",
+          "deck": "Main Deck",
+          "startRow": 32,
+          "rows": 42,
+          "seats": ["A", "B", "C", "D", "E", "F", "G", "H", "J", "K"],
+          "aislesAfter": [3, 7]
+        }
       ]
     },
     "range": 14800,
     "image": "../assets/images/aircraft/a380-800.png",
     "notes": "Special high-demand aircraft with a gold Vinaka livery."
   },
+
   {
     "id": "A350-1000ULR",
     "model": "Airbus A350-1000ULR",
@@ -170,9 +405,30 @@
     "capacity": 300,
     "layout": {
       "sections": [
-        { "name": "First", "startRow": 1, "rows": 4, "seats": ["A", "D", "G", "K"], "aislesAfter": [1, 3], "seatStyle": "ulr-first" },
-        { "name": "Business", "startRow": 7, "rows": 15, "seats": ["A", "D", "G", "K"], "aislesAfter": [1, 3], "seatStyle": "ulr-business" },
-        { "name": "Premium Economy", "startRow": 24, "rows": 32, "seats": ["A", "C", "D", "E", "F", "H", "K"], "aislesAfter": [2, 5], "seatStyle": "ulr-premium" }
+        {
+          "name": "First",
+          "startRow": 1,
+          "rows": 4,
+          "seats": ["A", "D", "G", "K"],
+          "aislesAfter": [1, 3],
+          "seatStyle": "ulr-first"
+        },
+        {
+          "name": "Business",
+          "startRow": 7,
+          "rows": 15,
+          "seats": ["A", "D", "G", "K"],
+          "aislesAfter": [1, 3],
+          "seatStyle": "ulr-business"
+        },
+        {
+          "name": "Premium Economy",
+          "startRow": 24,
+          "rows": 32,
+          "seats": ["A", "C", "D", "E", "F", "H", "K"],
+          "aislesAfter": [2, 5],
+          "seatStyle": "ulr-premium"
+        }
       ]
     },
     "range": 18000,
