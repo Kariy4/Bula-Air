@@ -683,3 +683,186 @@
     width: 100% !important;
   }
 }
+
+.fleet-section {
+  padding: 36px 0 48px !important;
+}
+
+.fleet-section-heading {
+  margin-bottom: 18px !important;
+}
+
+.fleet-grid {
+  gap: 15px !important;
+}
+
+/* Standard cards */
+.fleet-image-wrap {
+  height: 140px !important;
+  padding: 12px 20px !important;
+}
+
+.fleet-image-wrap img {
+  height: 105px !important;
+}
+
+.fleet-card-body {
+  padding: 13px 15px 15px !important;
+}
+
+.fleet-card h2 {
+  font-size: 1.15rem !important;
+}
+
+.fleet-card p {
+  min-height: 36px !important;
+  font-size: 0.7rem !important;
+}
+
+.fleet-stats {
+  margin: 10px 0 !important;
+  gap: 6px !important;
+}
+
+.fleet-stats span {
+  padding: 7px 8px !important;
+}
+
+.fleet-card .button {
+  min-height: 32px !important;
+}
+
+
+/* =========================================================
+   FLAGSHIP — MEDIUM SIZE
+   ========================================================= */
+
+.fleet-card-featured {
+  grid-template-columns:
+    minmax(0, 1.2fr)
+    minmax(300px, 0.8fr) !important;
+
+  min-height: 245px !important;
+
+  border-radius: 15px !important;
+}
+
+.fleet-card-featured .fleet-image-wrap {
+  min-height: 245px !important;
+  height: 100% !important;
+  padding: 22px 26px !important;
+}
+
+.fleet-card-featured .fleet-image-wrap img {
+  height: 170px !important;
+}
+
+.fleet-card-featured .fleet-card-body {
+  padding: 23px 25px !important;
+}
+
+.fleet-card-featured h2 {
+  font-size: 1.65rem !important;
+}
+
+.fleet-card-featured p {
+  font-size: 0.72rem !important;
+}
+
+.fleet-card-featured .fleet-stats {
+  margin: 12px 0 !important;
+}
+
+.fleet-card-featured .button {
+  min-height: 35px !important;
+}
+
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1000px) {
+
+  .fleet-card-featured {
+    grid-template-columns:
+      minmax(0, 1fr)
+      minmax(260px, 0.8fr) !important;
+
+    min-height: 220px !important;
+  }
+
+  .fleet-card-featured .fleet-image-wrap {
+    min-height: 220px !important;
+  }
+
+  .fleet-card-featured .fleet-image-wrap img {
+    height: 150px !important;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 650px) {
+
+  .fleet-image-wrap {
+    height: 130px !important;
+  }
+
+  .fleet-image-wrap img {
+    height: 98px !important;
+  }
+
+  .fleet-card-featured .fleet-image-wrap {
+    height: 160px !important;
+    min-height: 160px !important;
+  }
+
+  .fleet-card-featured .fleet-image-wrap img {
+    height: 125px !important;
+  }
+
+  .fleet-card-featured .fleet-card-body {
+    padding: 14px 15px 16px !important;
+  }
+
+  .fleet-card-featured h2 {
+    font-size: 1.4rem !important;
+  }
+}
+
+/* =========================================================
+   BULA AIR — NAVBAR BRAND PROTECTION
+   ========================================================= */
+
+.site-header .brand-logo {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+
+  width: auto !important;
+  height: auto !important;
+
+  flex-shrink: 0 !important;
+}
+
+.site-header .brand-logo img {
+  display: block !important;
+
+  width: 150px !important;
+  height: auto !important;
+
+  max-width: 150px !important;
+  max-height: none !important;
+
+  object-fit: contain !important;
+}
+
+.site-header .brand-logo small {
+  display: block !important;
+
+  white-space: nowrap !important;
+}
