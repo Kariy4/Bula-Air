@@ -866,3 +866,56 @@
 
   white-space: nowrap !important;
 }
+/* =========================================================
+   ECHO UNITED ALLIANCES — SIMPLE STILL IMAGE
+   ========================================================= */
+
+.site-header .nav-shell .brand-tagline {
+  display: flex !important;
+  align-items: center !important;
+  gap: 9px !important;
+}
+
+.site-header .nav-shell a.alliance-badge {
+  display: block !important;
+  width: 42px !important;
+  height: 42px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+  text-decoration: none !important;
+}
+
+.site-header .nav-shell a.alliance-badge img {
+  display: block !important;
+  width: 42px !important;
+  height: 42px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  object-fit: contain !important;
+  border: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.site-header .nav-shell a.alliance-badge:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+@media (max-width: 650px) {
+  .site-header .nav-shell a.alliance-badge {
+    width: 34px !important;
+    height: 34px !important;
+  }
+
+  .site-header .nav-shell a.alliance-badge img {
+    width: 34px !important;
+    height: 34px !important;
+  }
+}
